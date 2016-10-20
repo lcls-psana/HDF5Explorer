@@ -31,6 +31,7 @@ __version__ = "$Revision: 4 $"
 #--------------------------------
 import sys
 from PyQt4 import QtGui, QtCore
+from PyQt4.QtCore import Qt
 import h5py
 
 #-----------------------------
@@ -39,11 +40,12 @@ import h5py
 
 import ConfigParameters     as cp
 import AppUtils.AppDataPath as apputils
+from HDF5Explorer.MQStandardItem import MQStandardItem
 
 #---------------------
 #  Class definition --
 #---------------------
-class HDF5TreeViewModel (QtGui.QStandardItemModel) :
+class HDF5TreeViewModel(QtGui.QStandardItemModel) :
     """Makes QtGui.QStandardItemModel for QtGui.QTreeView.
     """
     #----------------
@@ -90,6 +92,7 @@ class HDF5TreeViewModel (QtGui.QStandardItemModel) :
         f = h5py.File(fname, 'r') # open read-only
         self._begin_construct_tree(f)
         f.close()
+        #self.sort(0, order=Qt.AscendingOrder)
         print '=== EOF ==='
 
     #---------------------
@@ -109,10 +112,11 @@ class HDF5TreeViewModel (QtGui.QStandardItemModel) :
         
         if isinstance(g,h5py.Dataset):
             print offset, "(Dateset)   len =", g.shape #, subg.dtype
-            item = QtGui.QStandardItem(QtCore.QString(g.key()))
+            item = MQStandardItem(QtCore.QString(g.key()))
             item.setAccessibleDescription(self.str_data)
             self.parentItem.appendRow(item)            
         else:
+            self.parentItem.sortChildren(0, order=Qt.DescendingOrder)
             self._add_group_to_tree(g,self.parentItem) # start recursions from here
 
     #---------------------
@@ -128,13 +132,13 @@ class HDF5TreeViewModel (QtGui.QStandardItemModel) :
                   '\nCAN NOT MAKE A DICTIONARY FROM THE GROUP d = dict(g):\n', g 
             print 'THIS GROUP IS MARKED AS UNRECOGNIZED IN THE TREE...'
             print 70*'!'
-            item = QtGui.QStandardItem(QtCore.QString('UNRECOGNIZED GROUP'))
+            item = MQStandardItem(QtCore.QString('UNRECOGNIZED GROUP'))
             parentItem.appendRow(item)
             return
             
         list_keys = sorted(d.keys())
         list_vals = d.values()
-        #print 'list_keys =', list_keys 
+        #print 'XXX list_keys =', list_keys 
 
         for key in list_keys:
         #for key,val in dict(g).iteritems():
@@ -142,7 +146,7 @@ class HDF5TreeViewModel (QtGui.QStandardItemModel) :
             #subg = val
             subg = d[key]
 
-            item = QtGui.QStandardItem(QtCore.QString(key))
+            item = MQStandardItem(QtCore.QString(key))
             #print '    k=', key, #,"   ", subg.name #, val, subg.len(), type(subg), 
             if isinstance(subg, h5py.Dataset):
                 #print " (Dateset)   len =", subg.shape #, subg.dtype
@@ -160,7 +164,9 @@ class HDF5TreeViewModel (QtGui.QStandardItemModel) :
                 item.setAccessibleText(str(key))
                 parentItem.appendRow(item)
 
-                self._add_group_to_tree(subg,item )
+                self._add_group_to_tree(subg,item)
+
+        parentItem.sortChildren(0, order=Qt.DescendingOrder)
 
     #---------------------
     #---------------------
@@ -392,11 +398,11 @@ class HDF5TreeViewModel (QtGui.QStandardItemModel) :
         for k in range(0, 6):
             parentItem = self.invisibleRootItem()
             for i in range(0, k):
-                item = QtGui.QStandardItem(QtCore.QString("itemA %0 %1").arg(k).arg(i))
+                item = MQStandardItem(QtCore.QString("itemA %0 %1").arg(k).arg(i))
                 item.setIcon(self.icon_data)
                 item.setCheckable(True) 
                 parentItem.appendRow(item)
-                item = QtGui.QStandardItem(QtCore.QString("itemB %0 %1").arg(k).arg(i))
+                item = MQStandardItem(QtCore.QString("itemB %0 %1").arg(k).arg(i))
                 item.setIcon(self.icon_folder_closed)
                 parentItem.appendRow(item)
                 parentItem = item

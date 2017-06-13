@@ -157,6 +157,7 @@ class GUISelectQuadAndPair ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):

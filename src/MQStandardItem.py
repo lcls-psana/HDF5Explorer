@@ -26,7 +26,7 @@ from PyQt4.QtGui import QStandardItem
 class MQStandardItem(QStandardItem) :
 
     def __init__(self, grpname) : # QStandardItem or QString text
-        print 'XXX MQStandardItem'
+        #print 'XXX MQStandardItem'
         QStandardItem.__init__(self, grpname)
 
 

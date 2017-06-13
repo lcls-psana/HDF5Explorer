@@ -159,6 +159,7 @@ class GUIComplexCommands ( QtGui.QWidget ) :
         #print 'closeEvent'
         self.drawev.quitDrawEvent()
         self.SHowIsOn = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):

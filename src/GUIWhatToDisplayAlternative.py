@@ -118,6 +118,7 @@ class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processClose(self):

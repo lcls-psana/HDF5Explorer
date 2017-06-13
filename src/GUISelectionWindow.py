@@ -204,6 +204,7 @@ class GUISelectionWindow ( QtGui.QWidget ) :
 
     def closeEvent(self, event):
         cp.confpars.selectionWindowIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processClose(self):

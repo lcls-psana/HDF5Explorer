@@ -296,6 +296,7 @@ class GUIWhatToDisplayForProjPhi ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #cp.confpars.....WindowIsOpen = False
         pass
+        QtGui.QWidget.closeEvent(self, event)
 
     
     def processClose(self):

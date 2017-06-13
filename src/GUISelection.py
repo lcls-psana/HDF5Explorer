@@ -124,6 +124,7 @@ class GUISelection ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.selectionGUIIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):

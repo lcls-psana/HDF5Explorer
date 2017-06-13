@@ -114,7 +114,8 @@ class GUIBackground ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.bkgdGUIIsOpen = False
-            
+        QtGui.QWidget.closeEvent(self, event)
+
     def processExit(self):
         #print 'Exit button'
         self.close()

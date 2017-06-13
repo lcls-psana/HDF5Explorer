@@ -244,6 +244,7 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
         self.tabBar.close()
         self.tabBarBot.close()
         cp.confpars.wtdWindowIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processClose(self):

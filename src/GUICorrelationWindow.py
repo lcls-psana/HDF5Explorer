@@ -287,6 +287,7 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
     def closeEvent(self, event):
         cp.confpars.correlationWindowIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processClose(self):

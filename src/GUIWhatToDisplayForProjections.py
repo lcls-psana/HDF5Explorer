@@ -135,6 +135,7 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
         #print 'closeEvent'
         #cp.confpars.projectionGUIIsOpen = False
         pass
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):

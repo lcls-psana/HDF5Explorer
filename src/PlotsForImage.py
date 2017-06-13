@@ -37,10 +37,8 @@ import matplotlib
 #matplotlib.use('Qt4Agg') # forse Agg rendering to a Qt4 canvas (backend)
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RectangleSelector
-
-#from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg       as FigureCanvas
-#from matplotlib.backend_bases           import NavigationToolbar2      as NavigationToolbar2
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar2
+#from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar2
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar2
 
 from PyQt4 import QtCore, QtGui
 

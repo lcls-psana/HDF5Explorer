@@ -21,16 +21,6 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
-
-
-#------------------------------
-#  Module's version from CVS --
-#------------------------------
-__version__ = "$Revision: 4 $"
-# $Source$
-
-#--------------------------------
-#  Imports of standard modules --
 #--------------------------------
 import sys
 import os
@@ -54,11 +44,8 @@ import PrintHDF5          as printh5 # for my print_group(g,offset)
 #---------------------
 #  Class definition --
 #---------------------
-class GUIMain ( QtGui.QWidget ) :
+class GUIMain(QtGui.QWidget) :
     """Deals with the main GUI for the HDF5Explorer project
-
-    @see BaseClass
-    @see OtherClass
     """
 
     #--------------------
@@ -165,16 +152,16 @@ class GUIMain ( QtGui.QWidget ) :
 
         self.setLayout(vbox)
 
-        self.connect(self.exit,      QtCore.SIGNAL('clicked()'), self.processQuit )
-        self.connect(self.browse,    QtCore.SIGNAL('clicked()'), self.processBrowse )
-        self.connect(self.display,   QtCore.SIGNAL('clicked()'), self.processDisplay )
-        self.connect(self.wtd,       QtCore.SIGNAL('clicked()'), self.processWhatToDisplay )
-        self.connect(self.player,    QtCore.SIGNAL('clicked()'), self.processPlayer )
-        self.connect(self.fileEdit,  QtCore.SIGNAL('editingFinished ()'), self.processFileEdit )
-        self.connect(self.save,      QtCore.SIGNAL('clicked()'), self.processSave )
-        #self.connect(self.printfile, QtCore.SIGNAL('clicked()'), self.processPrint )
-        #self.connect(self.config,    QtCore.SIGNAL('clicked()'), self.processConfig )
-        #self.connect(self.selection, QtCore.SIGNAL('clicked()'), self.processSelection )
+        self.connect(self.exit,      QtCore.SIGNAL('clicked()'), self.processQuit)
+        self.connect(self.browse,    QtCore.SIGNAL('clicked()'), self.processBrowse)
+        self.connect(self.display,   QtCore.SIGNAL('clicked()'), self.processDisplay)
+        self.connect(self.wtd,       QtCore.SIGNAL('clicked()'), self.processWhatToDisplay)
+        self.connect(self.player,    QtCore.SIGNAL('clicked()'), self.processPlayer)
+        self.connect(self.fileEdit,  QtCore.SIGNAL('editingFinished ()'), self.processFileEdit)
+        self.connect(self.save,      QtCore.SIGNAL('clicked()'), self.processSave)
+        #self.connect(self.printfile, QtCore.SIGNAL('clicked()'), self.processPrint)
+        #self.connect(self.config,    QtCore.SIGNAL('clicked()'), self.processConfig)
+        #self.connect(self.selection, QtCore.SIGNAL('clicked()'), self.processSelection)
 
         #self.setFocus()
         #self.resize(500, 300)
@@ -227,27 +214,44 @@ class GUIMain ( QtGui.QWidget ) :
         #print 'closeEvent'
         #print 'Quit GUIMain'
         #self.drawev.quitDrawEvent()
-        if cp.confpars.playerGUIIsOpen :
+        #if cp.confpars.playerGUIIsOpen :
+
+        QtGui.QWidget.closeEvent(self, event)
+
+        try :
             self.wplayer.processQuit()
             self.wcomplex.processQuit()
+        except : pass
+
         self.SHowIsOn = False
-        if cp.confpars.wtdWindowIsOpen :
+
+        #if cp.confpars.wtdWindowIsOpen :
+        try :
             cp.confpars.guiwhat.close()
-        if cp.confpars.treeWindowIsOpen :
+        except : pass
+
+        #if cp.confpars.treeWindowIsOpen :
+        try :
             cp.confpars.guitree.close()
-        if cp.confpars.configGUIIsOpen :
+        except : pass
+
+        #if cp.confpars.configGUIIsOpen :
+        try :
             cp.confpars.guiconfig.close()
-        if cp.confpars.selectionGUIIsOpen :
+        except : pass
+
+        #if cp.confpars.selectionGUIIsOpen :
+        try :
             cp.confpars.guiselection.close()
+        except : pass
+
         #print 'Segmentation fault may happen at exit, when the dialog is closed. \nThis is a known problem of python-qt4 version.'
         print 'Exit HDF5Explorer'
-
 
         
     def processQuit(self):
         print 'Exit button is clicked'
         self.close()
-        
 
 
     def processBrowse(self):
@@ -404,11 +408,11 @@ class GUIMain ( QtGui.QWidget ) :
             print 'event.key() = Home'
 
 #-----------------------------
-#  In case someone decides to run this module
-#
+
 if __name__ == "__main__" :
     app = QtGui.QApplication(sys.argv)
     ex  = GUIMain()
     ex.show()
     app.exec_()
+
 #-----------------------------

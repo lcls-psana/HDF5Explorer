@@ -220,6 +220,8 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
         #cp.confpars.wtdCSWindowIsOpen = False
         pass
         self.wquadpair.close()
+        QtGui.QWidget.closeEvent(self, event)
+
 
     def processClose(self):
         #print 'Close button'

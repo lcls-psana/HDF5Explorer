@@ -119,6 +119,7 @@ class GUIWhatToDisplayForImage ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.wtdIMWindowIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):

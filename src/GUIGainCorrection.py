@@ -116,6 +116,8 @@ class GUIGainCorrection ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.gainGUIIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
+
             
     def processExit(self):
         #print 'Exit button'

@@ -41,23 +41,15 @@ import PrintHDF5            as printh5
 import AppUtils.AppDataPath as apputils
 
 #---------------------
-#  Class definition --
-#---------------------
-#class GUISelectItems ( QtGui.QWidget ) :
-class GUISelectItems ( QtGui.QMainWindow ) :
+
+#class GUISelectItems(QtGui.QWidget) :
+class GUISelectItems(QtGui.QMainWindow) :
     """Shows the HDF5 file tree-structure and allows to select data items.
-
-    @see BaseClass
-    @see OtherClass
     """
-
-    #----------------
-    #  Constructor --
-    #----------------
-
     def __init__(self, parent=None):
         #super(GUISelectItems, self).__init__(parent)
-        QtGui.QWidget.__init__(self, parent)
+        #QtGui.QWidget.__init__(self, parent)
+        QtGui.QMainWindow.__init__(self, parent)
 
         """Constructor."""
         #self.parent = parent # See setParent for bypass
@@ -186,12 +178,17 @@ class GUISelectItems ( QtGui.QMainWindow ) :
         #print 'closeEvent'
         #self.parent.processDisplay() # in order to close this window as from GUIMain
         #self.disconnect()
-        self.view.close()
         #self.model.close()
-        self.menubar.close()
-        self.toolbar.close()
-        cp.confpars.treeWindowIsOpen = False
-        #self.display.setText('Open')
+        try :
+          self.view.close()
+          self.menubar.close()
+          self.toolbar.close()
+          cp.confpars.treeWindowIsOpen = False
+          #self.display.setText('Open')
+          #QtGui.QWidget.closeEvent(self, event)
+          QtGui.QMainWindow.closeEvent(self, event)
+        except :
+          print 'GUISelectItems.closeEvent ...'
 
 
     def processExit(self):

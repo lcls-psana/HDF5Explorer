@@ -282,6 +282,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
 
     def closeEvent(self, event):
         cp.confpars.calibcycleWindowIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processClose(self):

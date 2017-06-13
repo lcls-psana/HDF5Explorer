@@ -45,11 +45,8 @@ import DrawEvent        as drev
 #---------------------
 #  Class definition --
 #---------------------
-class GUIPlayer ( QtGui.QWidget ) :
+class GUIPlayer(QtGui.QWidget) :
     """GUI which handles the event player buttons
-
-    @see BaseClass
-    @see OtherClass
     """
 
     #--------------------
@@ -218,6 +215,7 @@ class GUIPlayer ( QtGui.QWidget ) :
         self.drawev.quitDrawEvent()
         self.SHowIsOn = False
         cp.confpars.playerGUIIsOpen = False
+        QtGui.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):

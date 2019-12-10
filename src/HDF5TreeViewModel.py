@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -81,37 +82,37 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
     #--------------------
 
     def close(self) :
-        print "HDF5TreeViewModel.close()"
+        print("HDF5TreeViewModel.close()")
 
 
     def _model_hdf5_tree(self) :
         """Puts the HDF5 file structure in the model tree"""
 
         fname = cp.confpars.dirName+'/'+cp.confpars.fileName
-        print 'Makes the tree view model for HDF5 file : ' + fname
+        print('Makes the tree view model for HDF5 file : ' + fname)
         f = h5py.File(fname, 'r') # open read-only
         self._begin_construct_tree(f)
         f.close()
         #self.sort(0, order=Qt.AscendingOrder)
-        print '=== EOF ==='
+        print('=== EOF ===')
 
     #---------------------
 
     def _begin_construct_tree(self, g):
         """Adds the input file/group/dataset (g) name and begin iterations on its content"""
 
-        print "Add structure of the",
-        if   isinstance(g,h5py.File):    print "'File'",
-        elif isinstance(g,h5py.Group):   print "'Group' from file",
-        elif isinstance(g,h5py.Dataset): print "'Dataset' from file",
-        print g.file,"\n",g.name
+        print("Add structure of the", end=' ')
+        if   isinstance(g,h5py.File):    print("'File'", end=' ')
+        elif isinstance(g,h5py.Group):   print("'Group' from file", end=' ')
+        elif isinstance(g,h5py.Dataset): print("'Dataset' from file", end=' ')
+        print(g.file,"\n",g.name)
         self.parentItem = self.invisibleRootItem()
         self.parentItem.setAccessibleDescription(self.str_file)
         self.parentItem.setAccessibleText(g.name) # Root item does not show this text...
         #self.parentItem.setIcon(self.icon_folder_open) # Root item does not show icon...
         
         if isinstance(g,h5py.Dataset):
-            print offset, "(Dateset)   len =", g.shape #, subg.dtype
+            print(offset, "(Dateset)   len =", g.shape) #, subg.dtype
             item = MQStandardItem(QtCore.QString(g.key()))
             item.setAccessibleDescription(self.str_data)
             self.parentItem.appendRow(item)            
@@ -127,11 +128,11 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
         try :
             d = dict(g)
         except h5py.h5e.BtreeError: 
-            print 70*'!'
-            print 'ERROR: CORRUPTED HDF5 STRUCTURE !!!' + \
-                  '\nCAN NOT MAKE A DICTIONARY FROM THE GROUP d = dict(g):\n', g 
-            print 'THIS GROUP IS MARKED AS UNRECOGNIZED IN THE TREE...'
-            print 70*'!'
+            print(70*'!')
+            print('ERROR: CORRUPTED HDF5 STRUCTURE !!!' + \
+                  '\nCAN NOT MAKE A DICTIONARY FROM THE GROUP d = dict(g):\n', g) 
+            print('THIS GROUP IS MARKED AS UNRECOGNIZED IN THE TREE...')
+            print(70*'!')
             item = MQStandardItem(QtCore.QString('UNRECOGNIZED GROUP'))
             parentItem.appendRow(item)
             return
@@ -239,7 +240,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
         """Recursive iteration over item children in the frame of the QtGui.QStandardItemModel"""
         state = ['UNCHECKED', 'TRISTATE', 'CHECKED'][parentItem.checkState()]
         if state == 'CHECKED' or state == 'TRISTATE' :
-            print ' Uncheck item.text():', parentItem.text()
+            print(' Uncheck item.text():', parentItem.text())
             parentItem.setCheckState(0) # 0 means UNCHECKED
             
         if parentItem.hasChildren():
@@ -263,7 +264,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
         """Recursive iteration over item children in the frame of the QtGui.QStandardItemModel"""
         state = ['UNCHECKED', 'TRISTATE', 'CHECKED'][parentItem.checkState()]
         if state == 'CHECKED' or state == 'TRISTATE' :
-            print ' Expand item.text():', parentItem.text()
+            print(' Expand item.text():', parentItem.text())
             #Now we have to expand all parent groups for this checked item...
             self._expand_parents(parentItem)
             
@@ -292,7 +293,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
         """Use the input list of items and check them in the tree model"""
         self.list_of_checked_item_names = list_of_checked_item_names
         for name in self.list_of_checked_item_names :
-            print 'Retreve the CHECKMARK for item', name 
+            print('Retreve the CHECKMARK for item', name) 
         self._iteration_over_items_and_check_from_list(self.parentItem)    
 
     #---------------------
@@ -303,7 +304,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
         if parentItem.isCheckable():
             item_name = self.getFullNameFromItem(parentItem)
             if item_name in self.list_of_checked_item_names :
-                print ' Check the item:', item_name # parentItem.text()
+                print(' Check the item:', item_name) # parentItem.text()
                 parentItem.setCheckState(2) # 2 means CHECKED; 1-TRISTATE
             
         if parentItem.hasChildren():
@@ -326,12 +327,12 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
     def get_list_of_checked_item_names(self,list_of_checked_items):
         """Get the list of checked item names from the input list of items"""
         self.list_of_checked_item_names=[]
-        print 'The number of CHECKED items in the tree model =', len(self.list_of_checked_items)
+        print('The number of CHECKED items in the tree model =', len(self.list_of_checked_items))
         
         for item in list_of_checked_items :
             item_full_name = self.getFullNameFromItem(item)
             self.list_of_checked_item_names.append(item_full_name)
-            print 'Checked item :', item_full_name
+            print('Checked item :', item_full_name)
             
         return self.list_of_checked_item_names   
 
@@ -368,13 +369,13 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
     def _iteration_over_tree_model_item_children_v1(self,parentItem):
         """Recursive iteration over item children in the frame of the QtGui.QStandardItemModel"""
         parentIndex = self.indexFromItem(parentItem)
-        print ' item.text():', parentItem.text(),
-        print ' row:',         parentIndex.row(),        
-        print ' col:',         parentIndex.column()
+        print(' item.text():', parentItem.text(), end=' ')
+        print(' row:',         parentIndex.row(), end=' ')        
+        print(' col:',         parentIndex.column())
 
         if parentItem.hasChildren():
             Nrows = parentItem.rowCount()
-            print ' rowCount:', Nrows
+            print(' rowCount:', Nrows)
 
             for row in range(Nrows) :
                 item = parentItem.child(row,0)
@@ -384,7 +385,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
 
     def _iteration_over_tree_model_item_children_v2(self,parentItem):
         """Recursive iteration over item children in the freame of the QtGui.QStandardItemModel"""
-        print ' parentItem.text():', parentItem.text()
+        print(' parentItem.text():', parentItem.text())
         if parentItem.hasChildren():
             list_of_items = parentItem.takeColumn(0) # THIS GUY REMOVES THE COLUMN !!!!!!!!
             parentItem.insertColumn(0, list_of_items) 
@@ -406,7 +407,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
                 item.setIcon(self.icon_folder_closed)
                 parentItem.appendRow(item)
                 parentItem = item
-                print 'append item %s' % (item.text())
+                print('append item %s' % (item.text()))
 
 #---------------------
 #  In case someone decides to run this module

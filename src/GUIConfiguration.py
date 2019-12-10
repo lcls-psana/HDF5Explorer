@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI works with configuration parameters management"""
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -160,56 +161,56 @@ class GUIConfiguration ( QtGui.QWidget ) :
         cp.confpars.guiwhat.processRefresh()
         
     def processRead(self):
-        print 'Read'
+        print('Read')
         cp.confpars.readParameters(self.confParsFileName())
         self.parent.fileEdit.setText(cp.confpars.dirName + '/' + cp.confpars.fileName)
         self.refreshGUIWhatToDisplay()
 
     def processWrite(self):
-        print 'Write'
+        print('Write')
         cp.confpars.writeParameters(self.confParsFileName())
 
     def processDefault(self):
-        print 'Set default values of configuration parameters'
+        print('Set default values of configuration parameters')
         cp.confpars.setDefaultParameters()
         self.parent.fileEdit.setText(cp.confpars.dirName + '/' + cp.confpars.fileName)
         self.refreshGUIWhatToDisplay()
 
     def processPrint(self):
-        print 'Print'
+        print('Print')
         cp.confpars.Print()
 
     def processRadioRead(self):
-        print 'RadioRead'
+        print('RadioRead')
         cp.confpars.readParsFromFileAtStart = True
 
     def processRadioDefault(self):
-        print 'RadioDefault'
+        print('RadioDefault')
         cp.confpars.readParsFromFileAtStart = False
 
     def processBrowse(self):
-        print 'Browse'
+        print('Browse')
         self.path = str(self.fileEdit.displayText())
         self.dirName,self.fileName = os.path.split(self.path)
-        print 'dirName  : %s' % (self.dirName)
-        print 'fileName : %s' % (self.fileName)
+        print('dirName  : %s' % (self.dirName))
+        print('fileName : %s' % (self.fileName))
         self.path = QtGui.QFileDialog.getOpenFileName(self,'Open file',self.dirName)
         self.dirName,self.fileName = os.path.split(str(self.path))
         #self.path = cp.confpars.confParsDirName + '/' + cp.confpars.confParsFileName
         #self.path = self.dirName+'/'+self.fileName
         if self.dirName == '' or self.fileName == '' :
-            print 'Input dirName or fileName is empty... use default values'  
+            print('Input dirName or fileName is empty... use default values')  
         else :
             self.fileEdit.setText(self.path)
             cp.confpars.confParsDirName  = self.dirName
             cp.confpars.confParsFileName = self.fileName
 
     def processFileEdit(self):
-        print 'FileEdit'
+        print('FileEdit')
         self.path = str(self.fileEdit.displayText())
         cp.confpars.confParsDirName,cp.confpars.confParsFileName = os.path.split(self.path)
-        print 'Set dirName  : %s' % (cp.confpars.confParsDirName)
-        print 'Set fileName : %s' % (cp.confpars.confParsFileName)
+        print('Set dirName  : %s' % (cp.confpars.confParsDirName))
+        print('Set fileName : %s' % (cp.confpars.confParsFileName))
  
     def confParsFileName(self):
         #One have to check that file exists...

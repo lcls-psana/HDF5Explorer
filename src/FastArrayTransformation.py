@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -236,10 +237,10 @@ def getCartesianArray1Ring() :
 
 def getGainCorrectionArrayFromAverage(arr_ave) :
 
-    print 'gainCorrectionArrayFromAverage'
+    print('gainCorrectionArrayFromAverage')
     arr_weights = np.select([arr_ave==0], [0], default=1) # set 0/1 weights for <1/positive array elements
     average_over_nonzero = np.average(arr_ave, weights=arr_weights) # get average for non-zero elements
-    print 'average_over_nonzero =', average_over_nonzero 
+    print('average_over_nonzero =', average_over_nonzero) 
     arr_gain_corr = np.select([arr_ave>0], [average_over_nonzero/arr_ave], default=0) # get gain factors
     arr_gain_corr = np.select([arr_gain_corr < 10], [arr_gain_corr], default=0) # select gain factors < 10
 
@@ -249,13 +250,13 @@ def getGainCorrectionArrayFromAverage(arr_ave) :
 
 def printMeanAndStandardDeviation(arr) :
     arr_weights = np.select([arr==0], [0], default=1)
-    print 'Mean of elements for the gain correction array (ixcluding 0s) =',np.average(arr, weights=arr_weights)
-    print 'Mean of elements for the gain correction array (including 0s) =',np.mean(arr)
-    print 'Standard deviation of elements for the gain correction array  =',np.std(arr)
+    print('Mean of elements for the gain correction array (ixcluding 0s) =',np.average(arr, weights=arr_weights))
+    print('Mean of elements for the gain correction array (including 0s) =',np.mean(arr))
+    print('Standard deviation of elements for the gain correction array  =',np.std(arr))
 
 
 def printArrForTest(arr) :
-    print 'arr_gain_corr.shape =',arr_gain_corr.shape
+    print('arr_gain_corr.shape =',arr_gain_corr.shape)
 
     number_non_zero = 0
     for row in range(arr.shape[0]) :
@@ -265,7 +266,7 @@ def printArrForTest(arr) :
             if val != 0 :
                 number_non_zero += 1
                 if number_non_zero > 1000 : break
-                print 'row,col,val:',row,col,val
+                print('row,col,val:',row,col,val)
 
 #----------------------------------
 #----------------------------------
@@ -311,7 +312,7 @@ def drawOrShow(showTimeSec=None) :
     elif showTimeSec != None :
         plt.draw()
         plt.draw()
-        print 'Sleep', showTimeSec, 'sec'
+        print('Sleep', showTimeSec, 'sec')
         time.sleep(showTimeSec)
         #plt.close(1)
 

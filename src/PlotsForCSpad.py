@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -126,7 +127,7 @@ class PlotsForCSpad ( object ) :
         """Plot 2d image of 8 2x1 pairs of ASICs' from input array."""
 
         if cs.confcspad.isCSPad2x2 : # For CSpad2x2
-            print 'WARNING: plotCSpad08PairsImage(...) - these images are not available for CSPad2x2 ...'
+            print('WARNING: plotCSpad08PairsImage(...) - these images are not available for CSPad2x2 ...')
             return
 
         #print 'plot_CSpadQuad()'       
@@ -278,7 +279,7 @@ class PlotsForCSpad ( object ) :
 
     def getQuadNumberForIndex( self, index ):
         quad = int( cs.confcspad.quad_nums_in_event[ind] )
-        print 'index -> quad :', index, quad
+        print('index -> quad :', index, quad)
         return quad
 
 
@@ -286,7 +287,7 @@ class PlotsForCSpad ( object ) :
         for index in range(len(cs.confcspad.quad_nums_in_event)) :
             quad_i = int(cs.confcspad.quad_nums_in_event[index])
             if quad_i == quad :
-                print 'quad -> index :', quad, index               
+                print('quad -> index :', quad, index)               
                 return index
 
 
@@ -480,7 +481,7 @@ class PlotsForCSpad ( object ) :
             ymin = int(min(eclick.ydata, erelease.ydata))
             xmax = int(max(eclick.xdata, erelease.xdata))
             ymax = int(max(eclick.ydata, erelease.ydata))
-            print 'xmin, xmax, ymin, ymax: ', xmin, xmax, ymin, ymax
+            print('xmin, xmax, ymin, ymax: ', xmin, xmax, ymin, ymax)
 
             if xmax-xmin < 20 or ymax-ymin < 20 : return
             self.drawCSpadDetImage( xmin, xmax, ymin, ymax )
@@ -497,7 +498,7 @@ class PlotsForCSpad ( object ) :
         #print 'mouse click: button=', event.button,' x=',event.x, ' y=',event.y,
         #print ' xdata=',event.xdata,' ydata=', event.ydata
         self.figDet = plt.gcf() # Get current figure
-        print 'mouse click button=', event.button
+        print('mouse click button=', event.button)
         if event.button == 2 or event.button == 3 : # middle or right button
             self.figDet.myXmin = None
             self.figDet.myXmax = None
@@ -526,7 +527,7 @@ class PlotsForCSpad ( object ) :
     def plotCSpadDetSpectrum( self, arr1ev, fig ):
         """Plot 2d spectrum of the detector from input array."""
         if not cp.confpars.cspadSpectrumDetIsOn : return
-        print 'plotCSpadDetSpectrum()'       
+        print('plotCSpadDetSpectrum()')       
         self.arr2d = self.getImageArrayForDet( arr1ev )
         self.figDetSpec = fig
         #plt.clf()
@@ -565,7 +566,7 @@ class PlotsForCSpad ( object ) :
         """Amplitude specra from 2d array."""
 
         if cs.confcspad.isCSPad2x2 : # For CSpad2x2
-            print 'WARNING: plotCSpadQuad08SpectraOf2x1(...) - Spectra are not available for CSPad2x2 ...'
+            print('WARNING: plotCSpadQuad08SpectraOf2x1(...) - Spectra are not available for CSPad2x2 ...')
             return
 
         fig.canvas.set_window_title('CSpad Quad Specra of 2x1')
@@ -607,14 +608,14 @@ class PlotsForCSpad ( object ) :
                 title = 'Event ' + str(cp.confpars.eventCurrent) + '  Quad ' + str(self.quad)
                 plt.text(0.8,1.05,title ,color='b',fontsize=24,transform = ax.transAxes)
 
-        print 'Time to generate all histograms (sec) = %f' % (time.clock() - t_start)
+        print('Time to generate all histograms (sec) = %f' % (time.clock() - t_start))
 
 
     def plotCSpadQuad16Spectra( self, arr1ev, fig ):
         """Amplitude specra from 2d array."""
 
         if cs.confcspad.isCSPad2x2 : # For CSpad2x2
-            print 'WARNING: plotCSpadQuad16Spectra(...) - Spectra are not available for CSPad2x2 ...'
+            print('WARNING: plotCSpadQuad16Spectra(...) - Spectra are not available for CSPad2x2 ...')
             return
 
         fig.canvas.set_window_title('CSpad Quad Specra of 16 ASICs')
@@ -665,7 +666,7 @@ class PlotsForCSpad ( object ) :
                     #ax = plt.gca()
                     plt.text(0.8,1.08,title,color='b',fontsize=24,transform = plt.gca().transAxes)
 
-        print 'Time to generate all histograms (sec) = %f' % (time.clock() - t_start)
+        print('Time to generate all histograms (sec) = %f' % (time.clock() - t_start))
 
 
     def plotCSpadPairImage( self, arr1ev, fig ):
@@ -684,8 +685,8 @@ class PlotsForCSpad ( object ) :
         self.pair = cs.confcspad.indPairsInQuads[self.quad][ind]
         #print 'pair=', self.pair
         if self.pair == -1 : 
-            print 'quad,ind,pair=', self.quad, ind, self.pair
-            print 'This pair of ASICs is currently unavailable, see configuration'
+            print('quad,ind,pair=', self.quad, ind, self.pair)
+            print('This pair of ASICs is currently unavailable, see configuration')
             return
         
         #For Image 
@@ -753,22 +754,22 @@ class PlotsForCSpad ( object ) :
            if event.button is 1 :
                if value > colmin and value < colmax :
                    colmin = value
-                   print "new mininum: ", colmin
+                   print("new mininum: ", colmin)
                else :
-                   print "min has not been changed (click inside the color bar to change the range)"
+                   print("min has not been changed (click inside the color bar to change the range)")
 
            # middle button
            elif event.button is 2 :
                colmin, colmax = cp.confpars.cspadImageAmin, cp.confpars.cspadImageAmax
-               print "reset"
+               print("reset")
 
            # right button
            elif event.button is 3 :
                if value > colmin and value < colmax :
                    colmax = value
-                   print "new maximum: ", colmax
+                   print("new maximum: ", colmax)
                else :
-                   print "max has not been changed (click inside the color bar to change the range)"
+                   print("max has not been changed (click inside the color bar to change the range)")
 
            plt.clim(colmin,colmax)
            plt.clf()

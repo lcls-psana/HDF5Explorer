@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI works with configuration parameters management"""
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -131,7 +132,7 @@ class GUIGainCorrection ( QtGui.QWidget ) :
         cp.confpars.guiwhat.processRefresh()
 
     def processCBoxApply(self, value):
-        print 'CBoxApply'
+        print('CBoxApply')
         if self.cboxApply.isChecked():
             cp.confpars.gainCorrectionIsOn = self.loadGainCorrectionArrayFromFile()
         else:
@@ -145,44 +146,44 @@ class GUIGainCorrection ( QtGui.QWidget ) :
     def processMake(self):
         src = cp.confpars. aveDirName + '/' + cp.confpars. aveFileName
         dst = cp.confpars.gainDirName + '/' + cp.confpars.gainFileName
-        print 'Make the file', dst, 'from', src       
+        print('Make the file', dst, 'from', src)       
         self.makeGainCorrectionFile(src,dst);
 
     def processBrowse(self):
-        print 'Browse'
+        print('Browse')
         self.path = str(self.fileEdit.displayText())
         self.dirName,self.fileName = os.path.split(self.path)
-        print 'dirName  : %s' % (self.dirName)
-        print 'fileName : %s' % (self.fileName)
+        print('dirName  : %s' % (self.dirName))
+        print('fileName : %s' % (self.fileName))
         self.path = QtGui.QFileDialog.getOpenFileName(self,'Open file',self.dirName)
         self.dirName,self.fileName = os.path.split(str(self.path))
         if self.dirName == '' or self.fileName == '' :
-            print 'Input dirName or fileName is empty... use default values'  
+            print('Input dirName or fileName is empty... use default values')  
         else :
             self.fileEdit.setText(self.path)
             cp.confpars.gainDirName  = self.dirName
             cp.confpars.gainFileName = self.fileName
 
     def processFileEdit(self):
-        print 'FileEdit'
+        print('FileEdit')
         self.path = str(self.fileEdit.displayText())
         cp.confpars.gainDirName,cp.confpars.gainFileName = os.path.split(self.path)
-        print 'Set dirName  : %s' % (cp.confpars.gainDirName)
-        print 'Set fileName : %s' % (cp.confpars.gainFileName)
+        print('Set dirName  : %s' % (cp.confpars.gainDirName))
+        print('Set fileName : %s' % (cp.confpars.gainFileName))
 
 
     def makeGainCorrectionFile(self, src, dst):
         try:
             arr_ave       = gm.getNumpyArrayFromFile(fname=src, datatype=np.float32)
         except IOError :
-            print '\n',60*'=',\
+            print('\n',60*'=',\
                   '\nERROR: Failed to load the file', cp.confpars.aveFileName,\
                   '\nCheck if the file',cp.confpars.aveFileName,'exists.',\
                   '\nIf it does not exist, it needs to be created.',\
                   '\nUse procedure "Average" for the dataset representing',\
                   '\nthe flat field illumination to create the file', cp.confpars.aveFileName,\
                   '\nThen, click on "Make" button again.',\
-                  '\n',60*'='
+                  '\n',60*'=')
             return False
 
         arr_gain_corr = fat.getGainCorrectionArrayFromAverage(arr_ave)
@@ -196,14 +197,14 @@ class GUIGainCorrection ( QtGui.QWidget ) :
             cp.confpars.arr_gain = gm.getNumpyArrayFromFile(fname=gcfname, datatype=np.float32)
             return True
         except IOError :
-            print '\n',60*'=',\
+            print('\n',60*'=',\
                   '\nERROR: Failed to load the gain correction array...',\
                   '\nCheck if the file',gcfname,'exists.',\
                   '\nIf it does not exist, it needs to be created.',\
                   '\nUse procedure "Average" for the dataset representing',\
                   '\nthe flat field illumination to create the file', cp.confpars.aveFileName,\
                   '\nThen, click on "Make" button to create the file for gain correction.',\
-                  '\n',60*'='
+                  '\n',60*'=')
             return False
  
 #-----------------------------

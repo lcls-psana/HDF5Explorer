@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -51,7 +52,7 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
     def __init__(self, parent=None, window=0):
         QtGui.QWidget.__init__(self, parent)
 
-        print 'GUICorrelationWindow for plot', window
+        print('GUICorrelationWindow for plot', window)
 
         self.window = window
 
@@ -542,7 +543,7 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
 
     def fillPopupMenuForDataSet(self):
-        print 'fillPopupMenuForDataSet'
+        print('fillPopupMenuForDataSet')
         self.popupMenuForDataSet.addAction('None')
         for dsname in cp.confpars.list_of_checked_item_names :
 
@@ -556,7 +557,7 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
 
     def processMenuForYDataSet(self):
-        print 'MenuForYDataSet'
+        print('MenuForYDataSet')
         actionSelected = self.popupMenuForDataSet.exec_(QtGui.QCursor.pos())
         if actionSelected==None : return
         selected_dsname = actionSelected.text()
@@ -571,7 +572,7 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
 
     def processMenuForXDataSet(self):
-        print 'MenuForXDataSet'
+        print('MenuForXDataSet')
         if cp.confpars.correlationWindowParameters[self.window][2] < 2 : return # for Index and Time
 
         actionSelected = self.popupMenuForDataSet.exec_(QtGui.QCursor.pos())
@@ -584,9 +585,9 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
 
     def fillPopupMenuForYParName(self):
-        print 'fillPopupMenuForYParName'
+        print('fillPopupMenuForYParName')
         dsname = cp.confpars.correlationWindowParameters[self.window][0]
-        print 'dsname=', dsname
+        print('dsname=', dsname)
         self.listOfDatasetParNames = printh5.getListOfDatasetParNames(dsname)
         del self.popupMenuForYParName
         self.popupMenuForYParName=QtGui.QMenu()
@@ -595,9 +596,9 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
   
     def fillPopupMenuForXParName(self):
-        print 'fillPopupMenuForXParName'
+        print('fillPopupMenuForXParName')
         dsname = cp.confpars.correlationWindowParameters[self.window][1]
-        print 'dsname=', dsname
+        print('dsname=', dsname)
         self.listOfDatasetParNames = printh5.getListOfDatasetParNames(dsname)
         del self.popupMenuForXParName
         self.popupMenuForXParName=QtGui.QMenu()
@@ -606,14 +607,14 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
 
     def processMenuForYParName(self):
-        print 'MenuForYParName'
+        print('MenuForYParName')
         self.fillPopupMenuForYParName()
         actionSelected = self.popupMenuForYParName.exec_(QtGui.QCursor.pos())
         if actionSelected==None : return
         selected_dsname = actionSelected.text()
         selected_ind    = self.listOfDatasetParNames.index(selected_dsname)
-        print 'selected_ind = ', selected_ind
-        print 'selected_dsname = ', selected_dsname
+        print('selected_ind = ', selected_ind)
+        print('selected_dsname = ', selected_dsname)
         self.butCorrYParName.setText( selected_dsname )
         cp.confpars.correlationWindowParameters[self.window][7] = str(selected_dsname)
         self.butCorrYParIndex.setText('None')
@@ -624,7 +625,7 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
 
     def processMenuForXParName(self):
-        print 'MenuForXParName'
+        print('MenuForXParName')
         if cp.confpars.correlationWindowParameters[self.window][2] < 2 : return # for Index and Time
 
         self.fillPopupMenuForXParName()
@@ -632,8 +633,8 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
         if actionSelected==None : return
         selected_dsname = actionSelected.text()
         selected_ind    = self.listOfDatasetParNames.index(selected_dsname)
-        print 'selected_ind = ', selected_ind
-        print 'selected_dsname = ', selected_dsname
+        print('selected_ind = ', selected_ind)
+        print('selected_dsname = ', selected_dsname)
         self.butCorrXParName.setText( selected_dsname )
         cp.confpars.correlationWindowParameters[self.window][8]  = str(selected_dsname)
         self.butCorrXParIndex.setText('None')
@@ -653,10 +654,10 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
 
 
     def fillPopupMenuForXParIndex(self):
-        print 'fillPopupMenuForXParIndex'
+        print('fillPopupMenuForXParIndex')
         dsname  = cp.confpars.correlationWindowParameters[self.window][1]
         parname = cp.confpars.correlationWindowParameters[self.window][8]
-        print 'dsname=', dsname, '   parname=', parname
+        print('dsname=', dsname, '   parname=', parname)
         self.listOfDatasetParIndexes = printh5.getListOfDatasetParIndexes(dsname,parname)
         del self.popupMenuForXParIndex
         self.popupMenuForXParIndex=QtGui.QMenu()
@@ -664,10 +665,10 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
             self.popupMenuForXParIndex.addAction(parIndex)
 
     def fillPopupMenuForYParIndex(self):
-        print 'fillPopupMenuForYParIndex'
+        print('fillPopupMenuForYParIndex')
         dsname  = cp.confpars.correlationWindowParameters[self.window][0]
         parname = cp.confpars.correlationWindowParameters[self.window][7]
-        print 'dsname=', dsname, '   parname=', parname
+        print('dsname=', dsname, '   parname=', parname)
         self.listOfDatasetParIndexes = printh5.getListOfDatasetParIndexes(dsname,parname)
         del self.popupMenuForYParIndex
         self.popupMenuForYParIndex=QtGui.QMenu()
@@ -675,24 +676,24 @@ class GUICorrelationWindow ( QtGui.QWidget ) :
             self.popupMenuForYParIndex.addAction(parIndex)
 
     def processMenuForYParIndex(self):
-        print 'MenuForYParIndex'
+        print('MenuForYParIndex')
         self.fillPopupMenuForYParIndex()
         actionSelected = self.popupMenuForYParIndex.exec_(QtGui.QCursor.pos())
         if actionSelected==None : return
         selected         = actionSelected.text()
         selected_ind     = self.listOfDatasetParIndexes.index(selected)
-        print 'selected = ', selected
+        print('selected = ', selected)
         self.butCorrYParIndex.setText( selected )
         cp.confpars.correlationWindowParameters[self.window][14] = str(selected)
 
     def processMenuForXParIndex(self):
-        print 'MenuForXParIndex'
+        print('MenuForXParIndex')
         self.fillPopupMenuForXParIndex()
         actionSelected = self.popupMenuForXParIndex.exec_(QtGui.QCursor.pos())
         if actionSelected==None : return
         selected         = actionSelected.text()
         selected_ind     = self.listOfDatasetParIndexes.index(selected)
-        print 'selected = ', selected
+        print('selected = ', selected)
         self.butCorrXParIndex.setText( selected )
         cp.confpars.correlationWindowParameters[self.window][15] = str(selected)
 

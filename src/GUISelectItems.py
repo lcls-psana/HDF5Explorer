@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -188,7 +189,7 @@ class GUISelectItems(QtGui.QMainWindow) :
           #QtGui.QWidget.closeEvent(self, event)
           QtGui.QMainWindow.closeEvent(self, event)
         except :
-          print 'GUISelectItems.closeEvent ...'
+          print('GUISelectItems.closeEvent ...')
 
 
     def processExit(self):
@@ -197,23 +198,23 @@ class GUISelectItems(QtGui.QMainWindow) :
 
 
     def processApply(self):
-        print 'Apply button is clicked, use all checked items in the tree model for display'
+        print('Apply button is clicked, use all checked items in the tree model for display')
         cp.confpars.list_of_checked_item_names = self.model.get_list_of_checked_item_names_for_model()
         if cp.confpars.wtdWindowIsOpen :
             cp.confpars.guiwhat.processRefresh()
 
 
     def processReset(self):
-        print 'Reset button is clicked, uncheck all items'
+        print('Reset button is clicked, uncheck all items')
         self.model.reset_checked_items()
 
     def processRetreve(self):
-        print 'Retreve button is clicked,\n', \
-        'retreve the list of checked items from config. pars. and use them in the tree model.'
+        print('Retreve button is clicked,\n', \
+        'retreve the list of checked items from config. pars. and use them in the tree model.')
         self.model.retreve_checked_items(cp.confpars.list_of_checked_item_names)
 
     def processExpCheck(self):
-        print 'ExpandChecked button is clicked, expand the tree for checked items only.'
+        print('ExpandChecked button is clicked, expand the tree for checked items only.')
         self.processCollapse() # first, collapse the tree
         self.model.expand_checked_items(self.view)
         cp.confpars.treeViewIsExpanded = True       # Change status for expand/collapse button
@@ -221,19 +222,19 @@ class GUISelectItems(QtGui.QMainWindow) :
         self.actExpColl.setText('Collapse tree')
 
     def processExpand(self):
-        print 'Expand button is clicked'
+        print('Expand button is clicked')
         self.model.set_all_group_icons(self.icon_expand)
         self.view.expandAll()
         cp.confpars.treeViewIsExpanded = True
 
     def processCollapse(self):
-        print 'Collapse button is clicked'
+        print('Collapse button is clicked')
         self.model.set_all_group_icons(self.icon_collapse)
         self.view.collapseAll()
         cp.confpars.treeViewIsExpanded = False
 
     def processExpColl(self): # Flip/flop between Expand and Collaple the HDF5 tree
-        print 'Expand/Collapse button is clicked :',
+        print('Expand/Collapse button is clicked :', end=' ')
         if cp.confpars.treeViewIsExpanded == True :
             self.actExpColl.setIcon(self.icon_expand)
             self.actExpColl.setText('Expand tree')
@@ -244,30 +245,30 @@ class GUISelectItems(QtGui.QMainWindow) :
             self.processExpand()
  
     def processPrint(self):
-        print 'Print button is clicked'
+        print('Print button is clicked')
         fname = cp.confpars.dirName+'/'+cp.confpars.fileName
-        print 'Print structure of the HDF5 file:\n %s' % (fname)
+        print('Print structure of the HDF5 file:\n %s' % (fname))
         printh5.print_hdf5_file_structure(fname)
 
     def someMethod1(self):
-        print '1-clicked!'
+        print('1-clicked!')
 
     def someMethod2(self):
-        print '2-clicked!'
+        print('2-clicked!')
 
     def itemExpanded(self, ind): 
         item = self.model.itemFromIndex(ind)
         item.setIcon(self.icon_folder_open)
-        print 'Item expanded : ', item.text()  
+        print('Item expanded : ', item.text())  
 
     def itemCollapsed(self, ind):
         item = self.model.itemFromIndex(ind)
         item.setIcon(self.icon_folder_closed)
-        print 'Item collapsed : ', item.text()  
+        print('Item collapsed : ', item.text())  
 
     def itemSelected(self, selected, deselected):
-        print len(selected),   "items selected"
-        print len(deselected), "items deselected"
+        print(len(selected),   "items selected")
+        print(len(deselected), "items deselected")
 
     def cellSelected(self, ind_sel, ind_desel):
         #print "ind   selected row, col = ", ind_sel.row(),  ind_sel.column()
@@ -275,7 +276,7 @@ class GUISelectItems(QtGui.QMainWindow) :
         #item       = self.model.itemFromIndex(ind_sel)
         #dsfullname = str(self.model.getFullNameFromItem(item))
         dsfullname = str(self.model.getFullNameFromIndex(ind_sel))
-        print "Item with name '%s' is selected" % ( dsfullname )
+        print("Item with name '%s' is selected" % ( dsfullname ))
         #print ' isEnabled=',item.isEnabled() 
         #print ' isCheckable=',item.isCheckable() 
         #print ' checkState=',item.checkState()
@@ -287,7 +288,7 @@ class GUISelectItems(QtGui.QMainWindow) :
 
     def itemChanged(self, item):
         state = ['UNCHECKED', 'TRISTATE', 'CHECKED'][item.checkState()]
-        print "Item with full name %s, is at state %s\n" % (self.model.getFullNameFromItem(item), state)
+        print("Item with full name %s, is at state %s\n" % (self.model.getFullNameFromItem(item), state))
 
 #------------------
 #  Main for test --

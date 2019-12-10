@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -63,8 +64,8 @@ class PlotsForWaveform ( object ) :
     def plotWFWaveform( self, ds1ev, fig, h5file=None ):
         """Plot waveform from input array."""
 
-        print 'plotWFWaveform'
-        print 'ds1ev.shape', ds1ev.shape
+        print('plotWFWaveform')
+        print('ds1ev.shape', ds1ev.shape)
         numberOfWF, par2, self.dimX = ds1ev.shape
         #print 'numberOfWF, par2, dimX = ', numberOfWF, par2, dimX
         #print 'arrwf.shape', arrwf.shape
@@ -94,7 +95,7 @@ class PlotsForWaveform ( object ) :
         plt.clf() # clear plot
         fig.subplots_adjust(left=0.10, bottom=0.10, right=0.95, top=0.94, wspace=0.1, hspace=0.1)        
 
-        print 'Number of waves to draw =', len(par) 
+        print('Number of waves to draw =', len(par)) 
 
         if len(par) == 1 :
             plt.plot( par[0][0],par[0][1],par[0][2] )
@@ -114,7 +115,7 @@ class PlotsForWaveform ( object ) :
                       par[2][0],par[2][1],par[2][2],\
                       par[3][0],par[3][1],par[3][2] )
         else :
-            print 'Wrong number of waves !!!', len(par) 
+            print('Wrong number of waves !!!', len(par)) 
 
 
         if self.getBitStatus( 1 ):
@@ -184,20 +185,20 @@ class PlotsForWaveform ( object ) :
             dsvert  = self.h5file[dsname_config_vert]
         except KeyError:
             #if not printh5.isDataset(dsvert) :
-            print 80*'!'
-            print 'WARNING:', dsname_config_vert, ' DATASET DOES NOT EXIST IN HDF5\n',\
-                  'PROGRAM CAN NOT USE VERTICAL UNITS FROM CONFIGURATION; USE DEFAULT, SCALE=1, OFFSET=0'
-            print 80*'!'
+            print(80*'!')
+            print('WARNING:', dsname_config_vert, ' DATASET DOES NOT EXIST IN HDF5\n',\
+                  'PROGRAM CAN NOT USE VERTICAL UNITS FROM CONFIGURATION; USE DEFAULT, SCALE=1, OFFSET=0')
+            print(80*'!')
             return
 
         try: 
             dshoriz = self.h5file[dsname_config_horiz]
         except KeyError:
             #if not printh5.isDataset(dshoriz) :
-            print 80*'!'
-            print 'WARNING:', dsname_config_horiz, ' DATASET DOES NOT EXIST IN HDF5\n',\
-                  'PROGRAM CAN NOT USE HORIZONTAL UNITS FROM CONFIGURATION; USE DEFAULT, SCALE=1, OFFSET=0'
-            print 80*'!'
+            print(80*'!')
+            print('WARNING:', dsname_config_horiz, ' DATASET DOES NOT EXIST IN HDF5\n',\
+                  'PROGRAM CAN NOT USE HORIZONTAL UNITS FROM CONFIGURATION; USE DEFAULT, SCALE=1, OFFSET=0')
+            print(80*'!')
             return
 
         #print 'dsvert.dtype =', dsvert.dtype
@@ -207,10 +208,10 @@ class PlotsForWaveform ( object ) :
         self.vertCoupling  = dsvert[0][2]
         self.vertBandwidth = dsvert[0][3]
 
-        print 'self.vertFullScale      =',self.vertFullScale         
-        print 'self.vertOffset         =',self.vertOffset         
-        print 'self.vertCoupling       =',self.vertCoupling         
-        print 'self.vertBandwidth      =',self.vertBandwidth         
+        print('self.vertFullScale      =',self.vertFullScale)         
+        print('self.vertOffset         =',self.vertOffset)         
+        print('self.vertCoupling       =',self.vertCoupling)         
+        print('self.vertBandwidth      =',self.vertBandwidth)         
 
         #print 'dshoriz.dtype =',   dshoriz.dtype
         #print 'dshoriz.value =',   dshoriz.value
@@ -218,10 +219,10 @@ class PlotsForWaveform ( object ) :
         self.horizDelayTime      = dshoriz.value[1] * 1e9 # time in ns
         self.horizNSamples       = dshoriz.value[2]
         self.horizNSegments      = dshoriz.value[3]
-        print 'self.horizSampleInterval=',self.horizSampleInterval
-        print 'self.horizDelayTime     =',self.horizDelayTime     
-        print 'self.horizNSamples      =',self.horizNSamples
-        print 'self.horizNSegments     =',self.horizNSegments
+        print('self.horizSampleInterval=',self.horizSampleInterval)
+        print('self.horizDelayTime     =',self.horizDelayTime)     
+        print('self.horizNSamples      =',self.horizNSamples)
+        print('self.horizNSegments     =',self.horizNSegments)
 
 #--------------------------------
 #--------------------------------
@@ -297,8 +298,8 @@ class PlotsForWaveform ( object ) :
             self.NEvMin = 0
             self.NEvMax = self.Nevents
 
-        print 'Dataset has Nevents  =', self.Nevents,' Plot events  in the range from', self.NEvMin,  ' to', self.NEvMax
-        print 'Number of bins in WF =', self.dimX,   ' Plot WF bins in the range from', self.TIndMin, ' to', self.TIndMax 
+        print('Dataset has Nevents  =', self.Nevents,' Plot events  in the range from', self.NEvMin,  ' to', self.NEvMax)
+        print('Number of bins in WF =', self.dimX,   ' Plot WF bins in the range from', self.TIndMin, ' to', self.TIndMax) 
 
 
         try : # First, to delete this array in order to clean up memory
@@ -310,7 +311,7 @@ class PlotsForWaveform ( object ) :
         # Make 2D float array of the wave vs event
         self.arrWaveVsEv = empty([self.NEvMax-self.NEvMin,self.TIndMax-self.TIndMin], dtype=float)
 
-        print 'Fill 2-D array'
+        print('Fill 2-D array')
         for event in range(self.NEvMin,self.NEvMax) :
             #print 'event =', event
             self.ds1ev = ds[event]            
@@ -321,7 +322,7 @@ class PlotsForWaveform ( object ) :
         #arr2d   = self.arrWaveVsEv[...,self.TIndMin:self.TIndMax]
 
 
-        print 'Begin to plot 2-D array'
+        print('Begin to plot 2-D array')
         # Begin plot
         fig.canvas.set_window_title(cp.confpars.current_item_name_for_title) 
         plt.clf() # clear plot

@@ -15,6 +15,7 @@ part of it, please give an appropriate acknowledgment.
 @version $Id: template!python!py 4 2008-10-08 19:27:36Z salnikov $
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -129,11 +130,11 @@ class GUICalibCycle ( QtGui.QWidget ) :
 
         
     def mousePressEvent(self, event):
-        print 'Click on mouse',
-        if   event.button() == 1 : print 'left button'
-        elif event.button() == 2 : print 'right button'
-        elif event.button() == 4 : print 'central button'
-        else                     : print 'button', event.button(), 
+        print('Click on mouse', end=' ')
+        if   event.button() == 1 : print('left button')
+        elif event.button() == 2 : print('right button')
+        elif event.button() == 4 : print('central button')
+        else                     : print('button', event.button(), end=' ') 
         #print 'event.button() = %s at position' % (event.button()),        
         #print (event.pos()),
         #print ' x=%d, y=%d' % (event.x(),event.y()),        
@@ -180,19 +181,19 @@ class GUICalibCycle ( QtGui.QWidget ) :
 
 
     def keyPressEvent(self, event):
-        print 'event.key() = %s' % (event.key())
+        print('event.key() = %s' % (event.key()))
         if event.key() == QtCore.Qt.Key_Escape:
             self.IsOn = False    
             self.close()
 
         if event.key() == QtCore.Qt.Key_B:
-            print 'event.key() = %s' % (QtCore.Qt.Key_B)
+            print('event.key() = %s' % (QtCore.Qt.Key_B))
 
         if event.key() == QtCore.Qt.Key_Return:
-            print 'event.key() = Return'
+            print('event.key() = Return')
 
         if event.key() == QtCore.Qt.Key_Home:
-            print 'event.key() = Home'
+            print('event.key() = Home')
 
 
 #-----------------------------

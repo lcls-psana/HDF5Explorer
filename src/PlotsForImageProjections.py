@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -67,7 +68,7 @@ class PlotsForImageProjections ( object ) :
     #-------------------
 
     def plotProjX(self, arr1ev, fig) :
-        print 'plotProjX'
+        print('plotProjX')
 
         arrDet = arr1ev # self.plotsCSpad.getImageArrayForDet( arr1ev )
 
@@ -110,7 +111,7 @@ class PlotsForImageProjections ( object ) :
             #print 'xarr.shape=',xarr.shape
             #print 'arr1slice.shape=',arr1slice.shape
             if arr1slice.sum()== 0 :
-                print 'Empty histogram for slice =', slice,'is ignored'
+                print('Empty histogram for slice =', slice,'is ignored')
                 continue
 
             axes = plt.hist(xarr, bins=NBins, weights=arr1slice, histtype='step')
@@ -120,7 +121,7 @@ class PlotsForImageProjections ( object ) :
 
 
     def plotProjY(self, arr1ev, fig) :
-        print 'plotProjY'
+        print('plotProjY')
 
         arrDet = arr1ev # self.plotsCSpad.getImageArrayForDet( arr1ev )
 
@@ -167,7 +168,7 @@ class PlotsForImageProjections ( object ) :
             arr1slice = arr2d[...,slice]
             arrbins   = linspace(Ymin, Ymax, num=NBins, endpoint=True)
             if arr1slice.sum()== 0 :
-                print 'Empty histogram for slice =', slice,'is ignored'
+                print('Empty histogram for slice =', slice,'is ignored')
                 continue
 
             axes = plt.hist(arrbins, bins=NBins, weights=arr1slice, histtype='step')
@@ -177,7 +178,7 @@ class PlotsForImageProjections ( object ) :
 
 
     def plotProjR(self, arr1ev, fig) :
-        print 'plotProjR'
+        print('plotProjR')
 
         arrDet = arr1ev # self.plotsCSpad.getImageArrayForDet( arr1ev )
 
@@ -231,7 +232,7 @@ class PlotsForImageProjections ( object ) :
             #print 'xarr.shape=',xarr.shape
             #print 'arr1slice.shape=',arr1slice.shape
             if arr1slice.sum()== 0 :
-                print 'Empty histogram for slice =', slice,'is ignored'
+                print('Empty histogram for slice =', slice,'is ignored')
                 continue
 
             axes = plt.hist(xarr, bins=NBins, weights=arr1slice, histtype='step')
@@ -241,7 +242,7 @@ class PlotsForImageProjections ( object ) :
 
 
     def plotProjPhi(self, arr1ev, fig) :
-        print 'plotProjPhi'
+        print('plotProjPhi')
 
         arrDet = arr1ev # self.plotsCSpad.getImageArrayForDet( arr1ev )
 
@@ -291,7 +292,7 @@ class PlotsForImageProjections ( object ) :
             #print 'xarr.shape=',xarr.shape
             #print 'arr1slice.shape=',arr1slice.shape
             if arr1slice.sum()== 0 :
-                print 'Empty histogram for slice =', slice,'is ignored'
+                print('Empty histogram for slice =', slice,'is ignored')
                 continue
 
             axes = plt.hist(xarr, bins=NBins, weights=arr1slice, histtype='step')

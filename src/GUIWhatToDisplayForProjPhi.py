@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -49,7 +50,7 @@ class GUIWhatToDisplayForProjPhi ( QtGui.QWidget ) :
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
 
-        print 'GUIWhatToDisplayForProjPhi'
+        print('GUIWhatToDisplayForProjPhi')
 
         self.setGeometry(370, 350, 500, 150)
         self.setWindowTitle('Adjust selection parameters')

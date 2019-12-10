@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -236,7 +237,7 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
 
 
     def closeEvent(self, event):
-        print 'closeEvent for WTD GUI'
+        print('closeEvent for WTD GUI')
         if self.isOpenCS: self.cboxguiCS.close()
         if self.isOpenIM: self.cboxguiIM.close()
         if self.isOpenOT: self.cboxguiOT.close()
@@ -248,7 +249,7 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
 
 
     def processClose(self):
-        print 'Close button is clicked for WTD GUI'
+        print('Close button is clicked for WTD GUI')
         self.close()
 
 
@@ -287,12 +288,12 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
         self.hboxD.addWidget(self.guiTab)
 
     def processSave(self):
-        print 'Save'
+        print('Save')
         cp.confpars.writeParameters()
 
 
     def processRefresh(self):
-        print 'Refresh WTD GUI'
+        print('Refresh WTD GUI')
         self.makeVBoxB()
     
 

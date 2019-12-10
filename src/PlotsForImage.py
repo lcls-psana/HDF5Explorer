@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -63,7 +64,7 @@ class MyNavigationToolbar ( NavigationToolbar2 ) :
     """ Need to re-emplement a few methods in order to get control on toolbar button click"""
 
     def __init__(self, canvas):
-        print 'MyNavigationToolbar.__init__'
+        print('MyNavigationToolbar.__init__')
         #self.canvas = canvas
         #self.coordinates = True
         ##QtGui.QToolBar.__init__( self, parent )
@@ -71,17 +72,17 @@ class MyNavigationToolbar ( NavigationToolbar2 ) :
         self = canvas.toolbar
 
     def press(self, event):
-        print 'my press'
+        print('my press')
 
     def press_zoom(self, event):
-        print 'zoom is clicked'
+        print('zoom is clicked')
  
     def home(self, *args) :
-        print 'Home is clicked'
+        print('Home is clicked')
         NavigationToolbar2.home()
   
     def zoom(self, *args) :
-        print 'Zoom is clicked'
+        print('Zoom is clicked')
         NavigationToolbar2.zoom()
 
 #---------------------
@@ -178,12 +179,12 @@ class PlotsForImage ( object ) :
 
 
     def processHome(self, *args) :
-        print 'Home is clicked'
+        print('Home is clicked')
         #NavigationToolbar2.home()
 
 
     def processTestEvent(self, event) :
-        print 'TestEvent=', event 
+        print('TestEvent=', event) 
 
 
     def processMouseButtonReleaseForImage(self, event) :
@@ -219,7 +220,7 @@ class PlotsForImage ( object ) :
             ymin = int(min(eclick.ydata, erelease.ydata))
             xmax = int(max(eclick.xdata, erelease.xdata))
             ymax = int(max(eclick.ydata, erelease.ydata))
-            print 'xmin, xmax, ymin, ymax: ', xmin, xmax, ymin, ymax
+            print('xmin, xmax, ymin, ymax: ', xmin, xmax, ymin, ymax)
 
             if xmax-xmin < 20 or ymax-ymin < 20 : return
             self.drawImage( xmin, xmax, ymin, ymax )
@@ -237,7 +238,7 @@ class PlotsForImage ( object ) :
         #print 'mouse click: button=', event.button,' x=',event.x, ' y=',event.y,
         #print ' xdata=',event.xdata,' ydata=', event.ydata
         self.fig = event.canvas.figure # plt.gcf() # Get current figure
-        print 'mouse click button=', event.button
+        print('mouse click button=', event.button)
         if event.button == 2 or event.button == 3 : # middle or right button
             self.fig.myXmin = None
             self.fig.myXmax = None
@@ -282,22 +283,22 @@ class PlotsForImage ( object ) :
            if event.button is 1 :
                if value > colmin and value < colmax :
                    self.fig.myCmin = value
-                   print "new mininum: ", self.fig.myCmin
+                   print("new mininum: ", self.fig.myCmin)
                else :
-                   print "min has not been changed (click inside the color bar to change the range)"
+                   print("min has not been changed (click inside the color bar to change the range)")
 
            # middle button
            elif event.button is 2 :
                self.fig.myCmin, self.fig.myCmax = self.getImageAmpLimitsFromWindowParameters()
-               print "reset"
+               print("reset")
 
            # right button
            elif event.button is 3 :
                if value > colmin and value < colmax :
                    self.fig.myCmax = value
-                   print "new maximum: ", self.fig.myCmax
+                   print("new maximum: ", self.fig.myCmax)
                else :
-                   print "max has not been changed (click inside the color bar to change the range)"
+                   print("max has not been changed (click inside the color bar to change the range)")
 
            self.drawImage(fig.myXmin, fig.myXmax, fig.myYmin, fig.myYmax)
            plt.draw() # redraw the current figure
@@ -387,22 +388,22 @@ class PlotsForImage ( object ) :
            if event.button is 1 :
                if value > colmin and value < colmax :
                    colmin = value
-                   print "new mininum: ", colmin
+                   print("new mininum: ", colmin)
                else :
-                   print "min has not been changed (click inside the color bar to change the range)"
+                   print("min has not been changed (click inside the color bar to change the range)")
 
            # middle button
            elif event.button is 2 :
                colmin, colmax = self.getImageAmpLimitsFromWindowParameters()
-               print 'Reset for fig, window =',self.fig.number, self.fig.nwin 
+               print('Reset for fig, window =',self.fig.number, self.fig.nwin) 
 
            # right button
            elif event.button is 3 :
                if value > colmin and value < colmax :
                    colmax = value
-                   print "new maximum: ", colmax
+                   print("new maximum: ", colmax)
                else :
-                   print "max has not been changed (click inside the color bar to change the range)"
+                   print("max has not been changed (click inside the color bar to change the range)")
 
            #print ' colmin, colmax', colmin, colmax
            plt.clim(colmin,colmax)

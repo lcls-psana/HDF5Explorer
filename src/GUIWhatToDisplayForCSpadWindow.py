@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -286,7 +287,7 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
             #if item_last_name == 'image' or cspadIsInTheName:
             if cspadIsInTheName :
                 self.popupMenuForDataSet.addAction(dsname)
-                print 'fillPopupMenuForDataSet: Add ds:', dsname
+                print('fillPopupMenuForDataSet: Add ds:', dsname)
         #self.popupMenuForDataSet.addAction('All')
 
 

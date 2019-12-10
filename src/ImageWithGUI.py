@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -71,7 +72,7 @@ class MyNavigationToolbar ( NavigationToolbar ) :
 
 
     def home(self, *args) :
-        print 'Home is clicked'
+        print('Home is clicked')
         fig = self.canvas.figure
         fig.myXmin = None
         fig.myXmax = None
@@ -80,7 +81,7 @@ class MyNavigationToolbar ( NavigationToolbar ) :
         NavigationToolbar.home(self)
 
     def zoom(self, *args) :
-        print 'Zoom is clicked'
+        print('Zoom is clicked')
         NavigationToolbar.zoom(self)
         #self.canvas.draw()
         #fig  = self.canvas.figure
@@ -169,7 +170,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
             ymin = int(ymin)
             ymax = int(ymax)
 
-            print 'xmin, xmax, ymin, ymax =', xmin, xmax, ymin, ymax
+            print('xmin, xmax, ymin, ymax =', xmin, xmax, ymin, ymax)
             self.arrwin =  self.arr[ymin:ymax,xmin:xmax]
             self.range  = [xmin, xmax, ymax, ymin]
 
@@ -187,7 +188,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
         h1Range = (zmin,zmax)
         if zmin==None and zmax==None : h1Range = None
 
-        print 'h1Range = ', h1Range
+        print('h1Range = ', h1Range)
 
         #self.fig.myaxesH = self.fig.add_subplot(212)
         self.fig.myaxesH = self.fig.add_subplot(gs[3,:])
@@ -200,7 +201,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
         zmin,zmax      = self.fig.myaxesH.get_xlim() 
         coltickslocs   = self.fig.myaxesH.get_xticks()
         #coltickslabels = self.fig.myaxesH.get_xticklabels()
-        print 'colticks =', coltickslocs#, coltickslabels
+        print('colticks =', coltickslocs)#, coltickslabels
  
         self.fig.myZmin, self.fig.myZmax = zmin, zmax
         self.setEditFieldValues()
@@ -266,7 +267,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
 
 
     def processMouseButtonPress(self, event) :
-        print 'MouseButtonPress'
+        print('MouseButtonPress')
         self.fig = event.canvas.figure
 
         if event.inaxes == self.fig.mycolbar.ax : self.mousePressOnColorBar (event)
@@ -275,17 +276,17 @@ class ImageWithGUI (QtGui.QMainWindow) :
 
 
     def mousePressOnImage(self, event) :
-        print 'Image'
+        print('Image')
 
 
     def mousePressOnHistogram(self, event) :
-        print 'Histogram'
+        print('Histogram')
         lims = self.fig.myaxesH.get_xlim()
         self.setColorLimits(event, lims[0], lims[1], event.xdata)
 
 
     def mousePressOnColorBar(self, event) :
-        print 'Color bar'
+        print('Color bar')
         lims = self.fig.myaxesImage.get_clim()
         colmin = lims[0]
         colmax = lims[1]
@@ -297,18 +298,18 @@ class ImageWithGUI (QtGui.QMainWindow) :
 
     def setColorLimits(self, event, colmin, colmax, value) :
 
-        print colmin, colmax, value
+        print(colmin, colmax, value)
 
         # left button
         if event.button is 1 :
             if value > colmin and value < colmax :
                 colmin = value
-                print "New mininum: ", colmin
+                print("New mininum: ", colmin)
 
         # middle button
         elif event.button is 2 :
             #colmin, colmax = self.getImageAmpLimitsFromWindowParameters()
-            print 'Reset fig' # ,fig.number #, fig.nwin 
+            print('Reset fig') # ,fig.number #, fig.nwin 
             colmin = None
             colmax = None
 
@@ -316,7 +317,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
         elif event.button is 3 :
             if value > colmin and value < colmax :
                 colmax = value
-                print "New maximum: ", colmax
+                print("New maximum: ", colmax)
 
         self.fig.myZmin = colmin
         self.fig.myZmax = colmax
@@ -338,10 +339,10 @@ class ImageWithGUI (QtGui.QMainWindow) :
             fig.myYmin = bounds[1] + bounds[3] 
             fig.myYmax = bounds[1] 
             fig.myZoomIsOn = True
-            print ' Xmin, Xmax, Ymin, Ymax =', fig.myXmin, fig.myXmax, fig.myYmin, fig.myYmax
+            print(' Xmin, Xmax, Ymin, Ymax =', fig.myXmin, fig.myXmax, fig.myYmin, fig.myYmax)
 
             xlims = self.fig.myaxesI.get_xlim()
-            print ' xlims=', xlims
+            print(' xlims=', xlims)
 
 
         if event.button == 2 : #or event.button == 3 : # middle or right button
@@ -512,7 +513,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
 
 
     def on_quit(self):
-        print 'Quit'
+        print('Quit')
         self.close()
           
 #-----------------------------

@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI works with configuration parameters management"""
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -128,7 +129,7 @@ class GUIBackground ( QtGui.QWidget ) :
         cp.confpars.guiwhat.processRefresh()
 
     def processCBoxApply(self, value):
-        print 'CBoxApply'
+        print('CBoxApply')
         if self.cboxApply.isChecked():
             cp.confpars.bkgdSubtractionIsOn = self.loadBackgroundArrayFromFile() 
         else:
@@ -142,41 +143,41 @@ class GUIBackground ( QtGui.QWidget ) :
     def processCopy(self):
         src = cp.confpars. aveDirName + '/' + cp.confpars. aveFileName
         dst = cp.confpars.bkgdDirName + '/' + cp.confpars.bkgdFileName
-        print 'Copy the file', src, 'to', dst       
+        print('Copy the file', src, 'to', dst)       
         try:
             copy(src,dst);
             return True
         except IOError :
-            print '\n',60*'=',\
+            print('\n',60*'=',\
                   '\nERROR: Failed to copy file...',\
                   '\nCheck if the file', src, 'exists.',\
                   '\nIf it does not exist, it needs to be created.',\
                   '\nUse procedure "Average" for the dataset representing background.',\
                   '\nThen, click on "Copy" button again.',\
-                  '\n',60*'='
+                  '\n',60*'=')
             return False
 
     def processBrowse(self):
-        print 'Browse'
+        print('Browse')
         self.path = str(self.fileEdit.displayText())
         self.dirName,self.fileName = os.path.split(self.path)
-        print 'dirName  : %s' % (self.dirName)
-        print 'fileName : %s' % (self.fileName)
+        print('dirName  : %s' % (self.dirName))
+        print('fileName : %s' % (self.fileName))
         self.path = QtGui.QFileDialog.getOpenFileName(self,'Open file',self.dirName)
         self.dirName,self.fileName = os.path.split(str(self.path))
         if self.dirName == '' or self.fileName == '' :
-            print 'Input dirName or fileName is empty... use default values'  
+            print('Input dirName or fileName is empty... use default values')  
         else :
             self.fileEdit.setText(self.path)
             cp.confpars.bkgdDirName  = self.dirName
             cp.confpars.bkgdFileName = self.fileName
 
     def processFileEdit(self):
-        print 'FileEdit'
+        print('FileEdit')
         self.path = str(self.fileEdit.displayText())
         cp.confpars.bkgdDirName,cp.confpars.bkgdFileName = os.path.split(self.path)
-        print 'Set dirName  : %s' % (cp.confpars.bkgdDirName)
-        print 'Set fileName : %s' % (cp.confpars.bkgdFileName)
+        print('Set dirName  : %s' % (cp.confpars.bkgdDirName))
+        print('Set fileName : %s' % (cp.confpars.bkgdFileName))
 
     def loadBackgroundArrayFromFile(self):
         bkgdfname = cp.confpars.bkgdDirName + '/' + cp.confpars.bkgdFileName
@@ -184,13 +185,13 @@ class GUIBackground ( QtGui.QWidget ) :
             cp.confpars.arr_bkgd = gm.getNumpyArrayFromFile(fname=bkgdfname, datatype=np.float32)
             return True
         except IOError :
-            print '\n',60*'=',\
+            print('\n',60*'=',\
                   '\nERROR: Failed to load the background array...',\
                   '\nCheck if the file',bkgdfname,'exists.',\
                   '\nIf it does not exist, it needs to be created.',\
                   '\nUse procedure "Average" for the dataset representing background.',\
                   '\nThen, click on "Copy" button to create the file for background.',\
-                  '\n',60*'='
+                  '\n',60*'=')
             return False
 
 #-----------------------------

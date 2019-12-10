@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -168,32 +169,32 @@ class GUIComplexCommands ( QtGui.QWidget ) :
 
 
     def processCorrelations(self):
-        print 'Correlations'
+        print('Correlations')
         self.drawev.drawCorrelationPlots()
 
 
     def processCalibCycles(self):
-        print 'CalibCycles'
+        print('CalibCycles')
         self.drawev.drawCalibCyclePlots()
 
 
     def processWaveVsEv(self):
-        print 'WaveVsEv'
+        print('WaveVsEv')
         self.drawev.drawWaveVsEventPlots()
 
 
     def processWaveVsEvIncCC(self):
-        print 'WaveVsEvIncCC'
+        print('WaveVsEvIncCC')
         self.drawev.drawWaveVsEventPlots(1)
 
 
     def processWaveVsEvDecCC(self):
-        print 'WaveVsEvDecCC'
+        print('WaveVsEvDecCC')
         self.drawev.drawWaveVsEventPlots(-1)
 
 
     def processAverage(self):
-        print 'Start Average'
+        print('Start Average')
         cp.confpars.eventCurrent     = int(self.wplayer.numbEdit.displayText())
         cp.confpars.numEventsAverage = int(self.avevEdit.displayText())
         self.drawev.averageOverEvents()        
@@ -201,9 +202,9 @@ class GUIComplexCommands ( QtGui.QWidget ) :
 
 
     def processAverageEventsEdit(self):    
-        print 'AverageEventsEdit',
+        print('AverageEventsEdit', end=' ')
         cp.confpars.numEventsAverage = int(self.avevEdit.displayText())
-        print 'Set numEventsAverage : ', cp.confpars.numEventsAverage        
+        print('Set numEventsAverage : ', cp.confpars.numEventsAverage)        
 
 
     def processClosePlots(self):

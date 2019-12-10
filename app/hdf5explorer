@@ -17,6 +17,7 @@ If you use all or part of it, please give an appropriate acknowledgement.
 
 Author: Mikhail S. Dubrovin
 """
+from __future__ import print_function
 #------------------------------
 
 import sys
@@ -35,7 +36,7 @@ def input_parameters():
      untill the "hdf5expconfig" is not created.
     """
     if len(sys.argv) > 1 : 
-        print 90*'-','\n',msg,'\n',90*'-'
+        print(90*'-','\n',msg,'\n',90*'-')
         sys.exit()
 	
 #------------------------------
@@ -43,7 +44,7 @@ def input_parameters():
 if __name__ == "__main__" :
 
     input_parameters()
-    print "Start %s" % __name__
+    print("Start %s" % __name__)
     app = QtGui.QApplication(sys.argv)
     w = GUIMain(None, app)
     w.show()

@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -224,12 +225,12 @@ class GUIPlayer(QtGui.QWidget) :
 
 
     def processCorrelations(self):
-        print 'Correlations'
+        print('Correlations')
         self.drawev.drawCorrelationPlots()
 
 
     def processAverage(self):
-        print 'Start Average'
+        print('Start Average')
         #self.drawev.stopDrawEvent() 
         #self.SHowIsOn = False
         cp.confpars.eventCurrent     = int(self.numbEdit.displayText())
@@ -243,9 +244,9 @@ class GUIPlayer(QtGui.QWidget) :
 
 
     def processAverageEventsEdit(self):    
-        print 'AverageEventsEdit',
+        print('AverageEventsEdit', end=' ')
         cp.confpars.numEventsAverage = int(self.avevEdit.displayText())
-        print 'Set numEventsAverage : ', cp.confpars.numEventsAverage        
+        print('Set numEventsAverage : ', cp.confpars.numEventsAverage)        
 
 
     def processCBoxSelection(self, value):
@@ -256,7 +257,7 @@ class GUIPlayer(QtGui.QWidget) :
 
 
     def processStart(self):
-        print 'Start slide show'
+        print('Start slide show')
         cp.confpars.eventCurrent = int(self.numbEdit.displayText())
         cp.confpars.span         = int(self.spanEdit.displayText())
         self.SHowIsOn            = True
@@ -264,13 +265,13 @@ class GUIPlayer(QtGui.QWidget) :
 
 
     def processStop(self):
-        print 'Stop slide show'
+        print('Stop slide show')
         self.drawev.stopSlideShow() 
         self.SHowIsOn = False
 
 
     def processReset(self):
-        print 'Reset'
+        print('Reset')
         if self.resetColorIsSet : # swap the background color
             self.palette.setColor(QtGui.QPalette.Base,QtGui.QColor('white'))
             self.resetColorIsSet = False          
@@ -288,73 +289,73 @@ class GUIPlayer(QtGui.QWidget) :
         #self.spanEdit.setPalette(self.palette)
         
     def processSpaninc(self):
-        print 'Spaninc ',
+        print('Spaninc ', end=' ')
         cp.confpars.span = int(self.spanEdit.displayText())
         cp.confpars.span+=1
         self.spanEdit.setText(str(cp.confpars.span))
-        print cp.confpars.span
+        print(cp.confpars.span)
 
     def processSpandec(self):
-        print 'Spandec ',
+        print('Spandec ', end=' ')
         cp.confpars.span = int(self.spanEdit.displayText())
         cp.confpars.span-=1
         if cp.confpars.span<1 : cp.confpars.span=1
         self.spanEdit.setText(str(cp.confpars.span))
-        print cp.confpars.span
+        print(cp.confpars.span)
 
     def incrimentEventNo(self):
-        print 'Next ',
+        print('Next ', end=' ')
         cp.confpars.span = int(self.spanEdit.displayText())
         cp.confpars.eventCurrent = int(self.numbEdit.displayText())
         self.drawev.drawNextEvent(mode=1) # Draw everything for the next (selected) event
         self.numbEdit.setText( str(cp.confpars.eventCurrent) )
 
     def decrimentEventNo(self):
-        print 'Previous ',        
+        print('Previous ', end=' ')        
         cp.confpars.span = int(self.spanEdit.displayText())
         cp.confpars.eventCurrent = int(self.numbEdit.displayText())
         self.drawev.drawPreviousEvent(mode=1) # Draw everything for the previous (selected) event
         self.numbEdit.setText( str(cp.confpars.eventCurrent) )
 
     def currentEventNo(self):
-        print 'Current ',
+        print('Current ', end=' ')
         cp.confpars.eventCurrent = int(self.numbEdit.displayText())
         self.drawev.drawEvent(mode=1) # Draw everything for current event
 
     def processClosePlots(self):
-        print 'Close plots',
+        print('Close plots', end=' ')
         self.drawev.quitDrawEvent()
 
     def mousePressEvent(self, event):
-        print 'Do not click on mouse just for fun!\n'
-        print 'event.button() = %s at position' % (event.button()),        
+        print('Do not click on mouse just for fun!\n')
+        print('event.button() = %s at position' % (event.button()), end=' ')        
         #print (event.pos()),
-        print ' x=%d, y=%d' % (event.x(),event.y()),        
-        print ' global x=%d, y=%d' % (event.globalX(),event.globalY())
+        print(' x=%d, y=%d' % (event.x(),event.y()), end=' ')        
+        print(' global x=%d, y=%d' % (event.globalX(),event.globalY()))
         #self.emit(QtCore.SIGNAL('closeGUIApp()'))
 
     def processNumbEdit(self):    
-        print 'NumbEdit'
+        print('NumbEdit')
         cp.confpars.eventCurrent = int(self.numbEdit.displayText())
-        print 'Set eventCurrent : ', cp.confpars.eventCurrent        
+        print('Set eventCurrent : ', cp.confpars.eventCurrent)        
 
     def processSpanEdit(self):    
-        print 'SpanEdit'
+        print('SpanEdit')
         cp.confpars.span = int(self.spanEdit.displayText())
-        print 'Set span         : ', cp.confpars.span
+        print('Set span         : ', cp.confpars.span)
 
 #http://doc.qt.nokia.com/4.6/qt.html#Key-enum
     def keyPressEvent(self, event):
-        print 'event.key() = %s' % (event.key())
+        print('event.key() = %s' % (event.key()))
         if event.key() == QtCore.Qt.Key_Escape:
     #        self.close()
             self.SHowIsOn = False    
 
         if event.key() == QtCore.Qt.Key_B:
-            print 'event.key() = %s' % (QtCore.Qt.Key_B)
+            print('event.key() = %s' % (QtCore.Qt.Key_B))
 
         if event.key() == QtCore.Qt.Key_Return:
-            print 'event.key() = Return'
+            print('event.key() = Return')
 
             #self.processFileEdit()
             #self.processNumbEdit()
@@ -362,7 +363,7 @@ class GUIPlayer(QtGui.QWidget) :
             #self.currentEventNo()
 
         if event.key() == QtCore.Qt.Key_Home:
-            print 'event.key() = Home'
+            print('event.key() = Home')
 
 #-----------------------------
 #  In case someone decides to run this module

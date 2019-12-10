@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -231,22 +232,22 @@ def CalibCycleIsInThePath(path_and_name):
 def CalibCycleDatasetIsChecked():
     for dsname in cp.confpars.list_of_checked_item_names :
         if CalibCycleIsInThePath(dsname):
-            print 'CalibCycleDatasetIsChecked(): True'
+            print('CalibCycleDatasetIsChecked(): True')
             return True
 
-    print 'CalibCycleDatasetIsChecked(): False'
+    print('CalibCycleDatasetIsChecked(): False')
     return False
 
 #----------------------------------
 
 def saveNumpyArrayInFile(arr, fname='nparray.txt', format='%f') : # format='%f'
-    print """Save numpy array in file """, fname
+    print("""Save numpy array in file """, fname)
     np.savetxt(fname, arr, fmt=format)
 
 #----------------------------------
 
 def getNumpyArrayFromFile(fname='nparray.txt', datatype=np.float32) : # np.int16, np.float16, np.float32
-    print """Load numpy array from file """, fname
+    print("""Load numpy array from file """, fname)
     return np.loadtxt(fname, dtype=datatype)
 
 
@@ -257,17 +258,17 @@ def getListOfFilesInDir(dirname) :
     try: 
         return os.listdir(dirname)
     except OSError:
-        print "WARNING: check the directory:" + dirname
+        print("WARNING: check the directory:" + dirname)
         return list
 
 #----------------------------------
 
 def printListOfFilesInDir(dirname) :
     dirList = getListOfFilesInDir(dirname)
-    print 'List of files in the dir.', dirname
+    print('List of files in the dir.', dirname)
     for name in dirList :
-        print name,
-    print '\n'
+        print(name, end=' ')
+    print('\n')
 
 #----------------------------------
 #

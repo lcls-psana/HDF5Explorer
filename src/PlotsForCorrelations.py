@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -87,11 +88,11 @@ class PlotsForCorrelations ( object ) :
         self.XParIndex = cp.confpars.correlationWindowParameters[win][15] 
         
         if self.Ydsname == 'None' :
-            print 'THE Ydsname=', self.Ydsname, ' IS SET INCORRECTLY. THE CORRELATION PLOT', win,' IS IGNORED'
+            print('THE Ydsname=', self.Ydsname, ' IS SET INCORRECTLY. THE CORRELATION PLOT', win,' IS IGNORED')
             return
 
         if self.YParName == 'None' : 
-            print 'THE YParName=', self.YParName, ' IS NOT SET. THE CORRELATION PLOT', win,' IS IGNORED'
+            print('THE YParName=', self.YParName, ' IS NOT SET. THE CORRELATION PLOT', win,' IS IGNORED')
             return
 
         try    : self.dsY = h5file[self.Ydsname]
@@ -99,24 +100,24 @@ class PlotsForCorrelations ( object ) :
             self.printWarningNonAvailable(self.Ydsname)
             return
 
-        print 'dsY.shape=',self.dsY.shape
+        print('dsY.shape=',self.dsY.shape)
 
         if self.YParIndex == 'None' :
             self.Yarr = self.dsY[self.YParName]
         else :
             self.Yarr = self.dsY[self.YParName][self.YParIndex]  # Next level index for ipimb...       
 
-        print 'Y-Parameter array :\n', self.Yarr
+        print('Y-Parameter array :\n', self.Yarr)
         self.nYpoints = self.dsY.shape[0]
         #self.nYpoints = self.Yarr.shape[0] # also works
-        print '\nNew Win:', win, ' Correlation plot for nYpoints =', self.nYpoints 
+        print('\nNew Win:', win, ' Correlation plot for nYpoints =', self.nYpoints) 
 
 
         self.markerStyle = 'bs-'
 
         if   self.radioXPar == 0 : # for Index
             self.Xarr = range(self.nYpoints)
-            print 'Index array from 0 to', self.nYpoints
+            print('Index array from 0 to', self.nYpoints)
             self.XTitle = 'Index'
             self.PlotTitle = 'Plot ' + str(win+1) + ': Parameter vs Index'
             self.plotWaveform()
@@ -124,7 +125,7 @@ class PlotsForCorrelations ( object ) :
 
         elif self.radioXPar == 1 : # for Time
             self.Xdsname  = printh5.get_item_path_to_last_name(self.Ydsname) + '/time'
-            print 'Xdsname =',self.Xdsname 
+            print('Xdsname =',self.Xdsname) 
             try    : self.dsX = h5file[self.Xdsname]
             except :
                 self.printWarningNonAvailable(self.Xdsname)
@@ -132,7 +133,7 @@ class PlotsForCorrelations ( object ) :
 
             self.Xarr = 0.000000001 * self.dsX['nanoseconds'] + self.dsX['seconds']
             self.Xarr -= self.Xarr[0]
-            print 'Time array :\n', self.Xarr 
+            print('Time array :\n', self.Xarr) 
             self.XTitle = 'Time (sec)'
             self.PlotTitle = 'Plot ' + str(win+1) + ': Parameter vs Time'
             self.plotWaveform()
@@ -140,11 +141,11 @@ class PlotsForCorrelations ( object ) :
             
         elif self.radioXPar == 2 : # for X-Parameter
             if self.Xdsname == 'None' :
-                print 'THE Xdsname=', self.Xdsname, ' IS SET INCORRECTLY. THE CORRELATION PLOT', win,' IS IGNORED' 
+                print('THE Xdsname=', self.Xdsname, ' IS SET INCORRECTLY. THE CORRELATION PLOT', win,' IS IGNORED') 
                 return
 
             if self.XParName == 'None' : 
-                print 'THE XParName=', self.XParName, ' IS NOT SET. THE CORRELATION PLOT', win,' IS IGNORED'
+                print('THE XParName=', self.XParName, ' IS NOT SET. THE CORRELATION PLOT', win,' IS IGNORED')
                 return
 
             try    : self.dsX = h5file[self.Xdsname]
@@ -159,13 +160,13 @@ class PlotsForCorrelations ( object ) :
 
 
             if self.dsX.shape[0] != self.dsY.shape[0] :
-                print 'Arrays of different length, X, Y shape=', self.dsX.shape[0], self.dsY.shape[0]
+                print('Arrays of different length, X, Y shape=', self.dsX.shape[0], self.dsY.shape[0])
                 #print 'THE CORRELATION PLOT', win,' IS IGNORED' 
                 #return
 
                 self.mapCorrelatingArraysByTime()
 
-            print 'X-Parameter array :\n', self.Xarr
+            print('X-Parameter array :\n', self.Xarr)
             self.XTitle = self.XParName
             self.PlotTitle = 'Plot ' + str(win+1) + ': Correlations of two parameters'
             self.markerStyle = 'bo-'
@@ -180,9 +181,9 @@ class PlotsForCorrelations ( object ) :
         plt.show()
 
     def printWarningNonAvailable(self, parname) :
-        print     'WARNING: The parameter ' + parname \
+        print('WARNING: The parameter ' + parname \
               + '\n         is not available in current hdf5 file...' \
-              + ' Check settings for this plot.'
+              + ' Check settings for this plot.')
 
     def setLabelX( self, parname, parindex='None' ) :
         if parindex == 'None' : xtitle = parname
@@ -264,8 +265,8 @@ class PlotsForCorrelations ( object ) :
         XTimedsname  = printh5.get_item_path_to_last_name(self.Xdsname) + '/time'
         YTimedsname  = printh5.get_item_path_to_last_name(self.Ydsname) + '/time'
 
-        print 'Xdsname =',self.Xdsname 
-        print 'Ydsname =',self.Ydsname 
+        print('Xdsname =',self.Xdsname) 
+        print('Ydsname =',self.Ydsname) 
 
         try    : self.dsXT = self.h5file[XTimedsname]
         except :
@@ -279,15 +280,15 @@ class PlotsForCorrelations ( object ) :
 
         self.XTarr = 0.000000001 * self.dsXT['nanoseconds'] + self.dsXT['seconds']
         self.YTarr = 0.000000001 * self.dsYT['nanoseconds'] + self.dsYT['seconds']
-        print 'self.XTarr =', self.XTarr
-        print 'self.YTarr =', self.YTarr
+        print('self.XTarr =', self.XTarr)
+        print('self.YTarr =', self.YTarr)
         self._nXpoints = self.dsX.shape[0]
         self._nYpoints = self.dsY.shape[0]
         self._indX=0
         self._indY=0
         self._tmapXlist = []
         self._tmapYlist = []
-        print 'mapCorrelatingArraysByTimeInit :map arrays of different length by time, X, Y length=', self._nXpoints, self._nYpoints
+        print('mapCorrelatingArraysByTimeInit :map arrays of different length by time, X, Y length=', self._nXpoints, self._nYpoints)
 
 
 
@@ -312,7 +313,7 @@ class PlotsForCorrelations ( object ) :
     def mapCorrelatingArraysByTimeSummary( self ) :
         self.Xarr = np.array(self._tmapXlist)
         self.Yarr = np.array(self._tmapYlist)
-        print 'Number of synchronized in time array elements =', self.Xarr.shape
+        print('Number of synchronized in time array elements =', self.Xarr.shape)
 
 
     def mapCorrelatingArraysByTime ( self ) :

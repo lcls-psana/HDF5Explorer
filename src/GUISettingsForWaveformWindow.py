@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -241,7 +242,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
             cp.confpars.waveformWindowParameters[self.window][1] |= bit # set bit
         else:
             cp.confpars.waveformWindowParameters[self.window][1] ^= bit # clear bit
-        print 'rangeUnitBits =', cp.confpars.waveformWindowParameters[self.window][1]
+        print('rangeUnitBits =', cp.confpars.waveformWindowParameters[self.window][1])
 
 
     def processCBoxALimits(self):
@@ -303,7 +304,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
         
 
     def processMenuForDataSet(self):
-        print 'MenuForDataSet'
+        print('MenuForDataSet')
         actionSelected = self.popupMenuForDataSet.exec_(QtGui.QCursor.pos())
         if actionSelected==None : return
         selected_ds = actionSelected.text()
@@ -522,13 +523,13 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
             #return self.numberOfWavesInDataSet
         else :
             fname = cp.confpars.dirName+'/'+cp.confpars.fileName
-            print 'Open file : %s' % (fname)
+            print('Open file : %s' % (fname))
             f  = h5py.File(fname, 'r') # open read-only
             ds = f[dsname]
             ds1ev = ds[cp.confpars.eventCurrent]
 
             self.numberOfWavesInDataSet, par2, dimX = ds1ev.shape
-            print 'numberOfWavesInDataSet, par2, dimX = ', self.numberOfWavesInDataSet, par2, dimX
+            print('numberOfWavesInDataSet, par2, dimX = ', self.numberOfWavesInDataSet, par2, dimX)
 
             f.close()
 

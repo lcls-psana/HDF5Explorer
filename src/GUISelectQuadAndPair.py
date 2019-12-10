@@ -15,6 +15,7 @@ part of it, please give an appropriate acknowledgment.
 @version $Id: template!python!py 4 2008-10-08 19:27:36Z salnikov $
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -194,7 +195,7 @@ class GUISelectQuadAndPair ( QtGui.QWidget ) :
 
 
     def mousePressEvent(self, event):
-        print 'Click on Quad or Pair number using mouse left button\n'
+        print('Click on Quad or Pair number using mouse left button\n')
         #print 'event.button() = %s at position' % (event.button()),        
         #print (event.pos()),
         #print ' x=%d, y=%d' % (event.x(),event.y()),        
@@ -203,16 +204,16 @@ class GUISelectQuadAndPair ( QtGui.QWidget ) :
 
 #http://doc.qt.nokia.com/4.6/qt.html#Key-enum
     def keyPressEvent(self, event):
-        print 'event.key() = %s' % (event.key())
+        print('event.key() = %s' % (event.key()))
         if event.key() == QtCore.Qt.Key_Escape:
     #        self.close()
             self.SHowIsOn = False    
 
         if event.key() == QtCore.Qt.Key_B:
-            print 'event.key() = %s' % (QtCore.Qt.Key_B)
+            print('event.key() = %s' % (QtCore.Qt.Key_B))
 
         if event.key() == QtCore.Qt.Key_Return:
-            print 'event.key() = Return'
+            print('event.key() = Return')
 
             #self.processFileEdit()
             #self.processNumbEdit()
@@ -220,7 +221,7 @@ class GUISelectQuadAndPair ( QtGui.QWidget ) :
             #self.currentEventNo()
 
         if event.key() == QtCore.Qt.Key_Home:
-            print 'event.key() = Home'
+            print('event.key() = Home')
 
 #-----------------------------
 #  In case someone decides to run this module

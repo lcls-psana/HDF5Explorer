@@ -21,6 +21,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 #--------------------------------
 import sys
 import os
@@ -75,7 +76,7 @@ class GUIMain(QtGui.QWidget) :
         if not cp.confpars.readParsFromFileAtStart :
             cp.confpars.setDefaultParameters()
         cp.confpars.Print()
-        print 'Current event number : %d ' % (cp.confpars.eventCurrent)
+        print('Current event number : %d ' % (cp.confpars.eventCurrent))
 
 	#print 'sys.argv=',sys.argv # list of input parameters
 
@@ -207,7 +208,7 @@ class GUIMain(QtGui.QWidget) :
 
     def processPrint(self):
         fname = cp.confpars.dirName+'/'+cp.confpars.fileName
-        print 'Print structure of the HDF5 file:\n %s' % (fname)
+        print('Print structure of the HDF5 file:\n %s' % (fname))
         printh5.print_hdf5_file_structure(fname)
 
     def closeEvent(self, event):
@@ -246,52 +247,52 @@ class GUIMain(QtGui.QWidget) :
         except : pass
 
         #print 'Segmentation fault may happen at exit, when the dialog is closed. \nThis is a known problem of python-qt4 version.'
-        print 'Exit HDF5Explorer'
+        print('Exit HDF5Explorer')
 
         
     def processQuit(self):
-        print 'Exit button is clicked'
+        print('Exit button is clicked')
         self.close()
 
 
     def processBrowse(self):
-        print 'Browse'
+        print('Browse')
         cp.confpars.step01IsDone = True
         self.setButtonColors()
         #self.drawev.closeHDF5File()
         str_path_file = str(self.fileEdit.displayText())
         cp.confpars.dirName,cp.confpars.fileName = os.path.split(str_path_file)
-        print 'dirName  : %s' % (cp.confpars.dirName)         
-        print 'fileName : %s' % (cp.confpars.fileName)
+        print('dirName  : %s' % (cp.confpars.dirName))         
+        print('fileName : %s' % (cp.confpars.fileName))
         path_file = QtGui.QFileDialog.getOpenFileName(self,'Open file',cp.confpars.dirName)
         #fname = open(filename)
         #data = fname.read()
         #self.textEdit.setText(data)
-        print path_file
+        print(path_file)
         str_path_file = str(path_file)
         self.fileEdit.setText(str_path_file)
         dirName,fileName = os.path.split(str_path_file)
         if dirName == '' or fileName == '' :
-            print 'Input dirName or fileName is empty... use default values'  
+            print('Input dirName or fileName is empty... use default values')  
         else :
             cp.confpars.dirName  = dirName
             cp.confpars.fileName = fileName
-        print 'Set new dirName  : %s' % (cp.confpars.dirName)         
-        print 'Set new fileName : %s' % (cp.confpars.fileName)         
+        print('Set new dirName  : %s' % (cp.confpars.dirName))         
+        print('Set new fileName : %s' % (cp.confpars.fileName))         
         str_path_file = cp.confpars.dirName + '/' + cp.confpars.fileName
         self.fileEdit.setText(str_path_file)
         if not os.path.exists(str_path_file) :
-            print 'The file %s does not exist' % (str_path_file)
-            print 'Use existing file name ...'
+            print('The file %s does not exist' % (str_path_file))
+            print('Use existing file name ...')
 
     def processSelection(self):
-        print 'Selection'
+        print('Selection')
         if  cp.confpars.selectionGUIIsOpen : # close wtd window
-            print 'Selection GUI: Close'
+            print('Selection GUI: Close')
             #self.selection.setText('Open Selection')
             cp.confpars.guiselection.close()
         else :                           # Open wtd window
-            print 'Selection GUI: Open'
+            print('Selection GUI: Open')
             #self.selection.setText('Close Selection')
             cp.confpars.guiselection = guisel.GUISelection()
             cp.confpars.guiselection.move(self.pos().__add__(QtCore.QPoint(500,330))) # open window with offset w.r.t. parent
@@ -299,7 +300,7 @@ class GUIMain(QtGui.QWidget) :
 
         
     def processConfig(self):
-        print 'Configuration'
+        print('Configuration')
         if  cp.confpars.configGUIIsOpen :
             cp.confpars.guiconfig.close()
         else :    
@@ -310,17 +311,17 @@ class GUIMain(QtGui.QWidget) :
 
 
     def processSave(self):
-        print 'Save'
+        print('Save')
         cp.confpars.writeParameters()
 
 
     def processWhatToDisplay(self):
         if cp.confpars.wtdWindowIsOpen : # close wtd window
-            print 'Close What to display GUI'
+            print('Close What to display GUI')
             #self.wtd.setText('Open')
             cp.confpars.guiwhat.close()
         else :                           # Open wtd window
-            print 'Open What to display GUI'
+            print('Open What to display GUI')
             #self.wtd.setText('Close')
             cp.confpars.guiwhat = guiwtd.GUIWhatToDisplay()
             cp.confpars.guiwhat.move(self.pos().__add__(QtCore.QPoint(0,420))) # open window with offset w.r.t. parent
@@ -332,11 +333,11 @@ class GUIMain(QtGui.QWidget) :
 
     def processDisplay(self):
         if cp.confpars.treeWindowIsOpen : # close wtd window
-            print 'Close HDF5 tree GUI'
+            print('Close HDF5 tree GUI')
             #self.display.setText('Open HDF5 tree')
             cp.confpars.guitree.close()
         else :                           # Open wtd window
-            print 'Open HDF5 tree GUI'
+            print('Open HDF5 tree GUI')
             #self.display.setText('Close HDF5 tree')
             cp.confpars.guitree = guiselitems.GUISelectItems()
             #cp.confpars.guitree.setParent(self) # bypass for parent initialization in the base QWidget
@@ -349,12 +350,12 @@ class GUIMain(QtGui.QWidget) :
     def processPlayer(self):
         #print 'Player GUI'
         if  cp.confpars.playerGUIIsOpen :
-            print 'Close Player sub-GUI'
+            print('Close Player sub-GUI')
             self.wplayer.close()
             self.wcomplex.close()
             self.setFixedSize(500,150)
         else :    
-            print 'Open Player sub-GUI'
+            print('Open Player sub-GUI')
             self.setPlayerWidgets()
             #self.show()
         cp.confpars.step04IsDone = True
@@ -380,24 +381,24 @@ class GUIMain(QtGui.QWidget) :
         pass
 
     def processFileEdit(self):
-        print 'FileEdit'
+        print('FileEdit')
         str_path_file = str(self.fileEdit.displayText())
         cp.confpars.dirName,cp.confpars.fileName = os.path.split(str_path_file)
-        print 'Set dirName      : %s' % (cp.confpars.dirName)         
-        print 'Set fileName     : %s' % (cp.confpars.fileName)         
+        print('Set dirName      : %s' % (cp.confpars.dirName))         
+        print('Set fileName     : %s' % (cp.confpars.fileName))         
                 
 #http://doc.qt.nokia.com/4.6/qt.html#Key-enum
     def keyPressEvent(self, event):
-        print 'event.key() = %s' % (event.key())
+        print('event.key() = %s' % (event.key()))
         if event.key() == QtCore.Qt.Key_Escape:
     #        self.close()
             self.SHowIsOn = False    
 
         if event.key() == QtCore.Qt.Key_B:
-            print 'event.key() = %s' % (QtCore.Qt.Key_B)
+            print('event.key() = %s' % (QtCore.Qt.Key_B))
 
         if event.key() == QtCore.Qt.Key_Return:
-            print 'event.key() = Return'
+            print('event.key() = Return')
 
             #self.processFileEdit()
             #self.processNumbEdit()
@@ -405,7 +406,7 @@ class GUIMain(QtGui.QWidget) :
             #self.currentEventNo()
 
         if event.key() == QtCore.Qt.Key_Home:
-            print 'event.key() = Home'
+            print('event.key() = Home')
 
 #-----------------------------
 

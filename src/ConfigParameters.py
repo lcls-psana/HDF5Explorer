@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -94,7 +95,7 @@ class ConfigParameters ( object ) :
     def setDefaultParameters ( self ) :
         """Set default configuration parameters hardwired in this module"""
 
-        print 'setDefaultParameters'
+        print('setDefaultParameters')
 
         # define default initial values of the configuration parameters
 
@@ -353,250 +354,250 @@ class ConfigParameters ( object ) :
     def Print ( self ) :
         """Prints current values of configuration parameters
         """
-        print '\nConfigParameters'
-        print 'HDF5 file : %s' % ( self.dirName + '/' + self.fileName )
-        print 'Event : %d and span : %d \n' % ( self.eventCurrent, self.span )
-        print 'Number of items to plot =', len(self.list_of_checked_item_names)
+        print('\nConfigParameters')
+        print('HDF5 file : %s' % ( self.dirName + '/' + self.fileName ))
+        print('Event : %d and span : %d \n' % ( self.eventCurrent, self.span ))
+        print('Number of items to plot =', len(self.list_of_checked_item_names))
         for name in self.list_of_checked_item_names :
-            print str(name)
+            print(str(name))
 
-        print 'PLAYER_GUI_IS_OPEN',        self.playerGUIIsOpen
+        print('PLAYER_GUI_IS_OPEN',        self.playerGUIIsOpen)
 
-        print 'STEP_01_IS_DONE',           self.step01IsDone
-        print 'STEP_02_IS_DONE',           self.step02IsDone
-        print 'STEP_03_IS_DONE',           self.step03IsDone
-        print 'STEP_04_IS_DONE',           self.step04IsDone
+        print('STEP_01_IS_DONE',           self.step01IsDone)
+        print('STEP_02_IS_DONE',           self.step02IsDone)
+        print('STEP_03_IS_DONE',           self.step03IsDone)
+        print('STEP_04_IS_DONE',           self.step04IsDone)
         
-        print 'CSPAD_IMAGE_IS_ON',         self.cspadImageIsOn       
-        print 'CSPAD_IMAGE_OF_PAIR_IS_ON', self.cspadImageOfPairIsOn
-        print 'CSPAD_IMAGE_QUAD_IS_ON',    self.cspadImageQuadIsOn
-        print 'CSPAD_IMAGE_DET_IS_ON',     self.cspadImageDetIsOn
-        print 'CSPAD_SPECT_IS_ON',         self.cspadSpectrumIsOn    
-        print 'CSPAD_SPECT_DET_IS_ON',     self.cspadSpectrumDetIsOn    
-        print 'CSPAD_SPE08_IS_ON',         self.cspadSpectrum08IsOn    
-        print 'CSPAD_PROJ_X_IS_ON',        self.cspadProjXIsOn    
-        print 'CSPAD_PROJ_Y_IS_ON',        self.cspadProjYIsOn    
-        print 'CSPAD_PROJ_R_IS_ON',        self.cspadProjRIsOn    
-        print 'CSPAD_PROJ_PHI_IS_ON',      self.cspadProjPhiIsOn    
-        print 'CSPAD_APPLY_TILT_ANGLE',    self.cspadApplyTiltAngle
+        print('CSPAD_IMAGE_IS_ON',         self.cspadImageIsOn)       
+        print('CSPAD_IMAGE_OF_PAIR_IS_ON', self.cspadImageOfPairIsOn)
+        print('CSPAD_IMAGE_QUAD_IS_ON',    self.cspadImageQuadIsOn)
+        print('CSPAD_IMAGE_DET_IS_ON',     self.cspadImageDetIsOn)
+        print('CSPAD_SPECT_IS_ON',         self.cspadSpectrumIsOn)    
+        print('CSPAD_SPECT_DET_IS_ON',     self.cspadSpectrumDetIsOn)    
+        print('CSPAD_SPE08_IS_ON',         self.cspadSpectrum08IsOn)    
+        print('CSPAD_PROJ_X_IS_ON',        self.cspadProjXIsOn)    
+        print('CSPAD_PROJ_Y_IS_ON',        self.cspadProjYIsOn)    
+        print('CSPAD_PROJ_R_IS_ON',        self.cspadProjRIsOn)    
+        print('CSPAD_PROJ_PHI_IS_ON',      self.cspadProjPhiIsOn)    
+        print('CSPAD_APPLY_TILT_ANGLE',    self.cspadApplyTiltAngle)
         
-        print 'CSPAD_RANGE_AMIN',          self.cspadAmplitudeRaMin   
-        print 'CSPAD_RANGE_AMAX',          self.cspadAmplitudeRange            
-        print 'CSPAD_IMAGE_AMIN',          self.cspadImageAmin
-        print 'CSPAD_IMAGE_AMAX',          self.cspadImageAmax
-        print 'CSPAD_SPECT_AMIN',          self.cspadSpectrumAmin
-        print 'CSPAD_SPECT_AMAX',          self.cspadSpectrumAmax
-        print 'CSPAD_SPECT_NBINS',         self.cspadSpectrumNbins    
-        print 'CSPAD_SPECT_BIN_WIDTH',     self.cspadSpectrumBinWidth 
-        print 'CSPAD_IM_LIMITS_IS_ON',     self.cspadImageLimsIsOn
-        print 'CSPAD_SP_LIMITS_IS_ON',     self.cspadSpectLimsIsOn
-        print 'CSPAD_BIN_WIDTH_IS_ON',     self.cspadBinWidthIsOn     
-        print 'CSPAD_QUAD_NUMBER',         self.cspadQuad
-        print 'CSPAD_PAIR_NUMBER',         self.cspadPair
+        print('CSPAD_RANGE_AMIN',          self.cspadAmplitudeRaMin)   
+        print('CSPAD_RANGE_AMAX',          self.cspadAmplitudeRange)            
+        print('CSPAD_IMAGE_AMIN',          self.cspadImageAmin)
+        print('CSPAD_IMAGE_AMAX',          self.cspadImageAmax)
+        print('CSPAD_SPECT_AMIN',          self.cspadSpectrumAmin)
+        print('CSPAD_SPECT_AMAX',          self.cspadSpectrumAmax)
+        print('CSPAD_SPECT_NBINS',         self.cspadSpectrumNbins)    
+        print('CSPAD_SPECT_BIN_WIDTH',     self.cspadSpectrumBinWidth) 
+        print('CSPAD_IM_LIMITS_IS_ON',     self.cspadImageLimsIsOn)
+        print('CSPAD_SP_LIMITS_IS_ON',     self.cspadSpectLimsIsOn)
+        print('CSPAD_BIN_WIDTH_IS_ON',     self.cspadBinWidthIsOn)     
+        print('CSPAD_QUAD_NUMBER',         self.cspadQuad)
+        print('CSPAD_PAIR_NUMBER',         self.cspadPair)
 
-        print 'CSPAD_N_WINDOWS_MAX',       self.cspadNWindowsMax 
-        print 'CSPAD_N_WINDOWS',           self.cspadNWindows 
+        print('CSPAD_N_WINDOWS_MAX',       self.cspadNWindowsMax) 
+        print('CSPAD_N_WINDOWS',           self.cspadNWindows) 
 
         for win in range(self.cspadNWindows) :
 
-            print 'CSPAD_WINDOW_NUMBER',   win 
-            print 'CSPAD_DATASET',         self.cspadWindowParameters[win][0] 
-            print 'CSPAD_IMAGE_AMIN',      self.cspadWindowParameters[win][1] 
-            print 'CSPAD_IMAGE_AMAX',      self.cspadWindowParameters[win][2] 
-            print 'CSPAD_SPECT_AMIN',      self.cspadWindowParameters[win][3] 
-            print 'CSPAD_SPECT_AMAX',      self.cspadWindowParameters[win][4]         
-            print 'CSPAD_SPECT_NBINS',     self.cspadWindowParameters[win][5] 
-            print 'CSPAD_SPECT_BIN_WIDTH', self.cspadWindowParameters[win][6] 
-            print 'CSPAD_IM_LIMITS_IS_ON', self.cspadWindowParameters[win][7] 
-            print 'CSPAD_SP_LIMITS_IS_ON', self.cspadWindowParameters[win][8] 
-            print 'CSPAD_BIN_WIDTH_IS_ON', self.cspadWindowParameters[win][9] 
-            print 'CSPAD_QUAD_NUMBER',     self.cspadWindowParameters[win][10]
-            print 'CSPAD_PAIR_NUMBER',     self.cspadWindowParameters[win][11]
+            print('CSPAD_WINDOW_NUMBER',   win) 
+            print('CSPAD_DATASET',         self.cspadWindowParameters[win][0]) 
+            print('CSPAD_IMAGE_AMIN',      self.cspadWindowParameters[win][1]) 
+            print('CSPAD_IMAGE_AMAX',      self.cspadWindowParameters[win][2]) 
+            print('CSPAD_SPECT_AMIN',      self.cspadWindowParameters[win][3]) 
+            print('CSPAD_SPECT_AMAX',      self.cspadWindowParameters[win][4])         
+            print('CSPAD_SPECT_NBINS',     self.cspadWindowParameters[win][5]) 
+            print('CSPAD_SPECT_BIN_WIDTH', self.cspadWindowParameters[win][6]) 
+            print('CSPAD_IM_LIMITS_IS_ON', self.cspadWindowParameters[win][7]) 
+            print('CSPAD_SP_LIMITS_IS_ON', self.cspadWindowParameters[win][8]) 
+            print('CSPAD_BIN_WIDTH_IS_ON', self.cspadWindowParameters[win][9]) 
+            print('CSPAD_QUAD_NUMBER',     self.cspadWindowParameters[win][10])
+            print('CSPAD_PAIR_NUMBER',     self.cspadWindowParameters[win][11])
 
 
-        print 'IMAGE_IMAGE_IS_ON',         self.imageImageIsOn       
-        print 'IMAGE_IMAGE_SPEC_IS_ON',    self.imageImageSpecIsOn       
-        print 'IMAGE_SPECT_IS_ON',         self.imageSpectrumIsOn    
-        print 'IMAGE_PROJ_X_IS_ON',        self.imageProjXIsOn    
-        print 'IMAGE_PROJ_Y_IS_ON',        self.imageProjYIsOn    
-        print 'IMAGE_PROJ_R_IS_ON',        self.imageProjRIsOn    
-        print 'IMAGE_PROJ_PHI_IS_ON',      self.imageProjPhiIsOn    
+        print('IMAGE_IMAGE_IS_ON',         self.imageImageIsOn)       
+        print('IMAGE_IMAGE_SPEC_IS_ON',    self.imageImageSpecIsOn)       
+        print('IMAGE_SPECT_IS_ON',         self.imageSpectrumIsOn)    
+        print('IMAGE_PROJ_X_IS_ON',        self.imageProjXIsOn)    
+        print('IMAGE_PROJ_Y_IS_ON',        self.imageProjYIsOn)    
+        print('IMAGE_PROJ_R_IS_ON',        self.imageProjRIsOn)    
+        print('IMAGE_PROJ_PHI_IS_ON',      self.imageProjPhiIsOn)    
 
-        print 'IMAGE_N_WINDOWS_MAX',       self.imageNWindowsMax 
-        print 'IMAGE_N_WINDOWS',           self.imageNWindows 
+        print('IMAGE_N_WINDOWS_MAX',       self.imageNWindowsMax) 
+        print('IMAGE_N_WINDOWS',           self.imageNWindows) 
 
         for win in range(self.imageNWindows) :
 
-            print 'IMAGE_WINDOW_NUMBER',   win 
-            print 'IMAGE_DATASET',         self.imageWindowParameters[win][0] 
-            print 'IMAGE_IMAGE_AMIN',      self.imageWindowParameters[win][1] 
-            print 'IMAGE_IMAGE_AMAX',      self.imageWindowParameters[win][2] 
-            print 'IMAGE_SPECT_AMIN',      self.imageWindowParameters[win][3] 
-            print 'IMAGE_SPECT_AMAX',      self.imageWindowParameters[win][4]         
-            print 'IMAGE_SPECT_NBINS',     self.imageWindowParameters[win][5] 
-            print 'IMAGE_SPECT_BIN_WIDTH', self.imageWindowParameters[win][6] 
-            print 'IMAGE_IM_LIMITS_IS_ON', self.imageWindowParameters[win][7] 
-            print 'IMAGE_SP_LIMITS_IS_ON', self.imageWindowParameters[win][8] 
-            print 'IMAGE_BIN_WIDTH_IS_ON', self.imageWindowParameters[win][9] 
-            print 'IMAGE_OFFSET',          self.imageWindowParameters[win][10] 
+            print('IMAGE_WINDOW_NUMBER',   win) 
+            print('IMAGE_DATASET',         self.imageWindowParameters[win][0]) 
+            print('IMAGE_IMAGE_AMIN',      self.imageWindowParameters[win][1]) 
+            print('IMAGE_IMAGE_AMAX',      self.imageWindowParameters[win][2]) 
+            print('IMAGE_SPECT_AMIN',      self.imageWindowParameters[win][3]) 
+            print('IMAGE_SPECT_AMAX',      self.imageWindowParameters[win][4])         
+            print('IMAGE_SPECT_NBINS',     self.imageWindowParameters[win][5]) 
+            print('IMAGE_SPECT_BIN_WIDTH', self.imageWindowParameters[win][6]) 
+            print('IMAGE_IM_LIMITS_IS_ON', self.imageWindowParameters[win][7]) 
+            print('IMAGE_SP_LIMITS_IS_ON', self.imageWindowParameters[win][8]) 
+            print('IMAGE_BIN_WIDTH_IS_ON', self.imageWindowParameters[win][9]) 
+            print('IMAGE_OFFSET',          self.imageWindowParameters[win][10]) 
 
 
-        print 'READ_PARS_AT_START',        self.readParsFromFileAtStart
+        print('READ_PARS_AT_START',        self.readParsFromFileAtStart)
 
-        print 'WAVEF_WAVEF_IS_ON',         self.waveformWaveformIsOn    
-        print 'WAVEF_WFVSEV_IS_ON',        self.waveformWaveVsEvIsOn    
+        print('WAVEF_WAVEF_IS_ON',         self.waveformWaveformIsOn)    
+        print('WAVEF_WFVSEV_IS_ON',        self.waveformWaveVsEvIsOn)    
 
-        print 'WAVEF_N_WINDOWS_MAX',       self.waveformNWindowsMax 
-        print 'WAVEF_N_WINDOWS',           self.waveformNWindows 
+        print('WAVEF_N_WINDOWS_MAX',       self.waveformNWindowsMax) 
+        print('WAVEF_N_WINDOWS',           self.waveformNWindows) 
 
         for win in range(self.waveformNWindows) :
 
-            print 'WAVEF_WINDOW_NUMBER',   win 
-            print 'WAVEF_DATASET',         self.waveformWindowParameters[win][0] 
-            print 'WAVEF_RANGE_UNITS_BITS',self.waveformWindowParameters[win][1] 
-            print 'WAVEF_AMIN',            self.waveformWindowParameters[win][2] 
-            print 'WAVEF_AMAX',            self.waveformWindowParameters[win][3] 
-            print 'WAVEF_TMIN',            self.waveformWindowParameters[win][4] 
-            print 'WAVEF_TMAX',            self.waveformWindowParameters[win][5] 
-            print 'WAVEF_N_WF_IN_DATA_SET',self.waveformWindowParameters[win][6] 
-            print 'WAVEF_IND_WF_IN_BLACK', self.waveformWindowParameters[win][7] 
-            print 'WAVEF_IND_WF_IN_RED',   self.waveformWindowParameters[win][8] 
-            print 'WAVEF_IND_WF_IN_GREEN', self.waveformWindowParameters[win][9] 
-            print 'WAVEF_IND_WF_IN_BLUE',  self.waveformWindowParameters[win][10] 
-            print 'WAVEF_NEV_MIN',         self.waveformWindowParameters[win][11] 
-            print 'WAVEF_NEV_MAX',         self.waveformWindowParameters[win][12] 
+            print('WAVEF_WINDOW_NUMBER',   win) 
+            print('WAVEF_DATASET',         self.waveformWindowParameters[win][0]) 
+            print('WAVEF_RANGE_UNITS_BITS',self.waveformWindowParameters[win][1]) 
+            print('WAVEF_AMIN',            self.waveformWindowParameters[win][2]) 
+            print('WAVEF_AMAX',            self.waveformWindowParameters[win][3]) 
+            print('WAVEF_TMIN',            self.waveformWindowParameters[win][4]) 
+            print('WAVEF_TMAX',            self.waveformWindowParameters[win][5]) 
+            print('WAVEF_N_WF_IN_DATA_SET',self.waveformWindowParameters[win][6]) 
+            print('WAVEF_IND_WF_IN_BLACK', self.waveformWindowParameters[win][7]) 
+            print('WAVEF_IND_WF_IN_RED',   self.waveformWindowParameters[win][8]) 
+            print('WAVEF_IND_WF_IN_GREEN', self.waveformWindowParameters[win][9]) 
+            print('WAVEF_IND_WF_IN_BLUE',  self.waveformWindowParameters[win][10]) 
+            print('WAVEF_NEV_MIN',         self.waveformWindowParameters[win][11]) 
+            print('WAVEF_NEV_MAX',         self.waveformWindowParameters[win][12]) 
 
-        print 'SELEC_N_WINDOWS_MAX',       self.selectionNWindowsMax 
-        print 'SELEC_N_WINDOWS',           self.selectionNWindows 
+        print('SELEC_N_WINDOWS_MAX',       self.selectionNWindowsMax) 
+        print('SELEC_N_WINDOWS',           self.selectionNWindows) 
 
         for win in range(self.selectionNWindows) :
 
-            print 'SELEC_WINDOW_NUMBER',   win 
-            print 'SELEC_THRESHOLD',       self.selectionWindowParameters[win][0] 
-            print 'SELEC_IN_BIN',          self.selectionWindowParameters[win][1] 
-            print 'SELEC_XMIN',            self.selectionWindowParameters[win][2] 
-            print 'SELEC_XMAX',            self.selectionWindowParameters[win][3] 
-            print 'SELEC_YMIN',            self.selectionWindowParameters[win][4] 
-            print 'SELEC_YMAX',            self.selectionWindowParameters[win][5] 
-            print 'SELEC_DATASET',         self.selectionWindowParameters[win][6] 
+            print('SELEC_WINDOW_NUMBER',   win) 
+            print('SELEC_THRESHOLD',       self.selectionWindowParameters[win][0]) 
+            print('SELEC_IN_BIN',          self.selectionWindowParameters[win][1]) 
+            print('SELEC_XMIN',            self.selectionWindowParameters[win][2]) 
+            print('SELEC_XMAX',            self.selectionWindowParameters[win][3]) 
+            print('SELEC_YMIN',            self.selectionWindowParameters[win][4]) 
+            print('SELEC_YMAX',            self.selectionWindowParameters[win][5]) 
+            print('SELEC_DATASET',         self.selectionWindowParameters[win][6]) 
 
-        print 'CORR_N_WINDOWS_MAX',       self.correlationNWindowsMax 
-        print 'CORR_N_WINDOWS',           self.correlationNWindows 
+        print('CORR_N_WINDOWS_MAX',       self.correlationNWindowsMax) 
+        print('CORR_N_WINDOWS',           self.correlationNWindows) 
 
         for win in range(self.correlationNWindows) :
 
-            print 'CORR_WINDOW_NUMBER',    win 
-            print 'CORR_YDATASET',         self.correlationWindowParameters[win][0] 
-            print 'CORR_XDATASET',         self.correlationWindowParameters[win][1] 
-            print 'CORR_XPARRADIO',        self.correlationWindowParameters[win][2] 
-            print 'CORR_YMIN',             self.correlationWindowParameters[win][3] 
-            print 'CORR_YMAX',             self.correlationWindowParameters[win][4] 
-            print 'CORR_XMIN',             self.correlationWindowParameters[win][5] 
-            print 'CORR_XMAX',             self.correlationWindowParameters[win][6] 
-            print 'CORR_YPARNAME',         self.correlationWindowParameters[win][7] 
-            print 'CORR_XPARNAME',         self.correlationWindowParameters[win][8] 
-            print 'CORR_YLIMS_IS_ON',      self.correlationWindowParameters[win][9] 
-            print 'CORR_XLIMS_IS_ON',      self.correlationWindowParameters[win][10] 
-            print 'CORR_LOGZ_IS_ON',       self.correlationWindowParameters[win][11] 
-            print 'CORR_YNBINS',           self.correlationWindowParameters[win][12]
-            print 'CORR_XNBINS',           self.correlationWindowParameters[win][13]
-            print 'CORR_YPARINDEX',        self.correlationWindowParameters[win][14] 
-            print 'CORR_XPARINDEX',        self.correlationWindowParameters[win][15] 
+            print('CORR_WINDOW_NUMBER',    win) 
+            print('CORR_YDATASET',         self.correlationWindowParameters[win][0]) 
+            print('CORR_XDATASET',         self.correlationWindowParameters[win][1]) 
+            print('CORR_XPARRADIO',        self.correlationWindowParameters[win][2]) 
+            print('CORR_YMIN',             self.correlationWindowParameters[win][3]) 
+            print('CORR_YMAX',             self.correlationWindowParameters[win][4]) 
+            print('CORR_XMIN',             self.correlationWindowParameters[win][5]) 
+            print('CORR_XMAX',             self.correlationWindowParameters[win][6]) 
+            print('CORR_YPARNAME',         self.correlationWindowParameters[win][7]) 
+            print('CORR_XPARNAME',         self.correlationWindowParameters[win][8]) 
+            print('CORR_YLIMS_IS_ON',      self.correlationWindowParameters[win][9]) 
+            print('CORR_XLIMS_IS_ON',      self.correlationWindowParameters[win][10]) 
+            print('CORR_LOGZ_IS_ON',       self.correlationWindowParameters[win][11]) 
+            print('CORR_YNBINS',           self.correlationWindowParameters[win][12])
+            print('CORR_XNBINS',           self.correlationWindowParameters[win][13])
+            print('CORR_YPARINDEX',        self.correlationWindowParameters[win][14]) 
+            print('CORR_XPARINDEX',        self.correlationWindowParameters[win][15]) 
             
-        print 'CALIBC_N_WINDOWS_MAX',       self.calibcycleNWindowsMax 
-        print 'CALIBC_N_WINDOWS',           self.calibcycleNWindows 
+        print('CALIBC_N_WINDOWS_MAX',       self.calibcycleNWindowsMax) 
+        print('CALIBC_N_WINDOWS',           self.calibcycleNWindows) 
 
         for win in range(self.calibcycleNWindows) :
 
-            print 'CALIBC_WINDOW_NUMBER',    win 
-            print 'CALIBC_YDATASET',         self.calibcycleWindowParameters[win][0] 
-            print 'CALIBC_XDATASET',         self.calibcycleWindowParameters[win][1] 
-            print 'CALIBC_XPARRADIO',        self.calibcycleWindowParameters[win][2] 
-            print 'CALIBC_YMIN',             self.calibcycleWindowParameters[win][3] 
-            print 'CALIBC_YMAX',             self.calibcycleWindowParameters[win][4] 
-            print 'CALIBC_XMIN',             self.calibcycleWindowParameters[win][5] 
-            print 'CALIBC_XMAX',             self.calibcycleWindowParameters[win][6] 
-            print 'CALIBC_YPARNAME',         self.calibcycleWindowParameters[win][7] 
-            print 'CALIBC_XPARNAME',         self.calibcycleWindowParameters[win][8] 
-            print 'CALIBC_YLIMS_IS_ON',      self.calibcycleWindowParameters[win][9] 
-            print 'CALIBC_XLIMS_IS_ON',      self.calibcycleWindowParameters[win][10] 
-            print 'CALIBC_LOGZ_IS_ON',       self.calibcycleWindowParameters[win][11] 
-            print 'CALIBC_YNBINS',           self.calibcycleWindowParameters[win][12]
-            print 'CALIBC_XNBINS',           self.calibcycleWindowParameters[win][13]
-            print 'CALIBC_YPARINDEX',        self.calibcycleWindowParameters[win][14] 
-            print 'CALIBC_XPARINDEX',        self.calibcycleWindowParameters[win][15] 
+            print('CALIBC_WINDOW_NUMBER',    win) 
+            print('CALIBC_YDATASET',         self.calibcycleWindowParameters[win][0]) 
+            print('CALIBC_XDATASET',         self.calibcycleWindowParameters[win][1]) 
+            print('CALIBC_XPARRADIO',        self.calibcycleWindowParameters[win][2]) 
+            print('CALIBC_YMIN',             self.calibcycleWindowParameters[win][3]) 
+            print('CALIBC_YMAX',             self.calibcycleWindowParameters[win][4]) 
+            print('CALIBC_XMIN',             self.calibcycleWindowParameters[win][5]) 
+            print('CALIBC_XMAX',             self.calibcycleWindowParameters[win][6]) 
+            print('CALIBC_YPARNAME',         self.calibcycleWindowParameters[win][7]) 
+            print('CALIBC_XPARNAME',         self.calibcycleWindowParameters[win][8]) 
+            print('CALIBC_YLIMS_IS_ON',      self.calibcycleWindowParameters[win][9]) 
+            print('CALIBC_XLIMS_IS_ON',      self.calibcycleWindowParameters[win][10]) 
+            print('CALIBC_LOGZ_IS_ON',       self.calibcycleWindowParameters[win][11]) 
+            print('CALIBC_YNBINS',           self.calibcycleWindowParameters[win][12])
+            print('CALIBC_XNBINS',           self.calibcycleWindowParameters[win][13])
+            print('CALIBC_YPARINDEX',        self.calibcycleWindowParameters[win][14]) 
+            print('CALIBC_XPARINDEX',        self.calibcycleWindowParameters[win][15]) 
             
-        print 'NUM_EVENTS_FOR_AVERAGE',    self.numEventsAverage
-        print 'SELECTION_IS_ON',           self.selectionIsOn
+        print('NUM_EVENTS_FOR_AVERAGE',    self.numEventsAverage)
+        print('SELECTION_IS_ON',           self.selectionIsOn)
 
        #print 'PER_EVENT_DIST_IS_ON',      self.perEventDistIsOn
-        print 'CORRELATIONS_IS_ON',        self.correlationsIsOn
-        print 'CALIBCYCLE_IS_ON',          self.calibcycleIsOn
+        print('CORRELATIONS_IS_ON',        self.correlationsIsOn)
+        print('CALIBCYCLE_IS_ON',          self.calibcycleIsOn)
 
-        print 'PROJ_CENTER_X',             self.projCenterX         
-        print 'PROJ_CENTER_Y',             self.projCenterY         
+        print('PROJ_CENTER_X',             self.projCenterX)         
+        print('PROJ_CENTER_Y',             self.projCenterY)         
                                           
-        print 'PROJ_R_BIN_WIDTH_IS_ON',    self.projR_BinWidthIsOn  
-        print 'PROJ_R_SLI_WIDTH_IS_ON',    self.projR_SliWidthIsOn                                            
-        print 'PROJ_R_N_BINS',             self.projR_NBins         
-        print 'PROJ_R_BIN_WIDTH',          self.projR_BinWidth      
-        print 'PROJ_R_NSLICES',            self.projR_NSlices       
-        print 'PROJ_R_SLICE_WIDTH',        self.projR_SliWidth                                                
-        print 'PROJ_R_RMIN',               self.projR_Rmin          
-        print 'PROJ_R_RMAX',               self.projR_Rmax          
-        print 'PROJ_R_PHIMIN',             self.projR_Phimin        
-        print 'PROJ_R_PHIMAX',             self.projR_Phimax        
+        print('PROJ_R_BIN_WIDTH_IS_ON',    self.projR_BinWidthIsOn)  
+        print('PROJ_R_SLI_WIDTH_IS_ON',    self.projR_SliWidthIsOn)                                            
+        print('PROJ_R_N_BINS',             self.projR_NBins)         
+        print('PROJ_R_BIN_WIDTH',          self.projR_BinWidth)      
+        print('PROJ_R_NSLICES',            self.projR_NSlices)       
+        print('PROJ_R_SLICE_WIDTH',        self.projR_SliWidth)                                                
+        print('PROJ_R_RMIN',               self.projR_Rmin)          
+        print('PROJ_R_RMAX',               self.projR_Rmax)          
+        print('PROJ_R_PHIMIN',             self.projR_Phimin)        
+        print('PROJ_R_PHIMAX',             self.projR_Phimax)        
                                           
-        print 'PROJ_PHI_BIN_WIDTH_IS_ON',  self.projPhi_BinWidthIsOn
-        print 'PROJ_PHI_SLI_WIDTH_IS_ON',  self.projPhi_SliWidthIsOn             
-        print 'PROJ_PHI_N_BINS',           self.projPhi_NBins       
-        print 'PROJ_PHI_BIN_WIDTH',        self.projPhi_BinWidth    
-        print 'PROJ_PHI_NSLICES',          self.projPhi_NSlices     
-        print 'PROJ_PHI_SLICE_WIDTH',      self.projPhi_SliWidth                                                                     
-        print 'PROJ_PHI_RMIN',             self.projPhi_Rmin        
-        print 'PROJ_PHI_RMAX',             self.projPhi_Rmax        
-        print 'PROJ_PHI_PHIMIN',           self.projPhi_Phimin      
-        print 'PROJ_PHI_PHIMAX',           self.projPhi_Phimax      
+        print('PROJ_PHI_BIN_WIDTH_IS_ON',  self.projPhi_BinWidthIsOn)
+        print('PROJ_PHI_SLI_WIDTH_IS_ON',  self.projPhi_SliWidthIsOn)             
+        print('PROJ_PHI_N_BINS',           self.projPhi_NBins)       
+        print('PROJ_PHI_BIN_WIDTH',        self.projPhi_BinWidth)    
+        print('PROJ_PHI_NSLICES',          self.projPhi_NSlices)     
+        print('PROJ_PHI_SLICE_WIDTH',      self.projPhi_SliWidth)                                                                     
+        print('PROJ_PHI_RMIN',             self.projPhi_Rmin)        
+        print('PROJ_PHI_RMAX',             self.projPhi_Rmax)        
+        print('PROJ_PHI_PHIMIN',           self.projPhi_Phimin)      
+        print('PROJ_PHI_PHIMAX',           self.projPhi_Phimax)      
 
-        print 'PROJ_X_BIN_WIDTH_IS_ON'   , self.projX_BinWidthIsOn  
-        print 'PROJ_X_SLI_WIDTH_IS_ON'   , self.projX_SliWidthIsOn                                          
-        print 'PROJ_X_N_BINS'            , self.projX_NBins         
-        print 'PROJ_X_BIN_WIDTH'         , self.projX_BinWidth      
-        print 'PROJ_X_NSLICES'           , self.projX_NSlices       
-        print 'PROJ_X_SLICE_WIDTH'       , self.projX_SliWidth                                              
-        print 'PROJ_X_XMIN'              , self.projX_Xmin          
-        print 'PROJ_X_XMAX'              , self.projX_Xmax          
-        print 'PROJ_X_YMIN'              , self.projX_Ymin          
-        print 'PROJ_X_YMAX'              , self.projX_Ymax          
+        print('PROJ_X_BIN_WIDTH_IS_ON'   , self.projX_BinWidthIsOn)  
+        print('PROJ_X_SLI_WIDTH_IS_ON'   , self.projX_SliWidthIsOn)                                          
+        print('PROJ_X_N_BINS'            , self.projX_NBins)         
+        print('PROJ_X_BIN_WIDTH'         , self.projX_BinWidth)      
+        print('PROJ_X_NSLICES'           , self.projX_NSlices)       
+        print('PROJ_X_SLICE_WIDTH'       , self.projX_SliWidth)                                              
+        print('PROJ_X_XMIN'              , self.projX_Xmin)          
+        print('PROJ_X_XMAX'              , self.projX_Xmax)          
+        print('PROJ_X_YMIN'              , self.projX_Ymin)          
+        print('PROJ_X_YMAX'              , self.projX_Ymax)          
                                                                     
-        print 'PROJ_Y_BIN_WIDTH_IS_ON'   , self.projY_BinWidthIsOn  
-        print 'PROJ_Y_SLI_WIDTH_IS_ON'   , self.projY_SliWidthIsOn                                                                  
-        print 'PROJ_Y_N_BINS'            , self.projY_NBins         
-        print 'PROJ_Y_BIN_WIDTH'         , self.projY_BinWidth      
-        print 'PROJ_Y_NSLICES'           , self.projY_NSlices       
-        print 'PROJ_Y_SLICE_WIDTH'       , self.projY_SliWidth                                                                     
-        print 'PROJ_Y_XMIN'              , self.projY_Xmin          
-        print 'PROJ_Y_XMAX'              , self.projY_Xmax          
-        print 'PROJ_Y_YMIN'              , self.projY_Ymin          
-        print 'PROJ_Y_YMAX'              , self.projY_Ymax          
+        print('PROJ_Y_BIN_WIDTH_IS_ON'   , self.projY_BinWidthIsOn)  
+        print('PROJ_Y_SLI_WIDTH_IS_ON'   , self.projY_SliWidthIsOn)                                                                  
+        print('PROJ_Y_N_BINS'            , self.projY_NBins)         
+        print('PROJ_Y_BIN_WIDTH'         , self.projY_BinWidth)      
+        print('PROJ_Y_NSLICES'           , self.projY_NSlices)       
+        print('PROJ_Y_SLICE_WIDTH'       , self.projY_SliWidth)                                                                     
+        print('PROJ_Y_XMIN'              , self.projY_Xmin)          
+        print('PROJ_Y_XMAX'              , self.projY_Xmax)          
+        print('PROJ_Y_YMIN'              , self.projY_Ymin)          
+        print('PROJ_Y_YMAX'              , self.projY_Ymax)          
 
-        print 'BKGD_SUBTRACTION_IS_ON'   , self.bkgdSubtractionIsOn 
-        print 'BKGD_DIR_NAME'            , self.bkgdDirName         
-        print 'BKGD_FILE_NAME'           , self.bkgdFileName        
+        print('BKGD_SUBTRACTION_IS_ON'   , self.bkgdSubtractionIsOn) 
+        print('BKGD_DIR_NAME'            , self.bkgdDirName)         
+        print('BKGD_FILE_NAME'           , self.bkgdFileName)        
 
-        print 'GAIN_CORRECTION_IS_ON'    , self.gainCorrectionIsOn  
-        print 'GAIN_DIR_NAME'            , self.gainDirName         
-        print 'GAIN_FILE_NAME'           , self.gainFileName        
+        print('GAIN_CORRECTION_IS_ON'    , self.gainCorrectionIsOn)  
+        print('GAIN_DIR_NAME'            , self.gainDirName)         
+        print('GAIN_FILE_NAME'           , self.gainFileName)        
 
-        print 'AVERAGE_DIR_NAME'         , self.aveDirName          
-        print 'AVERAGE_FILE_NAME'        , self.aveFileName         
+        print('AVERAGE_DIR_NAME'         , self.aveDirName)          
+        print('AVERAGE_FILE_NAME'        , self.aveFileName)         
 
-        print 70*'='
+        print(70*'=')
 
 
     def readParameters(self, fname=None) :
         self.__setConfigParsFileName(fname)        
-        print 'Read parameters from file:', self._fname
+        print('Read parameters from file:', self._fname)
         dicBool = {'false':False, 'true':True}
         win = 0
         if os.path.exists(self._fname) :
@@ -833,11 +834,11 @@ class ConfigParameters ( object ) :
                 elif key == 'AVERAGE_DIR_NAME'         : self.aveDirName            = val
                 elif key == 'AVERAGE_FILE_NAME'        : self.aveFileName           = val
 
-                else : print 'The record : %s %s \n is UNKNOWN in readParameters()' % (key, val) 
+                else : print('The record : %s %s \n is UNKNOWN in readParameters()' % (key, val)) 
             f.close()
         else :
-            print 'The file %s does not exist' % (fname)
-            print 'WILL USE DEFAULT CONFIGURATION PARAMETERS'
+            print('The file %s does not exist' % (fname))
+            print('WILL USE DEFAULT CONFIGURATION PARAMETERS')
 
 
     def getValIntOrNone(self,val) :
@@ -847,7 +848,7 @@ class ConfigParameters ( object ) :
 
     def writeParameters(self, fname=None) :
         self.__setConfigParsFileName(fname)        
-        print 'Write parameters in file:', self._fname
+        print('Write parameters in file:', self._fname)
         space = '    '
         f=open(self._fname,'w')
         f.write('HDF5_FILE_NAME'            + space + self.dirName + '/' + self.fileName + '\n')

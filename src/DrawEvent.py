@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -120,8 +121,8 @@ class DrawEvent ( object ) :
 
             dsname = cp.confpars.selectionWindowParameters[win][6]
             if dsname == 'None' :
-                print '\n',70*'!','\nWARNING: SELECTION IS REQUESTED, BUT ITS DATASET IS NOT SET.', \
-                      '\nFIX THIS PROBLEM IN SELECTION GUI\n',70*'!','\n'
+                print('\n',70*'!','\nWARNING: SELECTION IS REQUESTED, BUT ITS DATASET IS NOT SET.', \
+                      '\nFIX THIS PROBLEM IN SELECTION GUI\n',70*'!','\n')
                 return True
 
             ds     = self.h5file[dsname]
@@ -181,7 +182,7 @@ class DrawEvent ( object ) :
 
 
     def averageOverEvents(self, mode=1) :
-        print 'averageOverEvents'
+        print('averageOverEvents')
 
         t_start = time.clock()
         self.openHDF5File() # t=0us
@@ -190,7 +191,7 @@ class DrawEvent ( object ) :
         self.eventStart = cp.confpars.eventCurrent
         self.eventEnd   = cp.confpars.eventCurrent + 1000 # This is have changed at 1st call loopOverDataSets
 
-        print 'selectionIsOn =', cp.confpars.selectionIsOn 
+        print('selectionIsOn =', cp.confpars.selectionIsOn) 
 
         self.numEventsSelected = 0
         self.loopIsContinued   = True
@@ -215,19 +216,19 @@ class DrawEvent ( object ) :
 
         self.drawAveragedArrays(mode)
 
-        print 'Time to averageOverEvents() (sec) = %f' % (time.clock() - t_start)
+        print('Time to averageOverEvents() (sec) = %f' % (time.clock() - t_start))
         self.closeHDF5File()
 
 
     def printEventSelectionStatistics(self) :
         if cp.confpars.eventCurrent % 10 == 0 :
             if cp.confpars.selectionIsOn :
-                print ' Current event =', cp.confpars.eventCurrent,\
+                print(' Current event =', cp.confpars.eventCurrent,\
                       ' Selected =',      self.numEventsSelected,  \
                       ' arrInWindow.max() =', self.arrInWindowMax, \
-                      ' arrInWindow.sum() =', self.arrInWindowSum
+                      ' arrInWindow.sum() =', self.arrInWindowSum)
             else :
-                print ' Current event =', cp.confpars.eventCurrent
+                print(' Current event =', cp.confpars.eventCurrent)
 
 
     def drawAveragedArrays(self, mode=1) :
@@ -260,11 +261,11 @@ class DrawEvent ( object ) :
             ds = self.h5file[dsname]
 
             if cp.confpars.eventCurrent >= ds.shape[0] :
-                print 80*'=', \
+                print(80*'=', \
                       '\nWARNING! CURRENT EVENT NUMBER', cp.confpars.eventCurrent, \
                       ' EXCEEDS THE ARRAY SHAPE INDEX', ds.shape[0], \
                       '\nfor dataset:', dsname, \
-                      '\nTHIS EVENT IS NOT INCLUDED IN AVERAGE!'
+                      '\nTHIS EVENT IS NOT INCLUDED IN AVERAGE!')
                 continue
 
             indds += 1 
@@ -287,7 +288,7 @@ class DrawEvent ( object ) :
                     self.ave1ev[indds] += self.arr1ev   
                     self.avedsname     .append(dsname)
                     self.eventEnd      = ds.shape[0]
-                    print 'Total number of events in averaged sample [', indds, '] =', self.eventEnd
+                    print('Total number of events in averaged sample [', indds, '] =', self.eventEnd)
 
             elif option == 1 :                                   # Normalization per 1 event
                 if self.numEventsSelected > 0 :
@@ -331,7 +332,7 @@ class DrawEvent ( object ) :
             cp.confpars.eventCurrent -= cp.confpars.span
             if cp.confpars.eventCurrent<0 :
                 cp.confpars.eventCurrent=0
-                print 'Event = 0, there is no more previous event in this file.'
+                print('Event = 0, there is no more previous event in this file.')
                 break
             if self.selectionIsPassed() : 
                 self.drawEventFromOpenFile(mode) # Draw everything for current event
@@ -368,7 +369,7 @@ class DrawEvent ( object ) :
 
     def stopSlideShow ( self ) :
         """Operations in case of stop drawing event(s)"""
-        print 'stopSlideShow()'
+        print('stopSlideShow()')
         #self.drawEventFromOpenFile() # mode=1 (by default) for the last plot
         self.showEvent (mode=1) # apply show() mode for the last event
         self.closeHDF5File()
@@ -387,9 +388,9 @@ class DrawEvent ( object ) :
         """Draws current event when the file is already open"""
 
         t_drawEvent = time.clock()
-        print 'Event %d' % ( cp.confpars.eventCurrent )
+        print('Event %d' % ( cp.confpars.eventCurrent ))
 
-        print 'selectionIsPassed', self.selectionIsPassed() 
+        print('selectionIsPassed', self.selectionIsPassed()) 
 
         # Loop over checked data sets
         self.nwin   = None
@@ -399,10 +400,10 @@ class DrawEvent ( object ) :
 
             ds     = self.h5file[dsname]
             if cp.confpars.eventCurrent >= ds.shape[0] :
-                print 'WARNING! CURRENT EVENT NUMBER ', cp.confpars.eventCurrent, \
+                print('WARNING! CURRENT EVENT NUMBER ', cp.confpars.eventCurrent, \
                       ' EXCEEDS THE ARRAY SHAPE INDEX ', ds.shape[0], \
                       '\nfor dataset: ', dsname, \
-                      '\nPLOTS ARE IGNORED!'
+                      '\nPLOTS ARE IGNORED!')
                 return
 
             self.arr1ev = ds[cp.confpars.eventCurrent]
@@ -414,7 +415,7 @@ class DrawEvent ( object ) :
             self.drawArrayForDSName(dsname,self.arr1ev)
 
         self.showEvent(mode)
-        print 'Time to drawEvent() (sec) = %f' % (time.clock() - t_drawEvent)
+        print('Time to drawEvent() (sec) = %f' % (time.clock() - t_drawEvent))
 
 
     def saveArrayForDSNameInFile(self, dsname, arr1ev) :
@@ -425,7 +426,7 @@ class DrawEvent ( object ) :
 
         if cspadIsInTheName :
 
-            print 'saveArrayForDSNameInFile'
+            print('saveArrayForDSNameInFile')
             #arr1ev # (32, 185, 388) <- format of this record
             #print 'arr1ev.shape=', arr1ev.shape
             self.getCSpadConfiguration(dsname)
@@ -452,7 +453,7 @@ class DrawEvent ( object ) :
             gm.saveNumpyArrayInFile(arr1ev, fname=fname_common + '.txt' , format='%f') # , format='%i')
 
             tiff_fname = fname_common + '.tiff'
-            print 'Save image in TIFF file  ', tiff_fname
+            print('Save image in TIFF file  ', tiff_fname)
             scimisc.imsave(tiff_fname, arr1ev)
 
 
@@ -470,11 +471,11 @@ class DrawEvent ( object ) :
         if not itemIsForDrawing : return
 
 
-        print 'Plot item:', dsname, ' item name:', item_last_name
+        print('Plot item:', dsname, ' item name:', item_last_name)
         #print 'Name for plot title:', cp.confpars.current_item_name_for_title
 
         if dsname == self.dsnameCSpadV1 :
-            print 'Draw plots for CSpad V1'
+            print('Draw plots for CSpad V1')
 
             #arr1ev # (4, 8, 185, 388) <- format of this record
 
@@ -651,8 +652,8 @@ class DrawEvent ( object ) :
         try:
             offset = ds['offset'][cp.confpars.eventCurrent] # !!! Indexes are reversed in order to use 'offset' as index
         except ValueError :
-            print "WARNING: For this image the parameter 'offset' is not found in the dataset\n", offset_dsname
-            print 'Set offset = 0'
+            print("WARNING: For this image the parameter 'offset' is not found in the dataset\n", offset_dsname)
+            print('Set offset = 0')
             offset = 0
             
         if self.nwin == None :
@@ -664,7 +665,7 @@ class DrawEvent ( object ) :
     def getCSpadConfiguration( self, dsname ):
 
         if gm.CSpadMiniElementIsInTheName(dsname) :
-            print 'getCSpadConfiguration(...): This is a CSpadMiniElement. Special configuration is not required'
+            print('getCSpadConfiguration(...): This is a CSpadMiniElement. Special configuration is not required')
             cs.confcspad.isCSPad2x2 = True
             return
 
@@ -675,7 +676,7 @@ class DrawEvent ( object ) :
 
         cs.confcspad.quad_nums_in_event = self.ds_element[cp.confpars.eventCurrent]['quad']
 
-        print 'quad_nums_in_event = ', cs.confcspad.quad_nums_in_event
+        print('quad_nums_in_event = ', cs.confcspad.quad_nums_in_event)
 
         #if cp.confpars.fileName == self.fileNameWithAlreadySetCSpadConfiguration : return
 
@@ -707,15 +708,15 @@ class DrawEvent ( object ) :
                     continue
 
             if self.dsConf == None :
-                print 80*'!'
-                print 'WARNING: The CSPad configuration dataset is not found. Default versin will be used'
-                print 80*'!'
+                print(80*'!')
+                print('WARNING: The CSPad configuration dataset is not found. Default versin will be used')
+                print(80*'!')
                 return
 
-            print 'Configuration dataset name:', self.cspad_config_ds_name
+            print('Configuration dataset name:', self.cspad_config_ds_name)
 
             cs.confcspad.indPairsInQuads = self.dsConf['sections'] # For V2 it is dsConf.value[13], for V3 it is 15th  ...
-            print "Indexes of pairs in quads =\n",cs.confcspad.indPairsInQuads 
+            print("Indexes of pairs in quads =\n",cs.confcspad.indPairsInQuads) 
             #self.fileNameWithAlreadySetCSpadConfiguration = cp.confpars.fileName
 
 
@@ -729,7 +730,7 @@ class DrawEvent ( object ) :
             plt.show()  
         else :           # Slide show 
             plt.draw()   # Draws, but does not block
-        print 'Time to show or draw (sec) = %f' % (time.clock() - t_start)
+        print('Time to show or draw (sec) = %f' % (time.clock() - t_start))
 
 
     def quitDrawEvent ( self ) :
@@ -751,7 +752,7 @@ class DrawEvent ( object ) :
             try: 
                 self.h5file=  h5py.File(fname, 'r') # open read-only       
             except IOError:
-                print 'IOError: No such file:', fname
+                print('IOError: No such file:', fname)
                 cp.confpars.h5_file_is_open = False
                 return
 
@@ -770,9 +771,9 @@ class DrawEvent ( object ) :
         conf_group = self.h5file['/Configure:0000']
         cs.confcspad.run_start_seconds = conf_group.attrs['start.seconds']
 
-        print 'Run start (seconds) =', cs.confcspad.run_start_seconds
+        print('Run start (seconds) =', cs.confcspad.run_start_seconds)
         tloc = time.localtime(cs.confcspad.run_start_seconds) # converts sec to the tuple struct_time in local
-        print 'Run start local time :', time.strftime('%Y-%m-%d %H:%M:%S',tloc)
+        print('Run start local time :', time.strftime('%Y-%m-%d %H:%M:%S',tloc))
         #t1_sec = int( time.mktime((2011, 6, 23, 23, 22, 18, 0, 0, 0)) ) # converts date-tile to seconds
 
 
@@ -895,7 +896,7 @@ class DrawEvent ( object ) :
         self.fig.myZoomIsOn = False
         self.fig.nwin   = self.nwin
 
-        print 'Open figure number=', self.figNum, ' for window=', self.fig.nwin
+        print('Open figure number=', self.figNum, ' for window=', self.fig.nwin)
         return self.fig
 
 
@@ -922,7 +923,7 @@ class DrawEvent ( object ) :
         """Figure will be closed automatically, but it is necesary to remove its number from the list..."""
         fig    = event.canvas.figure # plt.gcf() does not work, because closed canva may be non active
         figNum = fig.number 
-        print 'CloseEvent for figure number = ', figNum
+        print('CloseEvent for figure number = ', figNum)
         if figNum in self.list_of_open_figs : self.list_of_open_figs.remove(figNum)
 
 
@@ -940,8 +941,8 @@ class DrawEvent ( object ) :
         """Draw Correlation Plots"""
 
         if not cp.confpars.correlationsIsOn :
-            print 'Check the "Correlations" checkbox in the "What to display?" GUI\n' +\
-                  'and set the correlation plot(s) parameters.'
+            print('Check the "Correlations" checkbox in the "What to display?" GUI\n' +\
+                  'and set the correlation plot(s) parameters.')
             return
         
         self.openHDF5File()
@@ -966,8 +967,8 @@ class DrawEvent ( object ) :
         """Draw CalibCycle Plots"""
 
         if not cp.confpars.calibcycleIsOn :
-            print 'Check the "CalibCycle" checkbox in the "What to display?" GUI\n' +\
-                  'and set the correlation plot(s) parameters.'
+            print('Check the "CalibCycle" checkbox in the "What to display?" GUI\n' +\
+                  'and set the correlation plot(s) parameters.')
             return
         
         self.openHDF5File()
@@ -979,7 +980,7 @@ class DrawEvent ( object ) :
 
         self.figNum = 200
 
-        print 'drawCalibCyclePlotsFromOpenFile for nwin=', cp.confpars.calibcycleNWindows
+        print('drawCalibCyclePlotsFromOpenFile for nwin=', cp.confpars.calibcycleNWindows)
 
         for self.nwin in range(cp.confpars.calibcycleNWindows) :
 
@@ -996,8 +997,8 @@ class DrawEvent ( object ) :
         """Draw waveform vs event plots"""
 
         if not cp.confpars.waveformWaveVsEvIsOn :
-            print 'Check the "WF vs Event" checkbox in the "What to display?" GUI\n' +\
-                  'and set the waveform plot parameters.'
+            print('Check the "WF vs Event" checkbox in the "What to display?" GUI\n' +\
+                  'and set the waveform plot parameters.')
             return
         
         self.openHDF5File()
@@ -1007,7 +1008,7 @@ class DrawEvent ( object ) :
         #Create the CalibCycles object and initialize it from open file
         self.CalibCOps = cc.CalibCycles()
         NccTotal = self.CalibCOps.extractNumberOfCalibCyclesFromOpenFile(self.h5file, dsname)
-        print 'Total number of CalibCycles =', NccTotal
+        print('Total number of CalibCycles =', NccTotal)
         self.drawWaveVsEventPlotsFromOpenFile(dNcc)        
         self.closeHDF5File()
 
@@ -1015,7 +1016,7 @@ class DrawEvent ( object ) :
 
         self.figNum = 300
 
-        print 'drawWaveVsEvPlotsFromOpenFile for nwin=', cp.confpars.waveformNWindows, ' dNcc=', dNcc
+        print('drawWaveVsEvPlotsFromOpenFile for nwin=', cp.confpars.waveformNWindows, ' dNcc=', dNcc)
 
         for self.nwin in range(cp.confpars.waveformNWindows) :
 
@@ -1031,7 +1032,7 @@ class DrawEvent ( object ) :
         if dNcc != 0 :
             dsname = cp.confpars.waveformWindowParameters[nwin][0]
             cp.confpars.waveformWindowParameters[nwin][0] = self.CalibCOps.getDSNameForCalibCycleDN(dsname, dNcc)
-            print 'Plot for other CalibCycle:', cp.confpars.waveformWindowParameters[nwin][0]
+            print('Plot for other CalibCycle:', cp.confpars.waveformWindowParameters[nwin][0])
 
 
 

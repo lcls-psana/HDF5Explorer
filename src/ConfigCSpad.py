@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -63,7 +64,7 @@ class ConfigCSpad ( object ) :
 
     def setCSpadParameters( self ) :
 
-        print 'setCSpadParameters():Set parameters from calib dir',
+        print('setCSpadParameters():Set parameters from calib dir', end=' ')
         self.setCSpadParametersFromCalibDir() 
 
 #==========================================
@@ -72,9 +73,9 @@ class ConfigCSpad ( object ) :
         """Set the calibration parameters from the official location
            The self.cspad_calib_dir, self.cspad_name, and self.run_num should be provided...
         """
-        print 'setCSpadParameters(): calib dir :', self.cspad_calib_dir
-        print 'setCSpadParameters(): CSPad name:', self.cspad_name
-        print 'setCSpadParameters(): Run number:', self.run_num
+        print('setCSpadParameters(): calib dir :', self.cspad_calib_dir)
+        print('setCSpadParameters(): CSPad name:', self.cspad_name)
+        print('setCSpadParameters(): Run number:', self.run_num)
 
         self.calibpars.setCalibParsForPath ( run = self.run_num, path = self.cspad_calib_dir )
         #self.calibpars.loadAllCalibPars () 
@@ -195,12 +196,12 @@ class ConfigCSpad ( object ) :
     def Print( self ) :
         """Print CSpad configuration parameters"""
 
-        print 'pairInQaudOrient =\n',  self.pairInQaudOrient
-        print 'dPhi =\n',              self.dPhi
-        print 'pairXInQaud =\n',       self.pairXInQaud       
-        print 'pairYInQaud =\n',       self.pairYInQaud       
-        print 'firstPairInQuad =\n',   self.firstPairInQuad       
-        print 'lastPairInQuad =\n',    self.lastPairInQuad       
+        print('pairInQaudOrient =\n',  self.pairInQaudOrient)
+        print('dPhi =\n',              self.dPhi)
+        print('pairXInQaud =\n',       self.pairXInQaud)       
+        print('pairYInQaud =\n',       self.pairYInQaud)       
+        print('firstPairInQuad =\n',   self.firstPairInQuad)       
+        print('lastPairInQuad =\n',    self.lastPairInQuad)       
 
 #---------------------------------------
 # Makes a single object of this class --

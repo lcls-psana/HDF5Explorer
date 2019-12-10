@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -135,10 +136,10 @@ class CalibCycles :
         NccNew = Ncc
         if  NccNew < 0 :
             NccNew = 0
-            print 'WARNING: Requested CalibCycle number < 0: set NccNew =', NccNew
+            print('WARNING: Requested CalibCycle number < 0: set NccNew =', NccNew)
         if  NccNew >= self.numberOfCalibCycles :
             NccNew  = self.numberOfCalibCycles - 1
-            print 'WARNING: Requested CalibCycle number > max: set NccNew =', NccNew
+            print('WARNING: Requested CalibCycle number > max: set NccNew =', NccNew)
         return NccNew
     
 #-----------------------------
@@ -155,24 +156,24 @@ if __name__ == "__main__" :
     h5fname = '/reg/d/psdm/AMO/amo30211/hdf5/amo30211-r0326.h5'
     dsname  = '/Configure:0000/Run:0000/CalibCycle:0012/Acqiris::DataDescV1/AmoETOF.0:Acqiris.0/waveforms'
 
-    print 'h5fname                      =', h5fname
-    print 'dsname                       =', dsname
+    print('h5fname                      =', h5fname)
+    print('dsname                       =', dsname)
 
     o = CalibCycles( h5fname, dsname )
 
-    print 'Run group name               =', o.getRunGroupName(dsname)
-    print 'CalibCycle number            =', o.getCalibCycleNumber(dsname)
-    print 'Number of calibcycles        =', o.extractNumberOfCalibCycles(h5fname, dsname)
-    print 'Number of calibcycles        =', o.getNumberOfCalibCycles()
-    print '4-digit string for N=56      =', o.get4DigitStringFromNumber(56)
-    print 'dsname for CalibCycle  17    =', o.getDSNameForCalibCycleNumber(dsname,17)
-    print 'dsname for CalibCycle -11    =', o.getDSNameForCalibCycleNumber(dsname,-11)
-    print 'dsname for CalibCycle  57    =', o.getDSNameForCalibCycleNumber(dsname,57)
-    print 'dsname for CalibCycle N+1    =', o.getDSNameForCalibCycleDN(dsname, 1)
-    print 'dsname for CalibCycle N-3    =', o.getDSNameForCalibCycleDN(dsname,-3)
-    print 'dsname for CalibCycle N+2    =', o.getDSNameForCalibCycleDN(dsname, 2)
-    print 'dsname for CalibCycle N+40   =', o.getDSNameForCalibCycleDN(dsname, 40)
-    print 'dsname for CalibCycle N-40   =', o.getDSNameForCalibCycleDN(dsname,-40)
+    print('Run group name               =', o.getRunGroupName(dsname))
+    print('CalibCycle number            =', o.getCalibCycleNumber(dsname))
+    print('Number of calibcycles        =', o.extractNumberOfCalibCycles(h5fname, dsname))
+    print('Number of calibcycles        =', o.getNumberOfCalibCycles())
+    print('4-digit string for N=56      =', o.get4DigitStringFromNumber(56))
+    print('dsname for CalibCycle  17    =', o.getDSNameForCalibCycleNumber(dsname,17))
+    print('dsname for CalibCycle -11    =', o.getDSNameForCalibCycleNumber(dsname,-11))
+    print('dsname for CalibCycle  57    =', o.getDSNameForCalibCycleNumber(dsname,57))
+    print('dsname for CalibCycle N+1    =', o.getDSNameForCalibCycleDN(dsname, 1))
+    print('dsname for CalibCycle N-3    =', o.getDSNameForCalibCycleDN(dsname,-3))
+    print('dsname for CalibCycle N+2    =', o.getDSNameForCalibCycleDN(dsname, 2))
+    print('dsname for CalibCycle N+40   =', o.getDSNameForCalibCycleDN(dsname, 40))
+    print('dsname for CalibCycle N-40   =', o.getDSNameForCalibCycleDN(dsname,-40))
 
     sys.exit ( "End of test" )
 

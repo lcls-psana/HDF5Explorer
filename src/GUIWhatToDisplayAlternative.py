@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -128,11 +129,11 @@ class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
 
     def processDisplay(self):
         if cp.confpars.treeWindowIsOpen :
-            print 'HDF5 tree GUI is already open, use it...'
+            print('HDF5 tree GUI is already open, use it...')
             #self.butH5Tree.setText('Open HDF5 tree')
             #cp.confpars.guitree.close()
         else :
-            print 'Open HDF5 tree GUI'
+            print('Open HDF5 tree GUI')
             #self.butH5Tree.setText('Close HDF5 tree')
             cp.confpars.guitree = guiselitems.GUISelectItems(self)
             cp.confpars.guitree.move(self.pos().__add__(QtCore.QPoint(500,-300))) # (-50,-100)open window with offset w.r.t. parent

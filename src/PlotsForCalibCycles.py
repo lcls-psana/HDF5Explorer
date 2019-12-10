@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -66,7 +67,7 @@ class PlotsForCalibCycles ( object ) :
 
     def plotCalibCycles0 ( self, fig, h5file ) :
 
-        print 'plotCalibCycles(..) IS UNDER DEVELOPEMENT YET...' 
+        print('plotCalibCycles(..) IS UNDER DEVELOPEMENT YET...') 
 
 
     def plotCalibCycles ( self, fig, h5file ) :
@@ -93,45 +94,45 @@ class PlotsForCalibCycles ( object ) :
         self.XParIndex = cp.confpars.calibcycleWindowParameters[win][15] # Event/record index 
         
         if self.Ydsname == 'None' :
-            print 'THE Ydsname=', self.Ydsname, ' IS SET INCORRECTLY. THE CALIBCYCLES PLOT', win,' IS IGNORED'
+            print('THE Ydsname=', self.Ydsname, ' IS SET INCORRECTLY. THE CALIBCYCLES PLOT', win,' IS IGNORED')
             return
 
         if self.YParName == 'None' : 
-            print 'THE YParName=', self.YParName, ' IS NOT SET. THE CALIBCYCLES PLOT', win,' IS IGNORED'
+            print('THE YParName=', self.YParName, ' IS NOT SET. THE CALIBCYCLES PLOT', win,' IS IGNORED')
             return
 
-        print 'self.Ydsname   = ', self.Ydsname 
-        print 'self.YParName  = ', self.YParName
+        print('self.Ydsname   = ', self.Ydsname) 
+        print('self.YParName  = ', self.YParName)
 
         s0, sN, isFoundInString = gm.getPatternEndsInTheString(self.Ydsname, pattern='Run:')
-        print 'self.Ydsname[0:sN+4]  = ', self.Ydsname[0:sN+4]
+        print('self.Ydsname[0:sN+4]  = ', self.Ydsname[0:sN+4])
         runGroupName = self.Ydsname[0:sN+4]
-        print 'Run group name = ', runGroupName 
+        print('Run group name = ', runGroupName) 
 
 
         g = h5file[runGroupName]
         number_of_calibcycles = len(g.items())
-        print 'Number of calibcycles in the run group:', number_of_calibcycles
+        print('Number of calibcycles in the run group:', number_of_calibcycles)
 
 
         s0, sN, isFoundInString = gm.getPatternEndsInTheString(self.Ydsname, pattern='CalibCycle:')
-        print 's0, sN, isFoundInString =', s0, sN, isFoundInString
-        print 'self.Ydsname[s0:sN]  = ', self.Ydsname[s0:sN] 
-        print 'self.Ydsname[sN:sN+4]= ', self.Ydsname[sN:sN+4] 
+        print('s0, sN, isFoundInString =', s0, sN, isFoundInString)
+        print('self.Ydsname[s0:sN]  = ', self.Ydsname[s0:sN]) 
+        print('self.Ydsname[sN:sN+4]= ', self.Ydsname[sN:sN+4]) 
 
         self.Ydsname_for_calibcycle = self.Ydsname
 
         if self.radioXPar == 1 : # for Time
             self.Xdsname = gm.get_item_path_to_last_name(self.Ydsname) + '/time'
-            print 'Xdsname =',self.Xdsname 
+            print('Xdsname =',self.Xdsname) 
 
         elif self.radioXPar == 2 : # for X-Parameter
             if self.Xdsname == 'None' :
-                print 'THE Xdsname=', self.Xdsname, ' IS SET INCORRECTLY. THE CALIBCYCLE PLOT', win,' IS IGNORED' 
+                print('THE Xdsname=', self.Xdsname, ' IS SET INCORRECTLY. THE CALIBCYCLE PLOT', win,' IS IGNORED') 
                 return
 
             if self.XParName == 'None' : 
-                print 'THE XParName=', self.XParName, ' IS NOT SET. THE CALIBCYCLE PLOT', win,' IS IGNORED'
+                print('THE XParName=', self.XParName, ' IS NOT SET. THE CALIBCYCLE PLOT', win,' IS IGNORED')
                 return
 
         self.Yarr = []
@@ -142,7 +143,7 @@ class PlotsForCalibCycles ( object ) :
 
             str_calibc_number = '%04d' % i
             self.Ydsname_for_calibcycle = self.Ydsname[0:sN] + str_calibc_number + self.Ydsname[sN+4:]
-            print self.Ydsname_for_calibcycle,
+            print(self.Ydsname_for_calibcycle, end=' ')
 
             ds  = h5file[self.Ydsname_for_calibcycle]
 
@@ -152,14 +153,14 @@ class PlotsForCalibCycles ( object ) :
                 self.arry = ds[self.YParName][self.YParIndex]  # Next level index for ipimb...  
 
             val = np.mean(self.arry)   # We use the averaged over events value of the parameter 
-            print '  <Ypar>=',val,
+            print('  <Ypar>=',val, end=' ')
             self.Yarr.append(val)
 
             self.Xdsname_for_calibcycle = self.Xdsname[0:sN] + str_calibc_number + self.Xdsname[sN+4:]
             #print self.Xdsname_for_calibcycle,
 
             if self.radioXPar == 0 :   # for index
-                print ' ' 
+                print(' ') 
 
             elif self.radioXPar == 1 : # for Time
 
@@ -167,7 +168,7 @@ class PlotsForCalibCycles ( object ) :
                 timearr = 0.000000001 * self.dsX['nanoseconds'] + self.dsX['seconds']
                 timemean=np.mean(timearr)
                 self.Xarr.append( timemean )
-                print '  <time>=', timemean
+                print('  <time>=', timemean)
 
             elif self.radioXPar == 2 : # for X-Parameter
 
@@ -180,36 +181,36 @@ class PlotsForCalibCycles ( object ) :
                     self.arrx = ds[self.XParName][self.XParIndex]  # Next level index for ipimb...  
 
                 meanx = np.mean(self.arrx) # We use the averaged over events value of the parameter 
-                print '  <Xpar>=', meanx
+                print('  <Xpar>=', meanx)
                 self.Xarr.append(meanx)
 
             elif self.radioXPar == 3 : # for Y-Parameter histogram 
-                print ' ' 
+                print(' ') 
 
         self.Xarr = np.array(self.Xarr)
         self.Yarr = np.array(self.Yarr)
 
         nYpoints = self.Yarr.shape[0]
-        print '\nNew Win:', win, ' CalibCycle plot for nYpoints =', nYpoints 
+        print('\nNew Win:', win, ' CalibCycle plot for nYpoints =', nYpoints) 
 
         self.markerStyle = 'bs-'
 
         if self.radioXPar == 0 : # for CalibCycle Index
             self.Xarr = range(nYpoints)
-            print 'Index array from 0 to', nYpoints
+            print('Index array from 0 to', nYpoints)
             self.XTitle = 'Calibcycle index'
             self.PlotTitle = 'Plot ' + str(win+1) + ': <Parameter> vs calibcycle index'
             self.plotWaveform()
 
         elif self.radioXPar == 1 : # for Time
             self.Xarr -= self.Xarr[0]
-            print 'Time array :\n', self.Xarr 
+            print('Time array :\n', self.Xarr) 
             self.XTitle = '<Time> (sec)'
             self.PlotTitle = 'Plot ' + str(win+1) + ': <Parameter> vs calibcycle <Time>'
             self.plotWaveform()
 
         elif self.radioXPar == 2 : # for X-Parameter
-            print 'X-Parameter array :\n', self.Xarr
+            print('X-Parameter array :\n', self.Xarr)
             self.XTitle = self.XParName
             self.PlotTitle = 'Plot ' + str(win+1) + ': Correlations of two <parameters> over calibcycles'
             self.markerStyle = 'bo-'
@@ -269,13 +270,13 @@ class PlotsForCalibCycles ( object ) :
 
 
     def excludeNanFromArray(self, arr) :
-        print arr
-        print arr.shape[0]
+        print(arr)
+        print(arr.shape[0])
         newarr = []
         for val in arr :
             if np.isnan(val) : continue
             newarr.append(val)
-        print 'WARNING: All NaN parameters are excluded...'
+        print('WARNING: All NaN parameters are excluded...')
         return np.array(newarr)
 
 
@@ -317,21 +318,21 @@ class PlotsForCalibCycles ( object ) :
         #self.Yarr # is assumed to be available
         XTimedsname  = printh5.get_item_path_to_last_name(self.Xdsname) + '/time'
         YTimedsname  = printh5.get_item_path_to_last_name(self.Ydsname) + '/time'
-        print 'Xdsname =',self.Xdsname 
-        print 'Ydsname =',self.Ydsname 
+        print('Xdsname =',self.Xdsname) 
+        print('Ydsname =',self.Ydsname) 
         self.dsXT = self.h5file[XTimedsname]
         self.dsYT = self.h5file[YTimedsname]
         self.XTarr = 0.000000001 * self.dsXT['nanoseconds'] + self.dsXT['seconds']
         self.YTarr = 0.000000001 * self.dsYT['nanoseconds'] + self.dsYT['seconds']
-        print 'self.XTarr =', self.XTarr
-        print 'self.YTarr =', self.YTarr
+        print('self.XTarr =', self.XTarr)
+        print('self.YTarr =', self.YTarr)
         self._nXpoints = self.dsX.shape[0]
         self._nYpoints = self.dsY.shape[0]
         self._indX=0
         self._indY=0
         self._tmapXlist = []
         self._tmapYlist = []
-        print 'mapCorrelatingArraysByTimeInit :map arrays of different length by time, X, Y length=', self._nXpoints, self._nYpoints
+        print('mapCorrelatingArraysByTimeInit :map arrays of different length by time, X, Y length=', self._nXpoints, self._nYpoints)
 
 
 
@@ -356,7 +357,7 @@ class PlotsForCalibCycles ( object ) :
     def mapCorrelatingArraysByTimeSummary( self ) :
         self.Xarr = np.array(self._tmapXlist)
         self.Yarr = np.array(self._tmapYlist)
-        print 'Number of synchronized in time array elements =', self.Xarr.shape
+        print('Number of synchronized in time array elements =', self.Xarr.shape)
 
 
     def mapCorrelatingArraysByTime ( self ) :

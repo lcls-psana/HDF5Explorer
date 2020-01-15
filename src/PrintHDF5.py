@@ -74,7 +74,7 @@ def print_hdf5_item_structure(g, offset='    ') :
         sys.exit ( "EXECUTION IS TERMINATED" )
 
     if isinstance(g, h5py.File) or isinstance(g, h5py.Group) :
-        for key,val in dict(g).iteritems() :
+        for key,val in dict(g).items() :
             subg = val
             print(offset, key, end=' ') #,"   ", subg.name #, val, subg.len(), type(subg),
             print_hdf5_item_structure(subg, offset + '    ')
@@ -291,8 +291,8 @@ def print_file_info(file):
 
     print("file.name           = ", file.name)
     print("file.attrs          = ", file.attrs) 
-    print("file.attrs.keys()   = ", file.attrs.keys()) 
-    print("file.attrs.values() = ", file.attrs.values()) 
+    print("file.attrs.keys()   = ", list(file.attrs.keys())) 
+    print("file.attrs.values() = ", list(file.attrs.values())) 
     print("file.id             = ", file.id) 
     print("file.ref            = ", file.ref) 
     print("file.parent         = ", file.parent)
@@ -306,7 +306,7 @@ def print_file_info(file):
 def print_group_items(g):
     """Prints items in this group"""
 
-    list_of_items = g.items()
+    list_of_items = list(g.items())
     Nitems = len(list_of_items)
     print("Number of items in the group = ", Nitems)
     #print "g.items() = ", list_of_items
@@ -323,10 +323,10 @@ def print_attributes(ds):
     print("Number of attrs.  = ", Nattrs)
     if Nattrs != 0 :
         print("ds.attrs          = ", ds.attrs) 
-        print("ds.attrs.keys()   = ", ds.attrs.keys()) 
-        print("ds.attrs.values() = ", ds.attrs.values()) 
+        print("ds.attrs.keys()   = ", list(ds.attrs.keys())) 
+        print("ds.attrs.values() = ", list(ds.attrs.values())) 
         print('Attributes :')
-        for key,val in dict(ds.attrs).iteritems() :
+        for key,val in dict(ds.attrs).items() :
             print('%24s : %s' % (key, val))
 
 

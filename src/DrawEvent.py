@@ -108,7 +108,7 @@ class DrawEvent ( object ) :
         #print 'Check if the item "_dim_fix_flag_201103" is in the group', dsname
         path  = gm.get_item_path_to_last_name(dsname)
         group = self.h5file[path]
-        if '_dim_fix_flag_201103' in group.keys() : return True
+        if '_dim_fix_flag_201103' in list(group.keys()) : return True
         else :                                      return False 
 
     def selectionIsPassed(self) :

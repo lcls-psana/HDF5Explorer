@@ -42,7 +42,7 @@ import GlobalMethods as gm
 #-----------------------------
 #  Class definition --
 #-----------------------------
-class CalibCycles :
+class CalibCycles(object) :
     """Helper class for operations with CalibCycles
     """
 
@@ -85,7 +85,7 @@ class CalibCycles :
     def extractNumberOfCalibCyclesFromOpenFile(self, h5file, dsname) :
         runGroupName = self.getRunGroupName(dsname)
         g = h5file[runGroupName]
-        self.numberOfCalibCycles = len(g.items())
+        self.numberOfCalibCycles = len(list(g.items()))
         return self.numberOfCalibCycles 
 
 #-----------------------------

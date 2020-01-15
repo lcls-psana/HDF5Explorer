@@ -116,7 +116,7 @@ class PlotsForCorrelations ( object ) :
         self.markerStyle = 'bs-'
 
         if   self.radioXPar == 0 : # for Index
-            self.Xarr = range(self.nYpoints)
+            self.Xarr = list(range(self.nYpoints))
             print('Index array from 0 to', self.nYpoints)
             self.XTitle = 'Index'
             self.PlotTitle = 'Plot ' + str(win+1) + ': Parameter vs Index'

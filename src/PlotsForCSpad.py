@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -141,7 +142,7 @@ class PlotsForCSpad ( object ) :
 
         arrgap=zeros( (185,4) ) # make additional 2D-array of 0-s for the gap between two 1x1 pads
         
-        for ind in xrange(8): # loop over ind = 0,1,2,...,7
+        for ind in range(8): # loop over ind = 0,1,2,...,7
             pair = cs.confcspad.indPairsInQuads[self.quad][ind]
             #print 'quad,ind,pair=', self.quad, ind, pair
             if pair == -1 : continue
@@ -202,7 +203,7 @@ class PlotsForCSpad ( object ) :
         arr2dquad = np.zeros( (cs.confcspad.quadDimX,cs.confcspad.quadDimY), dtype=np.float ) # dtype=np.int16 
         #print 'arr2dquad.shape=',arr2dquad.shape
 
-        for ind in xrange(8): # loop over ind = 0,1,2,...,7
+        for ind in range(8): # loop over ind = 0,1,2,...,7
 #        for ind in xrange(1): # loop over ind = 0,1,2,...,7
             pair = cs.confcspad.indPairsInQuads[self.quad][ind]
             #print 'quad,ind,pair=', self.quad, ind, pair
@@ -577,7 +578,7 @@ class PlotsForCSpad ( object ) :
         t_start = time.clock()
         
         #for pair in xrange(8): # loop for pair = 0,1,2,...,7
-        for ind in xrange(8): # loop over ind = 0,1,2,...,7
+        for ind in range(8): # loop over ind = 0,1,2,...,7
             pair = cs.confcspad.indPairsInQuads[self.quad][ind]
             #print 'quad,ind,pair=', self.quad, ind, pair
             if pair == -1 : continue
@@ -628,7 +629,7 @@ class PlotsForCSpad ( object ) :
         asicN_vs_plot_posN = {0:9, 1:10, 2:13, 3:14, 4:2, 5:6, 6:1, 7:5, 8:8, 9:7, 10:4, 11:3, 12:12, 13:16, 14:11, 15:15}
 
         #for pair in xrange(8): # loop for pair = 0,1,2,...,7
-        for ind in xrange(8): # loop over ind = 0,1,2,...,7
+        for ind in range(8): # loop over ind = 0,1,2,...,7
             pair = cs.confcspad.indPairsInQuads[self.quad][ind]
             #print 'quad,ind,pair=', self.quad, ind, pair
             if pair == -1 : continue
@@ -644,7 +645,7 @@ class PlotsForCSpad ( object ) :
             
             asics=hsplit(asic1d,2)
 
-            for inpair in xrange(2) :
+            for inpair in range(2) :
                 asic = asics[inpair]
                 #plt.subplot(4,4,2*ind+inpair+1)
                 plt.subplot(4,4,asicN_vs_plot_posN[2*ind+inpair])

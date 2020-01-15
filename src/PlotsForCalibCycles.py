@@ -111,7 +111,7 @@ class PlotsForCalibCycles ( object ) :
 
 
         g = h5file[runGroupName]
-        number_of_calibcycles = len(g.items())
+        number_of_calibcycles = len(list(g.items()))
         print('Number of calibcycles in the run group:', number_of_calibcycles)
 
 
@@ -196,7 +196,7 @@ class PlotsForCalibCycles ( object ) :
         self.markerStyle = 'bs-'
 
         if self.radioXPar == 0 : # for CalibCycle Index
-            self.Xarr = range(nYpoints)
+            self.Xarr = list(range(nYpoints))
             print('Index array from 0 to', nYpoints)
             self.XTitle = 'Calibcycle index'
             self.PlotTitle = 'Plot ' + str(win+1) + ': <Parameter> vs calibcycle index'

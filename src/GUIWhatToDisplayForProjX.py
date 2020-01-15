@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -213,19 +214,19 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
 
     def setBinning(self) :
         if cp.confpars.projX_BinWidthIsOn :
-            cp.confpars.projX_NBins    = (cp.confpars.projX_Xmax - cp.confpars.projX_Xmin) / cp.confpars.projX_BinWidth
+            cp.confpars.projX_NBins    = (cp.confpars.projX_Xmax - cp.confpars.projX_Xmin) // cp.confpars.projX_BinWidth
             self.editProjNBins.setText( str(cp.confpars.projX_NBins) )            
         else :
-            cp.confpars.projX_BinWidth = (cp.confpars.projX_Xmax - cp.confpars.projX_Xmin) / cp.confpars.projX_NBins
+            cp.confpars.projX_BinWidth = (cp.confpars.projX_Xmax - cp.confpars.projX_Xmin) // cp.confpars.projX_NBins
             self.editProjBinWidth.setText( str(cp.confpars.projX_BinWidth) )  
 
 
     def setSlicing(self) :
         if cp.confpars.projX_SliWidthIsOn :
-            cp.confpars.projX_NSlices  = (cp.confpars.projX_Ymax - cp.confpars.projX_Ymin) / cp.confpars.projX_SliWidth
+            cp.confpars.projX_NSlices  = (cp.confpars.projX_Ymax - cp.confpars.projX_Ymin) // cp.confpars.projX_SliWidth
             self.editProjNSlices.setText( str(cp.confpars.projX_NSlices) )            
         else :
-            cp.confpars.projX_SliWidth = (cp.confpars.projX_Ymax - cp.confpars.projX_Ymin) / cp.confpars.projX_NSlices
+            cp.confpars.projX_SliWidth = (cp.confpars.projX_Ymax - cp.confpars.projX_Ymin) // cp.confpars.projX_NSlices
             self.editProjSliWidth.setText( str(cp.confpars.projX_SliWidth) )  
 
 

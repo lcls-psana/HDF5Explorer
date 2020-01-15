@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -303,11 +304,11 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
         BinWidth = cp.confpars.imageWindowParameters[self.window][6]
 
         if cp.confpars.imageWindowParameters[self.window][9] :
-            Nbins = (Amax - Amin) / BinWidth
+            Nbins = (Amax - Amin) // BinWidth
             self.editIMSpectrumNBins.setText( str(Nbins) )
             cp.confpars.imageWindowParameters[self.window][5] = Nbins
         else :
-            BinWidth = (Amax - Amin) / Nbins
+            BinWidth = (Amax - Amin) // Nbins
             if BinWidth<1 : BinWidth=1
             self.editIMSpectrumBinWidth.setText( str(BinWidth) )  
             cp.confpars.imageWindowParameters[self.window][6] = BinWidth 

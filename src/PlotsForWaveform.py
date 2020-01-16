@@ -20,6 +20,7 @@ part of it, please give an appropriate acknowledgment.
 """
 from __future__ import print_function
 from __future__ import division
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -42,8 +43,8 @@ from numpy import *
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import ConfigParameters as cp
-import PrintHDF5        as printh5
+from . import ConfigParameters as cp
+from . import PrintHDF5        as printh5
 
 #---------------------
 #  Class definition --

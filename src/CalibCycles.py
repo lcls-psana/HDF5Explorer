@@ -20,6 +20,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -37,7 +38,7 @@ import h5py
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import GlobalMethods as gm
+from . import GlobalMethods as gm
 
 #-----------------------------
 #  Class definition --

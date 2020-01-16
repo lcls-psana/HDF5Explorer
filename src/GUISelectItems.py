@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 
 #------------------------------
@@ -36,9 +37,9 @@ from PyQt4 import QtGui, QtCore
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import HDF5TreeViewModel    as h5model
-import ConfigParameters     as cp
-import PrintHDF5            as printh5
+from . import HDF5TreeViewModel    as h5model
+from . import ConfigParameters     as cp
+from . import PrintHDF5            as printh5
 import AppUtils.AppDataPath as apputils
 
 #---------------------

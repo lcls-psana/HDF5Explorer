@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -45,18 +46,18 @@ from PyQt4 import QtGui
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import ConfigParameters          as cp
-import ConfigCSpad               as cs
-import PlotsForCSpad             as cspad
-import PlotsForImage             as image
-import PlotsForWaveform          as wavef
-import PlotsForCorrelations      as corrs
-import PlotsForCalibCycles       as calib
-import PlotsForCSpadProjections  as cspadproj
-import PlotsForImageProjections  as imageproj
-import PrintHDF5                 as printh5
-import GlobalMethods             as gm
-import CalibCycles               as cc
+from . import ConfigParameters          as cp
+from . import ConfigCSpad               as cs
+from . import PlotsForCSpad             as cspad
+from . import PlotsForImage             as image
+from . import PlotsForWaveform          as wavef
+from . import PlotsForCorrelations      as corrs
+from . import PlotsForCalibCycles       as calib
+from . import PlotsForCSpadProjections  as cspadproj
+from . import PlotsForImageProjections  as imageproj
+from . import PrintHDF5                 as printh5
+from . import GlobalMethods             as gm
+from . import CalibCycles               as cc
 
 #---------------------
 #  Class definition --

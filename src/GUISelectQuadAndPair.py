@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 
 #------------------------------
@@ -36,8 +37,8 @@ import time   # for sleep(sec)
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import ConfigParameters as cp
-import ConfigCSpad      as cs
+from . import ConfigParameters as cp
+from . import ConfigCSpad      as cs
 
 #---------------------
 #  Class definition --

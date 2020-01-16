@@ -9,6 +9,7 @@
 
 """GUI works with configuration parameters management"""
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -29,7 +30,7 @@ from PyQt4 import QtGui, QtCore
 # Imports for other modules --
 #-----------------------------
 
-import ConfigParameters as cp
+from . import ConfigParameters as cp
 
 #---------------------
 #  Class definition --

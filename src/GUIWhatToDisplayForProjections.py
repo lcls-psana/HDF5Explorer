@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 
 #------------------------------
@@ -32,15 +33,15 @@ import os
 
 from PyQt4 import QtGui, QtCore
 import time   # for sleep(sec)
-import GUIWhatToDisplayForProjR   as guiprojr
-import GUIWhatToDisplayForProjPhi as guiprojphi
-import GUIWhatToDisplayForProjX   as guiprojx
-import GUIWhatToDisplayForProjY   as guiprojy
+from . import GUIWhatToDisplayForProjR   as guiprojr
+from . import GUIWhatToDisplayForProjPhi as guiprojphi
+from . import GUIWhatToDisplayForProjX   as guiprojx
+from . import GUIWhatToDisplayForProjY   as guiprojy
 
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import ConfigParameters as cp
+from . import ConfigParameters as cp
 
 #---------------------
 #  Class definition --

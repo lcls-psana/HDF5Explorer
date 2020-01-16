@@ -22,6 +22,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 #--------------------------------
 import sys
 import os
@@ -32,15 +33,15 @@ import time   # for sleep(sec)
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import GUIPlayer          as guiplr
-import GUIComplexCommands as guicomplex
-import GUIWhatToDisplay   as guiwtd
-import GUISelectItems     as guiselitems
-import GUIConfiguration   as guiconfig
-import GUISelection       as guisel
-import ConfigParameters   as cp
+from . import GUIPlayer          as guiplr
+from . import GUIComplexCommands as guicomplex
+from . import GUIWhatToDisplay   as guiwtd
+from . import GUISelectItems     as guiselitems
+from . import GUIConfiguration   as guiconfig
+from . import GUISelection       as guisel
+from . import ConfigParameters   as cp
 #import DrawEvent          as drev
-import PrintHDF5          as printh5 # for my print_group(g,offset)
+from . import PrintHDF5          as printh5 # for my print_group(g,offset)
 
 #---------------------
 #  Class definition --

@@ -20,6 +20,7 @@ part of it, please give an appropriate acknowledgment.
 """
 from __future__ import print_function
 from __future__ import division
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -46,10 +47,10 @@ import math # cos(x), sin(x), radians(x), degrees()
 # Imports for other modules --
 #-----------------------------
 
-import ConfigParameters as cp
-import ConfigCSpad      as cs
-import PrintHDF5        as printh5
-import GlobalMethods    as gm
+from . import ConfigParameters as cp
+from . import ConfigCSpad      as cs
+from . import PrintHDF5        as printh5
+from . import GlobalMethods    as gm
 
 #---------------------
 #  Class definition --

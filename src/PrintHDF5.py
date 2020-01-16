@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 
 #------------------------------
@@ -40,7 +41,7 @@ import h5py
 #-----------------------------
 #from PkgPackage.PkgModule import PkgClass
 
-import ConfigParameters as cp
+from . import ConfigParameters as cp
 
 #------------------------
 # Exported definitions --

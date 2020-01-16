@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 
 #------------------------------
@@ -32,12 +33,12 @@ import os
 
 from PyQt4 import QtGui, QtCore
 import time   # for sleep(sec)
-import GUIWhatToDisplayForCSpadWindow as guiwin
+from . import GUIWhatToDisplayForCSpadWindow as guiwin
 
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import ConfigParameters as cp
+from . import ConfigParameters as cp
 
 #---------------------
 #  Class definition --

@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -39,22 +40,22 @@ from PyQt4 import QtGui, QtCore
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-import ConfigParameters                as cp
-import GlobalMethods                   as gm
-import GUIWhatToDisplayCBoxCSpad       as cboxCS
-import GUIWhatToDisplayCBoxImage       as cboxIM
-import GUIWhatToDisplayCBoxOther       as cboxOT
-import GUIWhatToDisplayAlternative     as wtdAL
-import GUIWhatToDisplayForImage        as wtdIM 
-import GUIWhatToDisplayForCSpad        as wtdCS 
-import GUIWhatToDisplayForWaveform     as wtdWF
-import GUIWhatToDisplayForProjections  as wtdPR
-import GUICorrelation                  as wtdCO
-import GUICalibCycle                   as wtdCC
-import GUIConfiguration                as guiconfig
-import GUISelection                    as guisel
-import GUIBackground                   as guiBG
-import GUIGainCorrection               as guiGC
+from . import ConfigParameters                as cp
+from . import GlobalMethods                   as gm
+from . import GUIWhatToDisplayCBoxCSpad       as cboxCS
+from . import GUIWhatToDisplayCBoxImage       as cboxIM
+from . import GUIWhatToDisplayCBoxOther       as cboxOT
+from . import GUIWhatToDisplayAlternative     as wtdAL
+from . import GUIWhatToDisplayForImage        as wtdIM 
+from . import GUIWhatToDisplayForCSpad        as wtdCS 
+from . import GUIWhatToDisplayForWaveform     as wtdWF
+from . import GUIWhatToDisplayForProjections  as wtdPR
+from . import GUICorrelation                  as wtdCO
+from . import GUICalibCycle                   as wtdCC
+from . import GUIConfiguration                as guiconfig
+from . import GUISelection                    as guisel
+from . import GUIBackground                   as guiBG
+from . import GUIGainCorrection               as guiGC
 
 #---------------------
 #  Class definition --

@@ -22,7 +22,7 @@ from __future__ import print_function
 
 import sys
 
-from PyQt4 import QtGui
+from PyQt5 import QtGui, QtWidgets
 from HDF5Explorer.GUIMain import GUIMain
 
 #------------------------------
@@ -45,7 +45,7 @@ if __name__ == "__main__" :
 
     input_parameters()
     print("Start %s" % __name__)
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = GUIMain(None, app)
     w.show()
     app.exec_()

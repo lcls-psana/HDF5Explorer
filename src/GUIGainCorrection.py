@@ -24,7 +24,7 @@ import sys
 import os
 from shutil import copy
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -39,7 +39,7 @@ from . import FastArrayTransformation as fat
 #---------------------
 #  Class definition --
 #---------------------
-class GUIGainCorrection ( QtGui.QWidget ) :
+class GUIGainCorrection ( QtWidgets.QWidget ) :
     """GUI works with gain correction parameters management"""
 
     #----------------
@@ -48,38 +48,38 @@ class GUIGainCorrection ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         #self.parent = cp.confpars.guimain
 
         self.setGeometry(370, 350, 500, 150)
         self.setWindowTitle('Gain correction')
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
 
         aveFileName = cp.confpars. aveDirName + '/' + cp.confpars. aveFileName        
 
-        self.titFile     = QtGui.QLabel('Gain correction file:')
-        self.titMake     = QtGui.QLabel('the gain correction file from' + aveFileName)
+        self.titFile     = QtWidgets.QLabel('Gain correction file:')
+        self.titMake     = QtWidgets.QLabel('the gain correction file from' + aveFileName)
 
-        self.butBrowse   = QtGui.QPushButton("Browse")
-        self.butMake     = QtGui.QPushButton("Make")
+        self.butBrowse   = QtWidgets.QPushButton("Browse")
+        self.butMake     = QtWidgets.QPushButton("Make")
 
-        self.cboxApply   = QtGui.QCheckBox('Apply gain correction',self)
+        self.cboxApply   = QtWidgets.QCheckBox('Apply gain correction',self)
 
         self.setCBState()
 
         #cp.confpars.confParsDirName  = os.getenv('HOME')
         path          = cp.confpars.gainDirName + '/' + cp.confpars.gainFileName
-        self.fileEdit = QtGui.QLineEdit(path)
+        self.fileEdit = QtWidgets.QLineEdit(path)
         
         self.showToolTips()
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(self.cboxApply,     0, 0, 1, 5)    
         grid.addWidget(self.titFile,       2, 0)    
         grid.addWidget(self.fileEdit,      3, 0, 1, 5)    
@@ -87,16 +87,16 @@ class GUIGainCorrection ( QtGui.QWidget ) :
         grid.addWidget(self.butMake,       4, 0)
         grid.addWidget(self.titMake,       4, 1, 1, 5)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addStretch(1)
         vbox.addLayout(grid)
         vbox.addStretch(1)
         self.setLayout(vbox)
 
-        self.connect(self.butBrowse,    QtCore.SIGNAL('clicked()'),          self.processBrowse  )
-        self.connect(self.butMake,      QtCore.SIGNAL('clicked()'),          self.processMake    )
-        self.connect(self.fileEdit,     QtCore.SIGNAL('editingFinished ()'), self.processFileEdit)
-        self.connect(self.cboxApply,    QtCore.SIGNAL('stateChanged(int)'),  self.processCBoxApply)
+        self.butBrowse.clicked.connect(self.processBrowse)
+        self.butMake.clicked.connect(self.processMake)
+        self.fileEdit.editingFinished .connect(self.processFileEdit)
+        self.cboxApply.stateChanged[int].connect(self.processCBoxApply)
 
         cp.confpars.gainGUIIsOpen = True
 
@@ -118,7 +118,7 @@ class GUIGainCorrection ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.gainGUIIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
             
     def processExit(self):
@@ -156,7 +156,7 @@ class GUIGainCorrection ( QtGui.QWidget ) :
         self.dirName,self.fileName = os.path.split(self.path)
         print('dirName  : %s' % (self.dirName))
         print('fileName : %s' % (self.fileName))
-        self.path = QtGui.QFileDialog.getOpenFileName(self,'Open file',self.dirName)
+        self.path = QtWidgets.QFileDialog.getOpenFileName(self,'Open file',self.dirName)[0]
         self.dirName,self.fileName = os.path.split(str(self.path))
         if self.dirName == '' or self.fileName == '' :
             print('Input dirName or fileName is empty... use default values')  
@@ -213,7 +213,7 @@ class GUIGainCorrection ( QtGui.QWidget ) :
 #
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIGainCorrection ()
     widget.show()
     app.exec_()

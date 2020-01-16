@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 from . import GUIWhatToDisplayForCSpadWindow as guiwin
 
@@ -43,7 +43,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayForCSpad ( QtGui.QWidget ) :
+class GUIWhatToDisplayForCSpad ( QtWidgets.QWidget ) :
     """This GUI defines the parameters for camera image plots"""
 
     #----------------
@@ -53,15 +53,15 @@ class GUIWhatToDisplayForCSpad ( QtGui.QWidget ) :
         """Constructor"""
 
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 500, 500, 250)
         self.setWindowTitle('What to display for image GUI')
 
         self.palette       = QtGui.QPalette()
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -69,37 +69,37 @@ class GUIWhatToDisplayForCSpad ( QtGui.QWidget ) :
 
         self.char_expand = u'\u25BE' # down-head triangle
 
-        self.titNWin  = QtGui.QLabel('Number of windows:')
+        self.titNWin  = QtWidgets.QLabel('Number of windows:')
 
-        self.butMenuNWin = QtGui.QPushButton(str(cp.confpars.cspadNWindows) + self.char_expand)
+        self.butMenuNWin = QtWidgets.QPushButton(str(cp.confpars.cspadNWindows) + self.char_expand)
         self.butMenuNWin.setMaximumWidth(30)
 
-        self.popupMenuNWin = QtGui.QMenu()
+        self.popupMenuNWin = QtWidgets.QMenu()
         for nwin in range(1,cp.confpars.cspadNWindowsMax+1) :
             self.popupMenuNWin.addAction(str(nwin))
 
-        self.hboxN = QtGui.QHBoxLayout() 
+        self.hboxN = QtWidgets.QHBoxLayout() 
         self.hboxN.addWidget(self.titNWin)
         self.hboxN.addWidget(self.butMenuNWin)
         self.hboxN.addStretch(1)     
 
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
         self.makeTabBarLayout()
 
         self.guiWin = guiwin.GUIWhatToDisplayForCSpadWindow() # for 0th window
         self.guiWin.setMinimumHeight(150)
 
-        self.hboxD = QtGui.QHBoxLayout()
+        self.hboxD = QtWidgets.QHBoxLayout()
         self.hboxD.addWidget(self.guiWin)
 
-        self.vboxGlobal = QtGui.QVBoxLayout()
+        self.vboxGlobal = QtWidgets.QVBoxLayout()
         self.vboxGlobal.addLayout(self.hboxN)
         self.vboxGlobal.addLayout(self.hboxT)
         self.vboxGlobal.addLayout(self.hboxD)
 
         self.setLayout(self.vboxGlobal)
 
-        self.connect(self.butMenuNWin,  QtCore.SIGNAL('clicked()'), self.processMenuNWin )
+        self.butMenuNWin.clicked.connect(self.processMenuNWin)
 
         self.showToolTips()
 
@@ -124,7 +124,7 @@ class GUIWhatToDisplayForCSpad ( QtGui.QWidget ) :
     def closeEvent(self, event):
         print('closeEvent for GUIWhatToDisplayForCSpad')
         cp.confpars.wtdCSWindowIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):
@@ -156,7 +156,7 @@ class GUIWhatToDisplayForCSpad ( QtGui.QWidget ) :
     def makeTabBarLayout(self,mode=None) :
 
         if mode != None : self.tabBar.close()
-        self.tabBar = QtGui.QTabBar()
+        self.tabBar = QtWidgets.QTabBar()
         #self.tabBar.setMovable(True) 
         for window in range(cp.confpars.cspadNWindows) :
 
@@ -166,7 +166,7 @@ class GUIWhatToDisplayForCSpad ( QtGui.QWidget ) :
             
         #self.hboxT = QtGui.QHBoxLayout() # it is already defined and added in layout
         self.hboxT.addWidget(self.tabBar) 
-        self.connect(self.tabBar, QtCore.SIGNAL('currentChanged(int)'), self.processTabBar)
+        self.tabBar.currentChanged[int].connect(self.processTabBar)
 
 
     def processTabBar(self):
@@ -203,7 +203,7 @@ class GUIWhatToDisplayForCSpad ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayForCSpad()
     ex.show()
     app.exec_()

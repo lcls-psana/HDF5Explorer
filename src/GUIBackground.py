@@ -24,7 +24,7 @@ import sys
 import os
 from shutil import copy
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -38,7 +38,7 @@ import numpy            as np
 #---------------------
 #  Class definition --
 #---------------------
-class GUIBackground ( QtGui.QWidget ) :
+class GUIBackground ( QtWidgets.QWidget ) :
     """GUI works with background parameters management"""
 
     #----------------
@@ -47,38 +47,38 @@ class GUIBackground ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         #self.parent = cp.confpars.guimain
 
         self.setGeometry(370, 350, 500, 150)
         self.setWindowTitle('Background')
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
 
         aveFileName = cp.confpars. aveDirName + '/' + cp.confpars. aveFileName        
 
-        self.titFile     = QtGui.QLabel('Background file:')
-        self.titCopy     = QtGui.QLabel(aveFileName + ' to the background file')
+        self.titFile     = QtWidgets.QLabel('Background file:')
+        self.titCopy     = QtWidgets.QLabel(aveFileName + ' to the background file')
 
-        self.butBrowse   = QtGui.QPushButton("Browse")
-        self.butCopy     = QtGui.QPushButton("Copy")
+        self.butBrowse   = QtWidgets.QPushButton("Browse")
+        self.butCopy     = QtWidgets.QPushButton("Copy")
 
-        self.cboxApply   = QtGui.QCheckBox('Apply background subtraction',self)
+        self.cboxApply   = QtWidgets.QCheckBox('Apply background subtraction',self)
 
         self.setCBState()
 
         #cp.confpars.confParsDirName  = os.getenv('HOME')
         path          = cp.confpars.bkgdDirName + '/' + cp.confpars.bkgdFileName
-        self.fileEdit = QtGui.QLineEdit(path)
+        self.fileEdit = QtWidgets.QLineEdit(path)
         
         self.showToolTips()
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(self.cboxApply,     0, 0, 1, 5)    
         grid.addWidget(self.titFile,       2, 0)    
         grid.addWidget(self.fileEdit,      3, 0, 1, 5)    
@@ -86,16 +86,16 @@ class GUIBackground ( QtGui.QWidget ) :
         grid.addWidget(self.butCopy,       4, 0, 1, 1)
         grid.addWidget(self.titCopy,       4, 1, 1, 5)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addStretch(1)
         vbox.addLayout(grid)
         vbox.addStretch(1)
         self.setLayout(vbox)
 
-        self.connect(self.butBrowse,    QtCore.SIGNAL('clicked()'),          self.processBrowse  )
-        self.connect(self.butCopy,      QtCore.SIGNAL('clicked()'),          self.processCopy    )
-        self.connect(self.fileEdit,     QtCore.SIGNAL('editingFinished ()'), self.processFileEdit)
-        self.connect(self.cboxApply,    QtCore.SIGNAL('stateChanged(int)'),  self.processCBoxApply)
+        self.butBrowse.clicked.connect(self.processBrowse)
+        self.butCopy.clicked.connect(self.processCopy)
+        self.fileEdit.editingFinished .connect(self.processFileEdit)
+        self.cboxApply.stateChanged[int].connect(self.processCBoxApply)
         cp.confpars.bkgdGUIIsOpen = True
 
 
@@ -116,7 +116,7 @@ class GUIBackground ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.bkgdGUIIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
     def processExit(self):
         #print 'Exit button'
@@ -164,7 +164,7 @@ class GUIBackground ( QtGui.QWidget ) :
         self.dirName,self.fileName = os.path.split(self.path)
         print('dirName  : %s' % (self.dirName))
         print('fileName : %s' % (self.fileName))
-        self.path = QtGui.QFileDialog.getOpenFileName(self,'Open file',self.dirName)
+        self.path = QtWidgets.QFileDialog.getOpenFileName(self,'Open file',self.dirName)[0]
         self.dirName,self.fileName = os.path.split(str(self.path))
         if self.dirName == '' or self.fileName == '' :
             print('Input dirName or fileName is empty... use default values')  
@@ -200,7 +200,7 @@ class GUIBackground ( QtGui.QWidget ) :
 #
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIBackground ()
     widget.show()
     app.exec_()

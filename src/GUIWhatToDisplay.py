@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -46,8 +46,8 @@ from . import GUIWhatToDisplayCBoxCSpad       as cboxCS
 from . import GUIWhatToDisplayCBoxImage       as cboxIM
 from . import GUIWhatToDisplayCBoxOther       as cboxOT
 from . import GUIWhatToDisplayAlternative     as wtdAL
-from . import GUIWhatToDisplayForImage        as wtdIM 
-from . import GUIWhatToDisplayForCSpad        as wtdCS 
+from . import GUIWhatToDisplayForImage        as wtdIM
+from . import GUIWhatToDisplayForCSpad        as wtdCS
 from . import GUIWhatToDisplayForWaveform     as wtdWF
 from . import GUIWhatToDisplayForProjections  as wtdPR
 from . import GUICorrelation                  as wtdCO
@@ -60,7 +60,7 @@ from . import GUIGainCorrection               as guiGC
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplay ( QtGui.QWidget ) :
+class GUIWhatToDisplay ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering.
 
     Detailed description should be here...
@@ -79,25 +79,25 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(370, 350, 500, 600)
         self.setWindowTitle('What and how to display')
 
         self.parent = parent
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         
-        self.butClose         = QtGui.QPushButton('Quit')
-        self.butSave          = QtGui.QPushButton('Save')
+        self.butClose         = QtWidgets.QPushButton('Quit')
+        self.butSave          = QtWidgets.QPushButton('Save')
 
         self.indTabOpen  = 0
-        self.tabBar      = QtGui.QTabBar()
-        self.tabBar.setShape(QtGui.QTabBar.RoundedNorth)
+        self.tabBar      = QtWidgets.QTabBar()
+        self.tabBar.setShape(QtWidgets.QTabBar.RoundedNorth)
        #self.tabBar.setShape(QtGui.QTabBar.TriangularNorth)
         self.indTabCS    = self.tabBar.addTab('CSpad')
         self.indTabIM    = self.tabBar.addTab('Image')
@@ -116,8 +116,8 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
         self.tabBar.setTabTextColor(self.indTabCO,QtGui.QColor('black'))
         self.tabBar.setTabTextColor(self.indTabCC,QtGui.QColor('red'))
 
-        self.tabBarBot           = QtGui.QTabBar()
-        self.tabBarBot.setShape(QtGui.QTabBar.RoundedSouth)
+        self.tabBarBot           = QtWidgets.QTabBar()
+        self.tabBarBot.setShape(QtWidgets.QTabBar.RoundedSouth)
         #self.tabBarBot.setShape(QtGui.QTabBar.TriangularSouth)
         self.indTabBotConfig     = self.tabBarBot.addTab('Configuration')
         self.indTabBotSelect     = self.tabBarBot.addTab('Selection')
@@ -126,33 +126,33 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
         self.indTabBotEmpty      = self.tabBarBot.addTab(18*' ')
         self.tabBarBot.setTabEnabled(self.indTabBotEmpty,False)
         
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
         self.hboxT.addWidget(self.tabBar) 
 
         self.guiTab = wtdCS.GUIWhatToDisplayForCSpad()          
         self.guiTab.setMinimumHeight(240)
 
-        self.hboxD = QtGui.QHBoxLayout()
+        self.hboxD = QtWidgets.QHBoxLayout()
         self.hboxD.addWidget(self.guiTab)
         self.guiTab.close()
 
-        self.hboxC = QtGui.QHBoxLayout()
+        self.hboxC = QtWidgets.QHBoxLayout()
         #self.hboxC.addWidget(self.butRefresh)
         self.hboxC.addWidget(self.butSave)
         self.hboxC.addStretch(2)
         self.hboxC.addWidget(self.butClose)
 
-        self.hboxTB = QtGui.QHBoxLayout()
+        self.hboxTB = QtWidgets.QHBoxLayout()
         self.hboxTB.addWidget(self.tabBarBot) 
 
-        self.vboxB = QtGui.QVBoxLayout()
+        self.vboxB = QtWidgets.QVBoxLayout()
         self.isOpenCS = False
         self.isOpenIM = False
         self.isOpenOT = False
         
         self.makeVBoxB()
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.vboxB)
         self.vbox.addStretch(1)     
         self.vbox.addLayout(self.hboxT)
@@ -164,10 +164,10 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
         self.setLayout(self.vbox)
   
         #self.connect(self.butRefresh,       QtCore.SIGNAL('clicked()'),           self.processRefresh   )
-        self.connect(self.butSave,          QtCore.SIGNAL('clicked()'),           self.processSave   )
-        self.connect(self.butClose,         QtCore.SIGNAL('clicked()'),           self.processClose  )
-        self.connect(self.tabBar,           QtCore.SIGNAL('currentChanged(int)'), self.processTabBar )
-        self.connect(self.tabBarBot,        QtCore.SIGNAL('currentChanged(int)'), self.processTabBarBot )
+        self.butSave.clicked.connect(self.processSave)
+        self.butClose.clicked.connect(self.processClose)
+        self.tabBar.currentChanged[int].connect(self.processTabBar)
+        self.tabBarBot.currentChanged[int].connect(self.processTabBarBot)
 
         self.showToolTips()
 
@@ -246,7 +246,7 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
         self.tabBar.close()
         self.tabBarBot.close()
         cp.confpars.wtdWindowIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -365,7 +365,7 @@ class GUIWhatToDisplay ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplay()
     ex.show()
     app.exec_()

@@ -23,7 +23,7 @@ __version__ = "$Revision: 4 $"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -35,7 +35,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIConfiguration ( QtGui.QWidget ) :
+class GUIConfiguration ( QtWidgets.QWidget ) :
     """GUI works with configuration parameters management"""
 
     #----------------
@@ -44,33 +44,33 @@ class GUIConfiguration ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.parent = cp.confpars.guimain
 
         self.setGeometry(370, 350, 500, 150)
         self.setWindowTitle('Configuration')
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         
-        self.titFile     = QtGui.QLabel('File with configuration parameters:')
-        self.titPars     = QtGui.QLabel('Operations on configuration parameters:')
-        self.titRadio    = QtGui.QLabel('At program start:')
+        self.titFile     = QtWidgets.QLabel('File with configuration parameters:')
+        self.titPars     = QtWidgets.QLabel('Operations on configuration parameters:')
+        self.titRadio    = QtWidgets.QLabel('At program start:')
 
-        self.butBrowse   = QtGui.QPushButton("Browse")
-        self.butRead     = QtGui.QPushButton("Read")
-        self.butWrite    = QtGui.QPushButton("Save")
-        self.butDefault  = QtGui.QPushButton("Reset default")
-        self.butPrint    = QtGui.QPushButton("Print current")
+        self.butBrowse   = QtWidgets.QPushButton("Browse")
+        self.butRead     = QtWidgets.QPushButton("Read")
+        self.butWrite    = QtWidgets.QPushButton("Save")
+        self.butDefault  = QtWidgets.QPushButton("Reset default")
+        self.butPrint    = QtWidgets.QPushButton("Print current")
         #self.butExit     = QtGui.QPushButton("Quit")
 
-        self.radioRead   = QtGui.QRadioButton("Read parameters from file")
-        self.radioDefault= QtGui.QRadioButton("Set default")
-        self.radioGroup  = QtGui.QButtonGroup()
+        self.radioRead   = QtWidgets.QRadioButton("Read parameters from file")
+        self.radioDefault= QtWidgets.QRadioButton("Set default")
+        self.radioGroup  = QtWidgets.QButtonGroup()
         self.radioGroup.addButton(self.radioRead)
         self.radioGroup.addButton(self.radioDefault)
         if cp.confpars.readParsFromFileAtStart : self.radioRead.setChecked(True)
@@ -78,18 +78,18 @@ class GUIConfiguration ( QtGui.QWidget ) :
 
         #cp.confpars.confParsDirName  = os.getenv('HOME')
         path          = cp.confpars.confParsDirName + '/' + cp.confpars.confParsFileName
-        self.fileEdit = QtGui.QLineEdit(path)
+        self.fileEdit = QtWidgets.QLineEdit(path)
         
         self.showToolTips()
 
-        hboxT1 = QtGui.QHBoxLayout()
+        hboxT1 = QtWidgets.QHBoxLayout()
         hboxT1.addWidget(self.titFile)
 
-        hboxF = QtGui.QHBoxLayout()
+        hboxF = QtWidgets.QHBoxLayout()
         hboxF.addWidget(self.fileEdit)
         hboxF.addWidget(self.butBrowse)
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(self.titPars,       0, 0, 1, 3)
         grid.addWidget(self.butRead,       1, 0)
         grid.addWidget(self.butWrite,      1, 1)
@@ -100,7 +100,7 @@ class GUIConfiguration ( QtGui.QWidget ) :
         #grid.addWidget(self.radioDefault,  3, 1, 1, 2)
         #grid.addWidget(self.butExit,       4, 3)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addStretch(2)
         vbox.addLayout(hboxT1)
         vbox.addLayout(hboxF)
@@ -110,14 +110,14 @@ class GUIConfiguration ( QtGui.QWidget ) :
         self.setLayout(vbox)
 
         #self.connect(self.butExit,      QtCore.SIGNAL('clicked()'),          self.processExit         )
-        self.connect(self.butRead,      QtCore.SIGNAL('clicked()'),          self.processRead         )
-        self.connect(self.butWrite,     QtCore.SIGNAL('clicked()'),          self.processWrite        )
-        self.connect(self.butPrint,     QtCore.SIGNAL('clicked()'),          self.processPrint        )
-        self.connect(self.butDefault,   QtCore.SIGNAL('clicked()'),          self.processDefault      )
-        self.connect(self.butBrowse,    QtCore.SIGNAL('clicked()'),          self.processBrowse       )
-        self.connect(self.radioRead,    QtCore.SIGNAL('clicked()'),          self.processRadioRead    )
-        self.connect(self.radioDefault, QtCore.SIGNAL('clicked()'),          self.processRadioDefault )
-        self.connect(self.fileEdit,     QtCore.SIGNAL('editingFinished ()'), self.processFileEdit     )
+        self.butRead.clicked.connect(self.processRead)
+        self.butWrite.clicked.connect(self.processWrite)
+        self.butPrint.clicked.connect(self.processPrint)
+        self.butDefault.clicked.connect(self.processDefault)
+        self.butBrowse.clicked.connect(self.processBrowse)
+        self.radioRead.clicked.connect(self.processRadioRead)
+        self.radioDefault.clicked.connect(self.processRadioDefault)
+        self.fileEdit.editingFinished .connect(self.processFileEdit)
 
         cp.confpars.configGUIIsOpen = True
 
@@ -147,7 +147,7 @@ class GUIConfiguration ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.configGUIIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processExit(self):
@@ -195,7 +195,7 @@ class GUIConfiguration ( QtGui.QWidget ) :
         self.dirName,self.fileName = os.path.split(self.path)
         print('dirName  : %s' % (self.dirName))
         print('fileName : %s' % (self.fileName))
-        self.path = QtGui.QFileDialog.getOpenFileName(self,'Open file',self.dirName)
+        self.path = QtWidgets.QFileDialog.getOpenFileName(self,'Open file',self.dirName)[0]
         self.dirName,self.fileName = os.path.split(str(self.path))
         #self.path = cp.confpars.confParsDirName + '/' + cp.confpars.confParsFileName
         #self.path = self.dirName+'/'+self.fileName
@@ -223,7 +223,7 @@ class GUIConfiguration ( QtGui.QWidget ) :
 #
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIConfiguration ()
     widget.show()
     app.exec_()

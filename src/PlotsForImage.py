@@ -42,7 +42,7 @@ from matplotlib.widgets import RectangleSelector
 #from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar2
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar2
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore
 
 #---------------------------------
 #  Imports of base class module --

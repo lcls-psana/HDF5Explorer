@@ -30,7 +30,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -44,7 +44,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayCBoxCSpad ( QtGui.QWidget ) :
+class GUIWhatToDisplayCBoxCSpad ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering."""
 
     #--------------------
@@ -58,41 +58,41 @@ class GUIWhatToDisplayCBoxCSpad ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(370, 350, 500, 150)
         self.setWindowTitle('What to display for CSpad?')
 
         self.parent = parent
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         
         titFont   = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
 
-        self.titCSpad    = QtGui.QLabel('CSpad')
+        self.titCSpad    = QtWidgets.QLabel('CSpad')
         self.titCSpad   .setFont (titFont) 
 
-        self.titCSImage       = QtGui.QLabel('Images:')
-        self.titCSSpectra     = QtGui.QLabel('Spectra:')
-        self.titCSImageSpec   = QtGui.QLabel('Image & Spectrum:')
-        self.titCSProjections = QtGui.QLabel('Projections:')
+        self.titCSImage       = QtWidgets.QLabel('Images:')
+        self.titCSSpectra     = QtWidgets.QLabel('Spectra:')
+        self.titCSImageSpec   = QtWidgets.QLabel('Image & Spectrum:')
+        self.titCSProjections = QtWidgets.QLabel('Projections:')
 
-        self.cboxCSApplyTiltAngle = QtGui.QCheckBox('Apply tilt angle for Quad and Det.', self)
-        self.cboxCSImageQuad      = QtGui.QCheckBox('Quad',               self)
-        self.cboxCSImageDet       = QtGui.QCheckBox('Detector',           self)
-        self.cboxCSImage          = QtGui.QCheckBox('8 of 2x1',           self)
-        self.cboxCSImageOfPair    = QtGui.QCheckBox('1 of 2x1',           self)
-        self.cboxCSSpectrum       = QtGui.QCheckBox('16 ASICs',           self)
-        self.cboxCSSpectrumDet    = QtGui.QCheckBox('Detecror',           self)
-        self.cboxCSSpectrum08     = QtGui.QCheckBox('8 of 2x1',           self)
-        self.cboxCSProjX          = QtGui.QCheckBox('X',                  self)
-        self.cboxCSProjY          = QtGui.QCheckBox('Y',                  self)
-        self.cboxCSProjR          = QtGui.QCheckBox('R',                  self)
-        self.cboxCSProjPhi        = QtGui.QCheckBox(u'\u03C6',            self) # Phi in Greek
+        self.cboxCSApplyTiltAngle = QtWidgets.QCheckBox('Apply tilt angle for Quad and Det.', self)
+        self.cboxCSImageQuad      = QtWidgets.QCheckBox('Quad',               self)
+        self.cboxCSImageDet       = QtWidgets.QCheckBox('Detector',           self)
+        self.cboxCSImage          = QtWidgets.QCheckBox('8 of 2x1',           self)
+        self.cboxCSImageOfPair    = QtWidgets.QCheckBox('1 of 2x1',           self)
+        self.cboxCSSpectrum       = QtWidgets.QCheckBox('16 ASICs',           self)
+        self.cboxCSSpectrumDet    = QtWidgets.QCheckBox('Detecror',           self)
+        self.cboxCSSpectrum08     = QtWidgets.QCheckBox('8 of 2x1',           self)
+        self.cboxCSProjX          = QtWidgets.QCheckBox('X',                  self)
+        self.cboxCSProjY          = QtWidgets.QCheckBox('Y',                  self)
+        self.cboxCSProjR          = QtWidgets.QCheckBox('R',                  self)
+        self.cboxCSProjPhi        = QtWidgets.QCheckBox(u'\u03C6',            self) # Phi in Greek
 
         if cp.confpars.cspadImageOfPairIsOn : self.cboxCSImageOfPair   .setCheckState(2)
         if cp.confpars.cspadImageIsOn       : self.cboxCSImage         .setCheckState(2)
@@ -109,7 +109,7 @@ class GUIWhatToDisplayCBoxCSpad ( QtGui.QWidget ) :
 
         self.showToolTips()
 
-        gridCS = QtGui.QGridLayout()
+        gridCS = QtWidgets.QGridLayout()
         gridCS.addWidget(self. titCSpad,            0, 0)
         gridCS.addWidget(self.cboxCSApplyTiltAngle, 0, 2, 1, 3)
 
@@ -133,22 +133,22 @@ class GUIWhatToDisplayCBoxCSpad ( QtGui.QWidget ) :
         gridCS.addWidget(self.cboxCSProjPhi,        4, 4)
         
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(gridCS) 
         self.setLayout(self.vbox)
   
-        self.connect(self.cboxCSImage,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSImage)
-        self.connect(self.cboxCSImageQuad,     QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSImageQuad)
-        self.connect(self.cboxCSImageDet,      QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSImageDet)
-        self.connect(self.cboxCSImageOfPair,   QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSImageOfPair)
-        self.connect(self.cboxCSSpectrum,      QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSSpectrum)
-        self.connect(self.cboxCSSpectrum08,    QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSSpectrum08)
-        self.connect(self.cboxCSSpectrumDet,   QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSSpectrumDet)
-        self.connect(self.cboxCSProjX,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSProjX)
-        self.connect(self.cboxCSProjY,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSProjY)
-        self.connect(self.cboxCSProjR,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSProjR)
-        self.connect(self.cboxCSProjPhi,       QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSProjPhi)
-        self.connect(self.cboxCSApplyTiltAngle,QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCSApplyTiltAngle)
+        self.cboxCSImage.stateChanged[int].connect(self.processCBoxCSImage)
+        self.cboxCSImageQuad.stateChanged[int].connect(self.processCBoxCSImageQuad)
+        self.cboxCSImageDet.stateChanged[int].connect(self.processCBoxCSImageDet)
+        self.cboxCSImageOfPair.stateChanged[int].connect(self.processCBoxCSImageOfPair)
+        self.cboxCSSpectrum.stateChanged[int].connect(self.processCBoxCSSpectrum)
+        self.cboxCSSpectrum08.stateChanged[int].connect(self.processCBoxCSSpectrum08)
+        self.cboxCSSpectrumDet.stateChanged[int].connect(self.processCBoxCSSpectrumDet)
+        self.cboxCSProjX.stateChanged[int].connect(self.processCBoxCSProjX)
+        self.cboxCSProjY.stateChanged[int].connect(self.processCBoxCSProjY)
+        self.cboxCSProjR.stateChanged[int].connect(self.processCBoxCSProjR)
+        self.cboxCSProjPhi.stateChanged[int].connect(self.processCBoxCSProjPhi)
+        self.cboxCSApplyTiltAngle.stateChanged[int].connect(self.processCBoxCSApplyTiltAngle)
 
 
     def showToolTips(self):
@@ -167,7 +167,7 @@ class GUIWhatToDisplayCBoxCSpad ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -281,7 +281,7 @@ class GUIWhatToDisplayCBoxCSpad ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayCBoxCSpad()
     ex.show()
     app.exec_()

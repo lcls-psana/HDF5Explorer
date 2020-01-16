@@ -35,7 +35,7 @@ __version__ = "$Revision: 4 $"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 
 #-----------------------------
@@ -47,7 +47,7 @@ from . import DrawEvent        as drev
 #---------------------
 #  Class definition --
 #---------------------
-class GUIPlayer(QtGui.QWidget) :
+class GUIPlayer(QtWidgets.QWidget) :
     """GUI which handles the event player buttons
     """
 
@@ -64,7 +64,7 @@ class GUIPlayer(QtGui.QWidget) :
         """Constructor"""
 
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(370, 10, 500, 150)
         self.setWindowTitle('Event player')
@@ -78,8 +78,8 @@ class GUIPlayer(QtGui.QWidget) :
         #print 'Current event number directly : %d ' % (cp.confpars.eventCurrent)
 
         # see http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/qframe.html
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -87,15 +87,15 @@ class GUIPlayer(QtGui.QWidget) :
 
         self.drawev   = drev.DrawEvent(self)
 
-        self.titCurr  = QtGui.QLabel('Current event:')
-        self.titDraw  = QtGui.QLabel('Draw:')
-        self.titSpan  = QtGui.QLabel('Increment:')
-        self.titSlShow= QtGui.QLabel('Slide show:')
+        self.titCurr  = QtWidgets.QLabel('Current event:')
+        self.titDraw  = QtWidgets.QLabel('Draw:')
+        self.titSpan  = QtWidgets.QLabel('Increment:')
+        self.titSlShow= QtWidgets.QLabel('Slide show:')
         #self.titOver  = QtGui.QLabel('over')
         #self.titEvents= QtGui.QLabel('events')
 
-        self.numbEdit = QtGui.QLineEdit(str(cp.confpars.eventCurrent))
-        self.spanEdit = QtGui.QLineEdit(str(cp.confpars.span))
+        self.numbEdit = QtWidgets.QLineEdit(str(cp.confpars.eventCurrent))
+        self.spanEdit = QtWidgets.QLineEdit(str(cp.confpars.span))
         #self.avevEdit = QtGui.QLineEdit(str(cp.confpars.numEventsAverage))
         self.numbEdit.setMaximumWidth(90)
         self.spanEdit.setMaximumWidth(45)
@@ -104,13 +104,13 @@ class GUIPlayer(QtGui.QWidget) :
         self.spanEdit.setValidator(QtGui.QIntValidator(1,1000000,self))
         #self.avevEdit.setValidator(QtGui.QIntValidator(1,1000000,self))
 
-        self.reset        = QtGui.QPushButton("Reset")
-        self.current      = QtGui.QPushButton("Current")
-        self.previous     = QtGui.QPushButton("Previous")
-        self.next         = QtGui.QPushButton("Next")
-        self.slideShow    = QtGui.QPushButton("Slide show")
-        self.start        = QtGui.QPushButton("Start")
-        self.stop         = QtGui.QPushButton("Stop")
+        self.reset        = QtWidgets.QPushButton("Reset")
+        self.current      = QtWidgets.QPushButton("Current")
+        self.previous     = QtWidgets.QPushButton("Previous")
+        self.next         = QtWidgets.QPushButton("Next")
+        self.slideShow    = QtWidgets.QPushButton("Slide show")
+        self.start        = QtWidgets.QPushButton("Start")
+        self.stop         = QtWidgets.QPushButton("Stop")
         #self.butAverage   = QtGui.QPushButton("Average")
         #self.butCorr      = QtGui.QPushButton("Correlations")
 
@@ -126,10 +126,10 @@ class GUIPlayer(QtGui.QWidget) :
         #self.spandec.setMaximumWidth(20) 
         self.reset  .setMaximumWidth(50)   
 
-        self.cboxSelection = QtGui.QCheckBox('Apply selection', self)
+        self.cboxSelection = QtWidgets.QCheckBox('Apply selection', self)
         if cp.confpars.selectionIsOn : self.cboxSelection.setCheckState(2)
  
-        hboxT = QtGui.QHBoxLayout() 
+        hboxT = QtWidgets.QHBoxLayout() 
         hboxT.addWidget(self.titCurr)
         hboxT.addWidget(self.numbEdit)
         hboxT.addStretch(1)     
@@ -140,19 +140,19 @@ class GUIPlayer(QtGui.QWidget) :
         hboxT.addStretch(1)     
         hboxT.addWidget(self.reset)
 
-        hboxM = QtGui.QHBoxLayout()
+        hboxM = QtWidgets.QHBoxLayout()
         hboxM.addWidget(self.titDraw)
         hboxM.addWidget(self.previous)
         hboxM.addWidget(self.current)
         hboxM.addWidget(self.next)
 
-        hboxS = QtGui.QHBoxLayout()
+        hboxS = QtWidgets.QHBoxLayout()
         hboxS.addWidget(self.titSlShow)
         hboxS.addWidget(self.start)
         hboxS.addWidget(self.stop)
         #hboxS.addWidget(self.closeplts)
 
-        hboxC = QtGui.QHBoxLayout()
+        hboxC = QtWidgets.QHBoxLayout()
         hboxC.addWidget(self.cboxSelection)        
         hboxC.addStretch(1)
 
@@ -168,7 +168,7 @@ class GUIPlayer(QtGui.QWidget) :
         #hbox.addStretch(3)
         #hbox.addWidget(self.exit)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(hboxC)
         vbox.addLayout(hboxT)
         vbox.addLayout(hboxM)
@@ -181,21 +181,21 @@ class GUIPlayer(QtGui.QWidget) :
 
         #self.connect(self.exit,      QtCore.SIGNAL('clicked()'), self.processQuit )
         #self.connect(self.closeplts, QtCore.SIGNAL('clicked()'), self.processClosePlots )
-        self.connect(self.next,      QtCore.SIGNAL('clicked()'), self.incrimentEventNo )
-        self.connect(self.previous,  QtCore.SIGNAL('clicked()'), self.decrimentEventNo )
-        self.connect(self.current,   QtCore.SIGNAL('clicked()'), self.currentEventNo )
-        self.connect(self.start,     QtCore.SIGNAL('clicked()'), self.processStart )
-        self.connect(self.stop,      QtCore.SIGNAL('clicked()'), self.processStop )
-        self.connect(self.reset,     QtCore.SIGNAL('clicked()'), self.processReset )
+        self.next.clicked.connect(self.incrimentEventNo)
+        self.previous.clicked.connect(self.decrimentEventNo)
+        self.current.clicked.connect(self.currentEventNo)
+        self.start.clicked.connect(self.processStart)
+        self.stop.clicked.connect(self.processStop)
+        self.reset.clicked.connect(self.processReset)
         #self.connect(self.spaninc,   QtCore.SIGNAL('clicked()'), self.processSpaninc )
         #self.connect(self.spandec,   QtCore.SIGNAL('clicked()'), self.processSpandec )
         #self.connect(self.butAverage,QtCore.SIGNAL('clicked()'), self.processAverage )
         #self.connect(self.butCorr,   QtCore.SIGNAL('clicked()'), self.processCorrelations )
         #self.connect(self.avevEdit,  QtCore.SIGNAL('editingFinished ()'), self.processAverageEventsEdit )
         
-        self.connect(self.numbEdit,      QtCore.SIGNAL('editingFinished ()'), self.processNumbEdit )
-        self.connect(self.spanEdit,      QtCore.SIGNAL('editingFinished ()'), self.processSpanEdit )
-        self.connect(self.cboxSelection, QtCore.SIGNAL('stateChanged(int)'),  self.processCBoxSelection)
+        self.numbEdit.editingFinished .connect(self.processNumbEdit)
+        self.spanEdit.editingFinished .connect(self.processSpanEdit)
+        self.cboxSelection.stateChanged[int].connect(self.processCBoxSelection)
 
         #self.setFocus()
         #self.resize(500, 300)
@@ -217,7 +217,7 @@ class GUIPlayer(QtGui.QWidget) :
         self.drawev.quitDrawEvent()
         self.SHowIsOn = False
         cp.confpars.playerGUIIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):
@@ -370,7 +370,7 @@ class GUIPlayer(QtGui.QWidget) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIPlayer()
     ex.show()
     app.exec_()

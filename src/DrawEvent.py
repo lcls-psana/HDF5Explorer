@@ -41,7 +41,7 @@ import matplotlib
 matplotlib.use('Qt4Agg') # forse Agg rendering to a Qt4 canvas (backend)
 import matplotlib.pyplot as plt
 
-from PyQt4 import QtGui
+from PyQt5 import QtGui, QtWidgets
 
 #-----------------------------
 # Imports for other modules --
@@ -356,7 +356,7 @@ class DrawEvent ( object ) :
 
         while (self.parent.SHowIsOn) :
             if cp.confpars.eventCurrent>eventEnd : break
-            QtGui.QApplication.processEvents()
+            QtWidgets.QApplication.processEvents()
             if not self.parent.SHowIsOn : break
             if self.selectionIsPassed() :
                 self.drawEventFromOpenFile(mode=0) # mode for slide show (draw())

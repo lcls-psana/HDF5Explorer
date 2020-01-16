@@ -46,7 +46,7 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -118,7 +118,7 @@ class MyNavigationToolbar ( NavigationToolbar ) :
 #---------------------
 
 
-class ImageWithGUI (QtGui.QMainWindow) :
+class ImageWithGUI (QtWidgets.QMainWindow) :
 #class ImageWithGUI (QtGui.QWidget) :
     """Plots for any 'image' record in the EventeDisplay project."""
 
@@ -127,7 +127,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
     #----------------
 
     def __init__(self, parent=None, fig=None, arr=None):
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setWindowTitle('PyQt GUI with matplotlib')
 
         self.styleSheetGrey  = "background-color: rgb(100, 100, 100); color: rgb(0, 0, 0)"
@@ -404,29 +404,29 @@ class ImageWithGUI (QtGui.QMainWindow) :
 
  
     def create_main_frame(self):
-        self.main_frame = QtGui.QWidget()
+        self.main_frame = QtWidgets.QWidget()
         self.canvas = FigureCanvas(self.fig)
         self.canvas.setParent(self.main_frame)
                 
         # Other GUI controls
         #
-        self.but_draw  = QtGui.QPushButton("&Draw")
-        self.but_quit  = QtGui.QPushButton("&Quit")
-        self.cbox_grid = QtGui.QCheckBox("Show &Grid")
+        self.but_draw  = QtWidgets.QPushButton("&Draw")
+        self.but_quit  = QtWidgets.QPushButton("&Quit")
+        self.cbox_grid = QtWidgets.QCheckBox("Show &Grid")
         self.cbox_grid.setChecked(False)
-        self.cbox_log  = QtGui.QCheckBox("&Log")
+        self.cbox_log  = QtWidgets.QCheckBox("&Log")
         self.cbox_log.setChecked(False)
 
-        self.cboxXIsOn = QtGui.QCheckBox("X min, max:")
-        self.cboxYIsOn = QtGui.QCheckBox("Y min, max:")
-        self.cboxZIsOn = QtGui.QCheckBox("Z min, max:")
+        self.cboxXIsOn = QtWidgets.QCheckBox("X min, max:")
+        self.cboxYIsOn = QtWidgets.QCheckBox("Y min, max:")
+        self.cboxZIsOn = QtWidgets.QCheckBox("Z min, max:")
 
-        self.editXmin  = QtGui.QLineEdit(self.stringOrNone(self.fig.myXmin))
-        self.editXmax  = QtGui.QLineEdit(self.stringOrNone(self.fig.myXmax))
-        self.editYmin  = QtGui.QLineEdit(self.stringOrNone(self.fig.myYmin))
-        self.editYmax  = QtGui.QLineEdit(self.stringOrNone(self.fig.myYmax))
-        self.editZmin  = QtGui.QLineEdit(self.stringOrNone(self.fig.myZmin))
-        self.editZmax  = QtGui.QLineEdit(self.stringOrNone(self.fig.myZmax))
+        self.editXmin  = QtWidgets.QLineEdit(self.stringOrNone(self.fig.myXmin))
+        self.editXmax  = QtWidgets.QLineEdit(self.stringOrNone(self.fig.myXmax))
+        self.editYmin  = QtWidgets.QLineEdit(self.stringOrNone(self.fig.myYmin))
+        self.editYmax  = QtWidgets.QLineEdit(self.stringOrNone(self.fig.myYmax))
+        self.editZmin  = QtWidgets.QLineEdit(self.stringOrNone(self.fig.myZmin))
+        self.editZmax  = QtWidgets.QLineEdit(self.stringOrNone(self.fig.myZmax))
 
         width = 60
         self.editXmin.setMaximumWidth(width)
@@ -443,21 +443,21 @@ class ImageWithGUI (QtGui.QMainWindow) :
         self.editZmin.setValidator(QtGui.QIntValidator(-100000,100000,self))
         self.editZmax.setValidator(QtGui.QIntValidator(-100000,100000,self))
  
-        self.connect(self.but_draw,  QtCore.SIGNAL('clicked()'),         self.processDraw)
-        self.connect(self.but_quit,  QtCore.SIGNAL('clicked()'),         self.on_quit)
-        self.connect(self.cbox_grid, QtCore.SIGNAL('stateChanged(int)'), self.processDraw)
-        self.connect(self.cbox_log,  QtCore.SIGNAL('stateChanged(int)'), self.processDraw)
+        self.but_draw.clicked.connect(self.processDraw)
+        self.but_quit.clicked.connect(self.on_quit)
+        self.cbox_grid.stateChanged[int].connect(self.processDraw)
+        self.cbox_log.stateChanged[int].connect(self.processDraw)
 
-        self.connect(self.cboxXIsOn, QtCore.SIGNAL('stateChanged(int)'), self.processCBoxes)
-        self.connect(self.cboxYIsOn, QtCore.SIGNAL('stateChanged(int)'), self.processCBoxes)
-        self.connect(self.cboxZIsOn, QtCore.SIGNAL('stateChanged(int)'), self.processCBoxes)
+        self.cboxXIsOn.stateChanged[int].connect(self.processCBoxes)
+        self.cboxYIsOn.stateChanged[int].connect(self.processCBoxes)
+        self.cboxZIsOn.stateChanged[int].connect(self.processCBoxes)
 
-        self.connect(self.editXmin, QtCore.SIGNAL('editingFinished ()'), self.processEditXmin)
-        self.connect(self.editXmax, QtCore.SIGNAL('editingFinished ()'), self.processEditXmax)
-        self.connect(self.editYmin, QtCore.SIGNAL('editingFinished ()'), self.processEditYmin)
-        self.connect(self.editYmax, QtCore.SIGNAL('editingFinished ()'), self.processEditYmax)
-        self.connect(self.editZmin, QtCore.SIGNAL('editingFinished ()'), self.processEditZmin)
-        self.connect(self.editZmax, QtCore.SIGNAL('editingFinished ()'), self.processEditZmax)
+        self.editXmin.editingFinished .connect(self.processEditXmin)
+        self.editXmax.editingFinished .connect(self.processEditXmax)
+        self.editYmin.editingFinished .connect(self.processEditYmin)
+        self.editYmax.editingFinished .connect(self.processEditYmax)
+        self.editZmin.editingFinished .connect(self.processEditZmin)
+        self.editZmax.editingFinished .connect(self.processEditZmax)
 
         # Create the navigation toolbar, tied to the canvas
         #
@@ -466,33 +466,33 @@ class ImageWithGUI (QtGui.QMainWindow) :
         
         # Layout with box sizers
         # 
-        hbox = QtGui.QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.but_draw)
         hbox.addWidget(self.cbox_grid)
         hbox.addStretch(1)
         hbox.addWidget(self.but_quit)
         #hbox.setAlignment(w, QtCore.Qt.AlignVCenter)
 
-        hboxX = QtGui.QHBoxLayout()
+        hboxX = QtWidgets.QHBoxLayout()
         hboxX.addWidget(self.cboxXIsOn)
         hboxX.addWidget(self.editXmin)
         hboxX.addWidget(self.editXmax)
         hboxX.addStretch(1)
 
-        hboxY = QtGui.QHBoxLayout()
+        hboxY = QtWidgets.QHBoxLayout()
         hboxY.addWidget(self.cboxYIsOn)
         hboxY.addWidget(self.editYmin)
         hboxY.addWidget(self.editYmax)
         hboxY.addStretch(1)
 
-        hboxZ = QtGui.QHBoxLayout()
+        hboxZ = QtWidgets.QHBoxLayout()
         hboxZ.addWidget(self.cboxZIsOn)
         hboxZ.addWidget(self.editZmin)
         hboxZ.addWidget(self.editZmax)
         hboxZ.addWidget(self.cbox_log)
         hboxZ.addStretch(1)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addWidget(self.canvas)
         vbox.addWidget(self.mpl_toolbar)
         
@@ -509,7 +509,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
 
     
     def create_status_bar(self):
-        self.status_text = QtGui.QLabel("Status bar info is here")
+        self.status_text = QtWidgets.QLabel("Status bar info is here")
         self.statusBar().addWidget(self.status_text, 1)
 
 
@@ -522,7 +522,7 @@ class ImageWithGUI (QtGui.QMainWindow) :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     fig = Figure((5.0, 10.0), dpi=100, facecolor='w',edgecolor='w',frameon=True)
 

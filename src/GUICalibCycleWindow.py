@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #-----------------------------
 # Imports for other modules --
@@ -43,7 +43,7 @@ from . import GlobalMethods    as gm
 #---------------------
 #  Class definition --
 #---------------------
-class GUICalibCycleWindow ( QtGui.QWidget ) :
+class GUICalibCycleWindow ( QtWidgets.QWidget ) :
     """GUI manipulates with parameters for each correlation plot"""
 
     #----------------
@@ -51,7 +51,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None, window=0):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         print('GUICalibCycleWindow for plot', window)
 
@@ -69,15 +69,15 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         titFont12 = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
         titFont10 = QtGui.QFont("Sans Serif", 10, QtGui.QFont.Bold)
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         self.frame.setVisible(False)
 
-        self.cboxYlimits   = QtGui.QCheckBox('Ylims:',self)
-        self.cboxXlimits   = QtGui.QCheckBox('Xlims:',self)
+        self.cboxYlimits   = QtWidgets.QCheckBox('Ylims:',self)
+        self.cboxXlimits   = QtWidgets.QCheckBox('Xlims:',self)
 
         if cp.confpars.calibcycleWindowParameters[self.window][9]  : self.cboxYlimits.setCheckState(2)
         if cp.confpars.calibcycleWindowParameters[self.window][10] : self.cboxXlimits.setCheckState(2)
@@ -86,12 +86,12 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         height = 20
         width  = 60
 
-        self.editCalibCycleYmin  = QtGui.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][3]))
-        self.editCalibCycleYmax  = QtGui.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][4]))
-        self.editCalibCycleXmin  = QtGui.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][5]))
-        self.editCalibCycleXmax  = QtGui.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][6]))
-        self.editCalibCycleYNBins= QtGui.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][12]))
-        self.editCalibCycleXNBins= QtGui.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][13]))
+        self.editCalibCycleYmin  = QtWidgets.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][3]))
+        self.editCalibCycleYmax  = QtWidgets.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][4]))
+        self.editCalibCycleXmin  = QtWidgets.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][5]))
+        self.editCalibCycleXmax  = QtWidgets.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][6]))
+        self.editCalibCycleYNBins= QtWidgets.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][12]))
+        self.editCalibCycleXNBins= QtWidgets.QLineEdit(str(cp.confpars.calibcycleWindowParameters[self.window][13]))
 
         self.editCalibCycleYmin  .setMaximumWidth(width)
         self.editCalibCycleYmax  .setMaximumWidth(width)
@@ -115,38 +115,38 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         self.editCalibCycleYNBins.setValidator(QtGui.QIntValidator(1, 1000, self))
         self.editCalibCycleXNBins.setValidator(QtGui.QIntValidator(1, 1000, self))
         
-        self.titYNBins     = QtGui.QLabel('Y Nbins:')
-        self.titXNBins     = QtGui.QLabel('X Nbins:')
-        self.titVs         = QtGui.QLabel('Versus:')
+        self.titYNBins     = QtWidgets.QLabel('Y Nbins:')
+        self.titXNBins     = QtWidgets.QLabel('X Nbins:')
+        self.titVs         = QtWidgets.QLabel('Versus:')
 
-        self.radioLogZ     = QtGui.QRadioButton('log Z')
-        self.radioLinZ     = QtGui.QRadioButton('lin Z')
+        self.radioLogZ     = QtWidgets.QRadioButton('log Z')
+        self.radioLinZ     = QtWidgets.QRadioButton('lin Z')
 
-        self.radioGroupZScale = QtGui.QButtonGroup()
+        self.radioGroupZScale = QtWidgets.QButtonGroup()
         self.radioGroupZScale.addButton(self.radioLogZ)
         self.radioGroupZScale.addButton(self.radioLinZ)
 
         self.setZScaleRadioButtons()
 
-        self.radioVsIndex  = QtGui.QRadioButton('Index')
-        self.radioVsTime   = QtGui.QRadioButton('Time' )
-        self.radioVsXPar   = QtGui.QRadioButton('X-par')
-        self.radioYHist    = QtGui.QRadioButton('Y-histo.')
+        self.radioVsIndex  = QtWidgets.QRadioButton('Index')
+        self.radioVsTime   = QtWidgets.QRadioButton('Time' )
+        self.radioVsXPar   = QtWidgets.QRadioButton('X-par')
+        self.radioYHist    = QtWidgets.QRadioButton('Y-histo.')
 
-        self.radioGroup    = QtGui.QButtonGroup()
+        self.radioGroup    = QtWidgets.QButtonGroup()
         self.radioGroup.addButton(self.radioVsIndex)
         self.radioGroup.addButton(self.radioVsTime )
         self.radioGroup.addButton(self.radioVsXPar )
         self.radioGroup.addButton(self.radioYHist  )
 
-        self.titCalibCXDataSet = QtGui.QLabel('X-par:')
-        self.titCalibCYDataSet = QtGui.QLabel('Y-par:')
-        self.butCalibCXDataSet = QtGui.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][1])
-        self.butCalibCYDataSet = QtGui.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][0])
-        self.butCalibCXParName = QtGui.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][8])
-        self.butCalibCYParName = QtGui.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][7])
-        self.butCalibCXParIndex= QtGui.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][15])
-        self.butCalibCYParIndex= QtGui.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][14])
+        self.titCalibCXDataSet = QtWidgets.QLabel('X-par:')
+        self.titCalibCYDataSet = QtWidgets.QLabel('Y-par:')
+        self.butCalibCXDataSet = QtWidgets.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][1])
+        self.butCalibCYDataSet = QtWidgets.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][0])
+        self.butCalibCXParName = QtWidgets.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][8])
+        self.butCalibCYParName = QtWidgets.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][7])
+        self.butCalibCXParIndex= QtWidgets.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][15])
+        self.butCalibCYParIndex= QtWidgets.QPushButton(cp.confpars.calibcycleWindowParameters[self.window][14])
 
         self.butCalibCXDataSet  .setMaximumHeight(height)
         self.butCalibCYDataSet  .setMaximumHeight(height)
@@ -162,23 +162,23 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         self.setButCalibCXDataSetTextAlignment()
         self.setButCalibCYDataSetTextAlignment()
 
-        self.popupMenuForDataSet = QtGui.QMenu()
+        self.popupMenuForDataSet = QtWidgets.QMenu()
         self.fillPopupMenuForDataSet()
 
-        self.popupMenuForXParName = QtGui.QMenu()
+        self.popupMenuForXParName = QtWidgets.QMenu()
         self.fillPopupMenuForXParName()
 
-        self.popupMenuForYParName = QtGui.QMenu()
+        self.popupMenuForYParName = QtWidgets.QMenu()
         self.fillPopupMenuForYParName()
 
-        self.popupMenuForXParIndex = QtGui.QMenu()
+        self.popupMenuForXParIndex = QtWidgets.QMenu()
         self.fillPopupMenuForXParIndex()
 
-        self.popupMenuForYParIndex = QtGui.QMenu()
+        self.popupMenuForYParIndex = QtWidgets.QMenu()
         self.fillPopupMenuForYParIndex()
 
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
 
         grid.addWidget(self.titCalibCYDataSet,      0, 0)
         grid.addWidget(self.butCalibCYDataSet,      0, 1, 1, 4)
@@ -210,7 +210,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         grid.addWidget(self.editCalibCycleXNBins,   4, 5)
         grid.addWidget(self.radioLogZ,              4, 6)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(grid) 
         self.vbox.addStretch(1)     
 
@@ -221,30 +221,30 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
             self.setLayout(self.vbox)
             self.show()
 
-        self.connect(self.radioVsIndex,          QtCore.SIGNAL('clicked()'),          self.processRadioVsIndex )
-        self.connect(self.radioVsTime,           QtCore.SIGNAL('clicked()'),          self.processRadioVsTime )
-        self.connect(self.radioVsXPar,           QtCore.SIGNAL('clicked()'),          self.processRadioVsXPar )
-        self.connect(self.radioYHist,            QtCore.SIGNAL('clicked()'),          self.processRadioYHist )
+        self.radioVsIndex.clicked.connect(self.processRadioVsIndex)
+        self.radioVsTime.clicked.connect(self.processRadioVsTime)
+        self.radioVsXPar.clicked.connect(self.processRadioVsXPar)
+        self.radioYHist.clicked.connect(self.processRadioYHist)
 
-        self.connect(self.butCalibCXDataSet,     QtCore.SIGNAL('clicked()'),          self.processMenuForXDataSet )
-        self.connect(self.butCalibCYDataSet,     QtCore.SIGNAL('clicked()'),          self.processMenuForYDataSet )
-        self.connect(self.butCalibCXParName,     QtCore.SIGNAL('clicked()'),          self.processMenuForXParName )
-        self.connect(self.butCalibCYParName,     QtCore.SIGNAL('clicked()'),          self.processMenuForYParName )
-        self.connect(self.butCalibCXParIndex,    QtCore.SIGNAL('clicked()'),          self.processMenuForXParIndex )
-        self.connect(self.butCalibCYParIndex,    QtCore.SIGNAL('clicked()'),          self.processMenuForYParIndex )
+        self.butCalibCXDataSet.clicked.connect(self.processMenuForXDataSet)
+        self.butCalibCYDataSet.clicked.connect(self.processMenuForYDataSet)
+        self.butCalibCXParName.clicked.connect(self.processMenuForXParName)
+        self.butCalibCYParName.clicked.connect(self.processMenuForYParName)
+        self.butCalibCXParIndex.clicked.connect(self.processMenuForXParIndex)
+        self.butCalibCYParIndex.clicked.connect(self.processMenuForYParIndex)
 
-        self.connect(self.editCalibCycleYmin,    QtCore.SIGNAL('editingFinished ()'), self.processEditCalibCycleYmin )
-        self.connect(self.editCalibCycleYmax,    QtCore.SIGNAL('editingFinished ()'), self.processEditCalibCycleYmax )
-        self.connect(self.editCalibCycleXmin,    QtCore.SIGNAL('editingFinished ()'), self.processEditCalibCycleXmin )
-        self.connect(self.editCalibCycleXmax,    QtCore.SIGNAL('editingFinished ()'), self.processEditCalibCycleXmax )
+        self.editCalibCycleYmin.editingFinished .connect(self.processEditCalibCycleYmin)
+        self.editCalibCycleYmax.editingFinished .connect(self.processEditCalibCycleYmax)
+        self.editCalibCycleXmin.editingFinished .connect(self.processEditCalibCycleXmin)
+        self.editCalibCycleXmax.editingFinished .connect(self.processEditCalibCycleXmax)
 
-        self.connect(self.cboxYlimits,           QtCore.SIGNAL('stateChanged(int)'),  self.processCboxYlimits)
-        self.connect(self.cboxXlimits,           QtCore.SIGNAL('stateChanged(int)'),  self.processCboxXlimits)
+        self.cboxYlimits.stateChanged[int].connect(self.processCboxYlimits)
+        self.cboxXlimits.stateChanged[int].connect(self.processCboxXlimits)
 
-        self.connect(self.editCalibCycleYNBins,  QtCore.SIGNAL('editingFinished ()'), self.processEditCalibCycleYNBins )
-        self.connect(self.editCalibCycleXNBins,  QtCore.SIGNAL('editingFinished ()'), self.processEditCalibCycleXNBins )
-        self.connect(self.radioLogZ,             QtCore.SIGNAL('clicked()'),          self.processRadioLogZ )
-        self.connect(self.radioLinZ,             QtCore.SIGNAL('clicked()'),          self.processRadioLinZ )
+        self.editCalibCycleYNBins.editingFinished .connect(self.processEditCalibCycleYNBins)
+        self.editCalibCycleXNBins.editingFinished .connect(self.processEditCalibCycleXNBins)
+        self.radioLogZ.clicked.connect(self.processRadioLogZ)
+        self.radioLinZ.clicked.connect(self.processRadioLinZ)
   
         cp.confpars.calibcycleWindowIsOpen = True
 
@@ -284,7 +284,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
 
     def closeEvent(self, event):
         cp.confpars.calibcycleWindowIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -587,7 +587,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         print('dsname=', dsname)
         self.listOfDatasetParNames = printh5.getListOfDatasetParNames(dsname)
         del self.popupMenuForYParName
-        self.popupMenuForYParName=QtGui.QMenu()
+        self.popupMenuForYParName=QtWidgets.QMenu()
         for parName in self.listOfDatasetParNames :
             self.popupMenuForYParName.addAction(parName)
 
@@ -598,7 +598,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         print('dsname=', dsname)
         self.listOfDatasetParNames = printh5.getListOfDatasetParNames(dsname)
         del self.popupMenuForXParName
-        self.popupMenuForXParName=QtGui.QMenu()
+        self.popupMenuForXParName=QtWidgets.QMenu()
         for parName in self.listOfDatasetParNames :
             self.popupMenuForXParName.addAction(parName)
 
@@ -653,7 +653,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         print('dsname=', dsname, '   parname=', parname)
         self.listOfDatasetParIndexes = printh5.getListOfDatasetParIndexes(dsname,parname)
         del self.popupMenuForXParIndex
-        self.popupMenuForXParIndex=QtGui.QMenu()
+        self.popupMenuForXParIndex=QtWidgets.QMenu()
         for parIndex in self.listOfDatasetParIndexes :
             self.popupMenuForXParIndex.addAction(parIndex)
 
@@ -664,7 +664,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
         print('dsname=', dsname, '   parname=', parname)
         self.listOfDatasetParIndexes = printh5.getListOfDatasetParIndexes(dsname,parname)
         del self.popupMenuForYParIndex
-        self.popupMenuForYParIndex=QtGui.QMenu()
+        self.popupMenuForYParIndex=QtWidgets.QMenu()
         for parIndex in self.listOfDatasetParIndexes :
             self.popupMenuForYParIndex.addAction(parIndex)
 
@@ -694,7 +694,7 @@ class GUICalibCycleWindow ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUICalibCycleWindow()
     ex.show()
     app.exec_()

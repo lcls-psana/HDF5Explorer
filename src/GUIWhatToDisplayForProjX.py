@@ -32,7 +32,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #-----------------------------
 # Imports for other modules --
@@ -42,7 +42,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
+class GUIWhatToDisplayForProjX ( QtWidgets.QWidget ) :
     """GUI manipulates with parameters for event selection in particular window of the image."""
 
     #----------------
@@ -50,7 +50,7 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         print('GUIWhatToDisplayForProjX')
 
@@ -62,8 +62,8 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
         self.palette_grey  .setColor(QtGui.QPalette.Base,QtGui.QColor('grey'))
         self.palette_white .setColor(QtGui.QPalette.Base,QtGui.QColor('white'))
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -76,17 +76,17 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
         height = 22
         width  = 50
 
-        self.titXminmax      = QtGui.QLabel('X min, max:')
-        self.titYminmax      = QtGui.QLabel('Y min, max:')
+        self.titXminmax      = QtWidgets.QLabel('X min, max:')
+        self.titYminmax      = QtWidgets.QLabel('Y min, max:')
 
-        self.editProjNSlices = QtGui.QLineEdit(str(cp.confpars.projX_NSlices ))
-        self.editProjSliWidth= QtGui.QLineEdit(str(cp.confpars.projX_SliWidth))
-        self.editProjNBins   = QtGui.QLineEdit(str(cp.confpars.projX_NBins   ))
-        self.editProjBinWidth= QtGui.QLineEdit(str(cp.confpars.projX_BinWidth))        
-        self.editProjXmin    = QtGui.QLineEdit(str(cp.confpars.projX_Xmin    ))
-        self.editProjXmax    = QtGui.QLineEdit(str(cp.confpars.projX_Xmax    ))
-        self.editProjYmin    = QtGui.QLineEdit(str(cp.confpars.projX_Ymin  ))
-        self.editProjYmax    = QtGui.QLineEdit(str(cp.confpars.projX_Ymax  ))
+        self.editProjNSlices = QtWidgets.QLineEdit(str(cp.confpars.projX_NSlices ))
+        self.editProjSliWidth= QtWidgets.QLineEdit(str(cp.confpars.projX_SliWidth))
+        self.editProjNBins   = QtWidgets.QLineEdit(str(cp.confpars.projX_NBins   ))
+        self.editProjBinWidth= QtWidgets.QLineEdit(str(cp.confpars.projX_BinWidth))        
+        self.editProjXmin    = QtWidgets.QLineEdit(str(cp.confpars.projX_Xmin    ))
+        self.editProjXmax    = QtWidgets.QLineEdit(str(cp.confpars.projX_Xmax    ))
+        self.editProjYmin    = QtWidgets.QLineEdit(str(cp.confpars.projX_Ymin  ))
+        self.editProjYmax    = QtWidgets.QLineEdit(str(cp.confpars.projX_Ymax  ))
 
 
         self.editProjNSlices .setValidator(QtGui.QIntValidator(1, 1000,self))
@@ -99,15 +99,15 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
         self.editProjYmin    .setValidator(QtGui.QIntValidator(0, 2000,self))
         self.editProjYmax    .setValidator(QtGui.QIntValidator(0, 2000,self))
 
-        self.radioBinWidth = QtGui.QRadioButton("Bin width:")
-        self.radioNBins    = QtGui.QRadioButton("N bins:")
-        self.radioGroupBin = QtGui.QButtonGroup()
+        self.radioBinWidth = QtWidgets.QRadioButton("Bin width:")
+        self.radioNBins    = QtWidgets.QRadioButton("N bins:")
+        self.radioGroupBin = QtWidgets.QButtonGroup()
         self.radioGroupBin.addButton(self.radioBinWidth)
         self.radioGroupBin.addButton(self.radioNBins)
 
-        self.radioSliWidth = QtGui.QRadioButton("Slice width:")
-        self.radioNSlices  = QtGui.QRadioButton("N slices:")
-        self.radioGroupSli = QtGui.QButtonGroup()
+        self.radioSliWidth = QtWidgets.QRadioButton("Slice width:")
+        self.radioNSlices  = QtWidgets.QRadioButton("N slices:")
+        self.radioGroupSli = QtWidgets.QButtonGroup()
         self.radioGroupSli.addButton(self.radioSliWidth)
         self.radioGroupSli.addButton(self.radioNSlices)
 
@@ -121,7 +121,7 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
         self.setSliWidthReadOnly(not cp.confpars.projX_SliWidthIsOn)
 
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
 
         grid.addWidget(self.titXminmax,          0, 0, 2, 1)
         grid.addWidget(self.editProjXmin    ,    0, 1, 2, 1)
@@ -140,7 +140,7 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
         grid.addWidget(self.editProjNSlices ,    2, 4)
         grid.addWidget(self.editProjSliWidth,    3, 4)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(grid) 
         self.vbox.addStretch(1)     
 
@@ -148,19 +148,19 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
             self.setLayout(self.vbox)
             self.show()
 
-        self.connect(self.radioBinWidth,QtCore.SIGNAL('clicked()'),          self.processRadioBinWidth )
-        self.connect(self.radioNBins,   QtCore.SIGNAL('clicked()'),          self.processRadioNBins    )
-        self.connect(self.radioSliWidth,QtCore.SIGNAL('clicked()'),          self.processRadioSliWidth )
-        self.connect(self.radioNSlices, QtCore.SIGNAL('clicked()'),          self.processRadioNSlices  )
+        self.radioBinWidth.clicked.connect(self.processRadioBinWidth)
+        self.radioNBins.clicked.connect(self.processRadioNBins)
+        self.radioSliWidth.clicked.connect(self.processRadioSliWidth)
+        self.radioNSlices.clicked.connect(self.processRadioNSlices)
 
-        self.connect(self.editProjNSlices ,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjNSlices  )
-        self.connect(self.editProjSliWidth,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjSliWidth )
-        self.connect(self.editProjNBins   ,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjNBins    )
-        self.connect(self.editProjBinWidth,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjBinWidth )
-        self.connect(self.editProjXmin    ,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjXmin     )
-        self.connect(self.editProjXmax    ,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjXmax     )
-        self.connect(self.editProjYmin    ,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjYmin     )
-        self.connect(self.editProjYmax    ,  QtCore.SIGNAL('editingFinished ()'), self.processEditProjYmax     )
+        self.editProjNSlices.editingFinished .connect(self.processEditProjNSlices)
+        self.editProjSliWidth.editingFinished .connect(self.processEditProjSliWidth)
+        self.editProjNBins.editingFinished .connect(self.processEditProjNBins)
+        self.editProjBinWidth.editingFinished .connect(self.processEditProjBinWidth)
+        self.editProjXmin.editingFinished .connect(self.processEditProjXmin)
+        self.editProjXmax.editingFinished .connect(self.processEditProjXmax)
+        self.editProjYmin.editingFinished .connect(self.processEditProjYmin)
+        self.editProjYmax.editingFinished .connect(self.processEditProjYmax)
  
 #        cp.confpars.selectionWindowIsOpen = True
 
@@ -290,7 +290,7 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #cp.confpars.....WindowIsOpen = False
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -300,7 +300,7 @@ class GUIWhatToDisplayForProjX ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayForProjX()
     ex.show()
     app.exec_()

@@ -32,7 +32,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -50,7 +50,7 @@ from . import GUISelectQuadAndPair as guiquadpair
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
+class GUIWhatToDisplayForCSpadWindow ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering.
 
     Detailed description should be here...
@@ -69,7 +69,7 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None, window=0):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.window = window
         cp.confpars.fillCSPadConfigParsNamedFromWin(self.window)
@@ -84,8 +84,8 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
         self.palette_grey  .setColor(QtGui.QPalette.Base,QtGui.QColor('grey'))
         self.palette_red   .setColor(QtGui.QPalette.Base,QtGui.QColor('red'))
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -94,20 +94,20 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
         #titFont12 = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
         titFont10 = QtGui.QFont("Sans Serif", 10, QtGui.QFont.Bold)
 
-        self.titCSImage    = QtGui.QLabel('Image')
-        self.titCSSpectrum = QtGui.QLabel('Spectrum')
+        self.titCSImage    = QtWidgets.QLabel('Image')
+        self.titCSSpectrum = QtWidgets.QLabel('Spectrum')
         self.titCSImage    .setFont (titFont10)   
         self.titCSSpectrum .setFont (titFont10)
 
-        self.cboxImALimits = QtGui.QCheckBox('A min/max:',self)
-        self.cboxSpALimits = QtGui.QCheckBox('A min/max:',self)
+        self.cboxImALimits = QtWidgets.QCheckBox('A min/max:',self)
+        self.cboxSpALimits = QtWidgets.QCheckBox('A min/max:',self)
 
-        self.editCSImageAmin        = QtGui.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][1]))
-        self.editCSImageAmax        = QtGui.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][2]))
-        self.editCSSpectrumAmin     = QtGui.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][3]))
-        self.editCSSpectrumAmax     = QtGui.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][4]))
-        self.editCSSpectrumNBins    = QtGui.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][5]))
-        self.editCSSpectrumBinWidth = QtGui.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][6]))
+        self.editCSImageAmin        = QtWidgets.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][1]))
+        self.editCSImageAmax        = QtWidgets.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][2]))
+        self.editCSSpectrumAmin     = QtWidgets.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][3]))
+        self.editCSSpectrumAmax     = QtWidgets.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][4]))
+        self.editCSSpectrumNBins    = QtWidgets.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][5]))
+        self.editCSSpectrumBinWidth = QtWidgets.QLineEdit(str(cp.confpars.cspadWindowParameters[self.window][6]))
 
         self.editCSImageAmin        .setMaximumWidth(50)
         self.editCSImageAmax        .setMaximumWidth(50)
@@ -123,9 +123,9 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
         self.editCSSpectrumNBins    .setValidator(QtGui.QIntValidator(1,32000,self))
         self.editCSSpectrumBinWidth .setValidator(QtGui.QIntValidator(1,32000,self))
         
-        self.radioNBins    = QtGui.QRadioButton("N bins:")
-        self.radioBinWidth = QtGui.QRadioButton("Bin width:")
-        self.radioGroup    = QtGui.QButtonGroup()
+        self.radioNBins    = QtWidgets.QRadioButton("N bins:")
+        self.radioBinWidth = QtWidgets.QRadioButton("Bin width:")
+        self.radioGroup    = QtWidgets.QButtonGroup()
         self.radioGroup.addButton(self.radioNBins)
         self.radioGroup.addButton(self.radioBinWidth)
 
@@ -140,16 +140,16 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
         #self.butMenuNWin = QtGui.QPushButton(str(cp.confpars.cspadNWindows) + self.char_expand)
         #self.butMenuNWin.setMaximumWidth(30)
 
-        self.titCSDataset  = QtGui.QLabel('Dataset:')
-        self.butSelDataSet = QtGui.QPushButton(cp.confpars.cspadWindowParameters[self.window][0])
+        self.titCSDataset  = QtWidgets.QLabel('Dataset:')
+        self.butSelDataSet = QtWidgets.QPushButton(cp.confpars.cspadWindowParameters[self.window][0])
         self.setButSelDataSetTextAlignment()
 
-        self.popupMenuForDataSet = QtGui.QMenu()
+        self.popupMenuForDataSet = QtWidgets.QMenu()
         self.fillPopupMenuForDataSet()
 
         self.wquadpair = guiquadpair.GUISelectQuadAndPair(None,self.window)
 
-        gridCS = QtGui.QGridLayout()
+        gridCS = QtWidgets.QGridLayout()
 
         gridCS.addWidget(self.titCSDataset,           0, 0)
         gridCS.addWidget(self.butSelDataSet,          0, 1, 1, 6)
@@ -174,7 +174,7 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
         #hboxC.addStretch(1)
         #hboxC.addWidget(self.butClose)
         
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         #self.vbox.addLayout(hboxCS01)
         self.vbox.addLayout(gridCS) 
         #self.vbox.addLayout(hboxCS02)
@@ -184,17 +184,17 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
             self.show()
 
         #self.connect(self.butClose,               QtCore.SIGNAL('clicked()'),          self.processClose )
-        self.connect(self.editCSImageAmin,        QtCore.SIGNAL('editingFinished ()'), self.processEditCSImageAmin )
-        self.connect(self.editCSImageAmax,        QtCore.SIGNAL('editingFinished ()'), self.processEditCSImageAmax )
-        self.connect(self.editCSSpectrumAmin,     QtCore.SIGNAL('editingFinished ()'), self.processEditCSSpectrumAmin )
-        self.connect(self.editCSSpectrumAmax,     QtCore.SIGNAL('editingFinished ()'), self.processEditCSSpectrumAmax )
-        self.connect(self.editCSSpectrumNBins,    QtCore.SIGNAL('editingFinished ()'), self.processEditCSSpectrumNBins )
-        self.connect(self.editCSSpectrumBinWidth, QtCore.SIGNAL('editingFinished ()'), self.processEditCSSpectrumBinWidth )
-        self.connect(self.radioNBins,             QtCore.SIGNAL('clicked()'),          self.processRadioNBins    )
-        self.connect(self.radioBinWidth,          QtCore.SIGNAL('clicked()'),          self.processRadioBinWidth )
-        self.connect(self.cboxImALimits,          QtCore.SIGNAL('stateChanged(int)'),  self.processCboxImALimits)
-        self.connect(self.cboxSpALimits,          QtCore.SIGNAL('stateChanged(int)'),  self.processCboxSpALimits)
-        self.connect(self.butSelDataSet,          QtCore.SIGNAL('clicked()'),          self.processMenuForDataSet )
+        self.editCSImageAmin.editingFinished .connect(self.processEditCSImageAmin)
+        self.editCSImageAmax.editingFinished .connect(self.processEditCSImageAmax)
+        self.editCSSpectrumAmin.editingFinished .connect(self.processEditCSSpectrumAmin)
+        self.editCSSpectrumAmax.editingFinished .connect(self.processEditCSSpectrumAmax)
+        self.editCSSpectrumNBins.editingFinished .connect(self.processEditCSSpectrumNBins)
+        self.editCSSpectrumBinWidth.editingFinished .connect(self.processEditCSSpectrumBinWidth)
+        self.radioNBins.clicked.connect(self.processRadioNBins)
+        self.radioBinWidth.clicked.connect(self.processRadioBinWidth)
+        self.cboxImALimits.stateChanged[int].connect(self.processCboxImALimits)
+        self.cboxSpALimits.stateChanged[int].connect(self.processCboxSpALimits)
+        self.butSelDataSet.clicked.connect(self.processMenuForDataSet)
  
         self.setBinning()
         self.setCboxStatus()
@@ -223,7 +223,7 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
         #cp.confpars.wtdCSWindowIsOpen = False
         pass
         self.wquadpair.close()
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -425,7 +425,7 @@ class GUIWhatToDisplayForCSpadWindow ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayForCSpadWindow()
     ex.show()
     app.exec_()

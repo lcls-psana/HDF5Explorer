@@ -27,7 +27,7 @@ from __future__ import absolute_import
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 
 #-----------------------------
@@ -46,7 +46,7 @@ from . import PrintHDF5          as printh5 # for my print_group(g,offset)
 #---------------------
 #  Class definition --
 #---------------------
-class GUIMain(QtGui.QWidget) :
+class GUIMain(QtWidgets.QWidget) :
     """Deals with the main GUI for the HDF5Explorer project
     """
 
@@ -63,7 +63,7 @@ class GUIMain(QtGui.QWidget) :
         """Constructor."""
 
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         #self.setGeometry(370, 10, 500, 300)
         self.setGeometry(10, 20, 500, 150)
@@ -82,8 +82,8 @@ class GUIMain(QtGui.QWidget) :
 	#print 'sys.argv=',sys.argv # list of input parameters
 
         # see http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/qframe.html
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -94,14 +94,14 @@ class GUIMain(QtGui.QWidget) :
         #self.titFile   = QtGui.QLabel('File:')
         #self.titTree   = QtGui.QLabel('HDF5 Tree GUI')
 
-        self.fileEdit  = QtGui.QLineEdit(cp.confpars.dirName+'/'+cp.confpars.fileName)
+        self.fileEdit  = QtWidgets.QLineEdit(cp.confpars.dirName+'/'+cp.confpars.fileName)
 
-        self.browse    = QtGui.QPushButton("1. Select file:")    
-        self.display   = QtGui.QPushButton("2. Check datasets in HDF5 tree")
-        self.wtd       = QtGui.QPushButton("3. Set what and how to display")
-        self.player    = QtGui.QPushButton("4. Plot data in several modes")
-        self.exit      = QtGui.QPushButton("Exit")
-        self.save      = QtGui.QPushButton("Save")
+        self.browse    = QtWidgets.QPushButton("1. Select file:")    
+        self.display   = QtWidgets.QPushButton("2. Check datasets in HDF5 tree")
+        self.wtd       = QtWidgets.QPushButton("3. Set what and how to display")
+        self.player    = QtWidgets.QPushButton("4. Plot data in several modes")
+        self.exit      = QtWidgets.QPushButton("Exit")
+        self.save      = QtWidgets.QPushButton("Save")
         #self.printfile = QtGui.QPushButton("Print HDF5 structure")    
         #self.config    = QtGui.QPushButton("Configuration")
         #self.selection = QtGui.QPushButton("Selection")
@@ -112,35 +112,35 @@ class GUIMain(QtGui.QWidget) :
 
         self.setButtonColors()
 
-        hboxF = QtGui.QHBoxLayout()
+        hboxF = QtWidgets.QHBoxLayout()
         #hboxF.addWidget(self.titFile)
         hboxF.addWidget(self.browse)
         hboxF.addWidget(self.fileEdit)
 
-        hboxC = QtGui.QHBoxLayout()
+        hboxC = QtWidgets.QHBoxLayout()
         #hboxC.addStretch(1)
         hboxC.addWidget(self.display)
         hboxC.addStretch(1)
         
-        hboxE = QtGui.QHBoxLayout()
+        hboxE = QtWidgets.QHBoxLayout()
         #hboxE.addWidget(self.selection)
         #hboxE.addStretch(1)
         hboxE.addWidget(self.wtd)
         hboxE.addStretch(1)
 
-        self.hboxT = QtGui.QHBoxLayout() 
-        self.hboxA = QtGui.QHBoxLayout() 
+        self.hboxT = QtWidgets.QHBoxLayout() 
+        self.hboxA = QtWidgets.QHBoxLayout() 
 
         if cp.confpars.playerGUIIsOpen : # At initialization it means that "should be open..."
             self.setPlayerWidgets()
 
-        hbox = QtGui.QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.player)
         hbox.addStretch(1)
         hbox.addWidget(self.save)
         hbox.addWidget(self.exit)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(hboxF)
         vbox.addStretch(1)     
         vbox.addLayout(hboxC)
@@ -154,13 +154,13 @@ class GUIMain(QtGui.QWidget) :
 
         self.setLayout(vbox)
 
-        self.connect(self.exit,      QtCore.SIGNAL('clicked()'), self.processQuit)
-        self.connect(self.browse,    QtCore.SIGNAL('clicked()'), self.processBrowse)
-        self.connect(self.display,   QtCore.SIGNAL('clicked()'), self.processDisplay)
-        self.connect(self.wtd,       QtCore.SIGNAL('clicked()'), self.processWhatToDisplay)
-        self.connect(self.player,    QtCore.SIGNAL('clicked()'), self.processPlayer)
-        self.connect(self.fileEdit,  QtCore.SIGNAL('editingFinished ()'), self.processFileEdit)
-        self.connect(self.save,      QtCore.SIGNAL('clicked()'), self.processSave)
+        self.exit.clicked.connect(self.processQuit)
+        self.browse.clicked.connect(self.processBrowse)
+        self.display.clicked.connect(self.processDisplay)
+        self.wtd.clicked.connect(self.processWhatToDisplay)
+        self.player.clicked.connect(self.processPlayer)
+        self.fileEdit.editingFinished .connect(self.processFileEdit)
+        self.save.clicked.connect(self.processSave)
         #self.connect(self.printfile, QtCore.SIGNAL('clicked()'), self.processPrint)
         #self.connect(self.config,    QtCore.SIGNAL('clicked()'), self.processConfig)
         #self.connect(self.selection, QtCore.SIGNAL('clicked()'), self.processSelection)
@@ -218,7 +218,7 @@ class GUIMain(QtGui.QWidget) :
         #self.drawev.quitDrawEvent()
         #if cp.confpars.playerGUIIsOpen :
 
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
         try :
             self.wplayer.processQuit()
@@ -265,7 +265,7 @@ class GUIMain(QtGui.QWidget) :
         cp.confpars.dirName,cp.confpars.fileName = os.path.split(str_path_file)
         print('dirName  : %s' % (cp.confpars.dirName))         
         print('fileName : %s' % (cp.confpars.fileName))
-        path_file = QtGui.QFileDialog.getOpenFileName(self,'Open file',cp.confpars.dirName)
+        path_file = QtWidgets.QFileDialog.getOpenFileName(self,'Open file',cp.confpars.dirName)[0]
         #fname = open(filename)
         #data = fname.read()
         #self.textEdit.setText(data)
@@ -412,7 +412,7 @@ class GUIMain(QtGui.QWidget) :
 #-----------------------------
 
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIMain()
     ex.show()
     app.exec_()

@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 from . import GUISelectionWindow as guiselwin
 
@@ -43,7 +43,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUISelection ( QtGui.QWidget ) :
+class GUISelection ( QtWidgets.QWidget ) :
     """This GUI defines the parameters for selection algorithms"""
 
     #----------------
@@ -53,14 +53,14 @@ class GUISelection ( QtGui.QWidget ) :
         """Constructor"""
 
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 500, 500, 150)
         self.setWindowTitle('Selection GUI')
         self.palette = QtGui.QPalette()
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -68,37 +68,37 @@ class GUISelection ( QtGui.QWidget ) :
 
         self.char_expand = u'\u25BE' # down-head triangle
 
-        self.titNWin  = QtGui.QLabel('Number of regions for selection:')
+        self.titNWin  = QtWidgets.QLabel('Number of regions for selection:')
 
-        self.butMenuNWin = QtGui.QPushButton(str(cp.confpars.selectionNWindows) + self.char_expand)
+        self.butMenuNWin = QtWidgets.QPushButton(str(cp.confpars.selectionNWindows) + self.char_expand)
         self.butMenuNWin.setMaximumWidth(30)
 
-        self.popupMenuNWin = QtGui.QMenu()
+        self.popupMenuNWin = QtWidgets.QMenu()
         for nwin in range(1,cp.confpars.selectionNWindowsMax+1) :
             self.popupMenuNWin.addAction(str(nwin))
 
-        self.hboxN = QtGui.QHBoxLayout() 
+        self.hboxN = QtWidgets.QHBoxLayout() 
         self.hboxN.addWidget(self.titNWin)
         self.hboxN.addWidget(self.butMenuNWin)
         self.hboxN.addStretch(1)     
 
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
         self.makeTabBarLayout()
 
         self.guiWin = guiselwin.GUISelectionWindow() # for 0th window
         self.guiWin.setMinimumHeight(150)
 
-        self.hboxD = QtGui.QHBoxLayout()
+        self.hboxD = QtWidgets.QHBoxLayout()
         self.hboxD.addWidget(self.guiWin)
 
-        self.vboxGlobal = QtGui.QVBoxLayout()
+        self.vboxGlobal = QtWidgets.QVBoxLayout()
         self.vboxGlobal.addLayout(self.hboxN)
         self.vboxGlobal.addLayout(self.hboxT)
         self.vboxGlobal.addLayout(self.hboxD)
 
         self.setLayout(self.vboxGlobal)
 
-        self.connect(self.butMenuNWin,  QtCore.SIGNAL('clicked()'), self.processMenuNWin )
+        self.butMenuNWin.clicked.connect(self.processMenuNWin)
 
         self.showToolTips()
 
@@ -126,7 +126,7 @@ class GUISelection ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.selectionGUIIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):
@@ -158,7 +158,7 @@ class GUISelection ( QtGui.QWidget ) :
     def makeTabBarLayout(self,mode=None) :
 
         if mode != None : self.tabBar.close()
-        self.tabBar = QtGui.QTabBar()
+        self.tabBar = QtWidgets.QTabBar()
         #self.tabBar.setMovable(True) 
         for window in range(cp.confpars.selectionNWindows) :
 
@@ -168,7 +168,7 @@ class GUISelection ( QtGui.QWidget ) :
             
         #self.hboxT = QtGui.QHBoxLayout() # it is already defined and added in layout
         self.hboxT.addWidget(self.tabBar) 
-        self.connect(self.tabBar, QtCore.SIGNAL('currentChanged(int)'), self.processTabBar)
+        self.tabBar.currentChanged[int].connect(self.processTabBar)
 
 
     def processTabBar(self):
@@ -204,7 +204,7 @@ class GUISelection ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUISelection()
     ex.show()
     app.exec_()

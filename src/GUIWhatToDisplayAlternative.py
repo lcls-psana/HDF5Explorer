@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -46,7 +46,7 @@ from . import GUISelectItems   as guiselitems
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
+class GUIWhatToDisplayAlternative ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering."""
 
     #--------------------
@@ -61,7 +61,7 @@ class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
 
     def __init__(self, parent=None, title=None):
 
-        QtGui.QWidget.__init__(self, None) #parent=None
+        QtWidgets.QWidget.__init__(self, None) #parent=None
 
         self.parent = parent
         self.title  = title
@@ -69,33 +69,33 @@ class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
         self.setGeometry(370, 350, 500, 30)
         self.setWindowTitle('What to display alternative GUI')
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         
         titFont   = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
 
-        self.titFor    = QtGui.QLabel('For')
-        self.titItem   = QtGui.QLabel(self.title)
+        self.titFor    = QtWidgets.QLabel('For')
+        self.titItem   = QtWidgets.QLabel(self.title)
         self.titItem   .setFont (titFont) 
 
-        self.titH5Tree = QtGui.QLabel('check relevant dataset(s) from')
-        self.butH5Tree = QtGui.QPushButton('HDF5 tree')
+        self.titH5Tree = QtWidgets.QLabel('check relevant dataset(s) from')
+        self.butH5Tree = QtWidgets.QPushButton('HDF5 tree')
         self.butH5Tree.setStyleSheet("background-color: rgb(180, 255, 180); color: rgb(0, 0, 0)") # Yellowish
         
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
         self.hboxT.addWidget(self.titFor)
         self.hboxT.addWidget(self.titItem)
         self.hboxT.addStretch(1)
 
-        self.hbox = QtGui.QHBoxLayout()
+        self.hbox = QtWidgets.QHBoxLayout()
         self.hbox.addWidget(self.titH5Tree)
         self.hbox.addWidget(self.butH5Tree)
         self.hbox.addStretch(1)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addStretch(1)
         self.vbox.addLayout(self.hboxT) 
         self.vbox.addLayout(self.hbox) 
@@ -103,7 +103,7 @@ class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
 
         self.setLayout(self.vbox)
 
-        self.connect(self.butH5Tree, QtCore.SIGNAL('clicked()'), self.processDisplay )  
+        self.butH5Tree.clicked.connect(self.processDisplay)
 
         self.showToolTips()
 
@@ -120,7 +120,7 @@ class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -144,7 +144,7 @@ class GUIWhatToDisplayAlternative ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayAlternative()
     ex.show()
     app.exec_()

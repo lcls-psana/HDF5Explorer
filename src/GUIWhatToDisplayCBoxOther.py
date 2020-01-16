@@ -30,7 +30,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -44,7 +44,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayCBoxOther ( QtGui.QWidget ) :
+class GUIWhatToDisplayCBoxOther ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering.
 
     Detailed description should be here...
@@ -63,28 +63,28 @@ class GUIWhatToDisplayCBoxOther ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(370, 350, 500, 30)
         self.setWindowTitle('What to display?')
 
         self.parent = parent
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         
         titFont   = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
 
-        self.titWaveform = QtGui.QLabel('Other')
+        self.titWaveform = QtWidgets.QLabel('Other')
         self.titWaveform.setFont (titFont) 
         
-        self.cboxWFWaveform    = QtGui.QCheckBox('Waveform',     self)
-        self.cboxWFWaveVsEv    = QtGui.QCheckBox('WF vs Event',  self)
-        self.cboxCO            = QtGui.QCheckBox('Correlations', self)
-        self.cboxCC            = QtGui.QCheckBox('CalibCycles',  self)
+        self.cboxWFWaveform    = QtWidgets.QCheckBox('Waveform',     self)
+        self.cboxWFWaveVsEv    = QtWidgets.QCheckBox('WF vs Event',  self)
+        self.cboxCO            = QtWidgets.QCheckBox('Correlations', self)
+        self.cboxCC            = QtWidgets.QCheckBox('CalibCycles',  self)
 
         if cp.confpars.waveformWaveformIsOn : self.cboxWFWaveform.setCheckState(2)
         if cp.confpars.waveformWaveVsEvIsOn : self.cboxWFWaveVsEv.setCheckState(2)
@@ -93,7 +93,7 @@ class GUIWhatToDisplayCBoxOther ( QtGui.QWidget ) :
 
         self.showToolTips()
 
-        gridWF = QtGui.QGridLayout()
+        gridWF = QtWidgets.QGridLayout()
         gridWF.addWidget(self.titWaveform,      0, 0)
         gridWF.addWidget(self.cboxWFWaveform,   1, 0)
         gridWF.addWidget(self.cboxWFWaveVsEv,   2, 0)
@@ -102,15 +102,15 @@ class GUIWhatToDisplayCBoxOther ( QtGui.QWidget ) :
        #gridWF.addWidget(self.cboxED,           1, 3)
 
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(gridWF)
         self.vbox.addStretch(1)     
         self.setLayout(self.vbox)
   
-        self.connect(self.cboxWFWaveform,      QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxWFWaveform)
-        self.connect(self.cboxWFWaveVsEv,      QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxWFWaveVsEv)
-        self.connect(self.cboxCO,              QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCO)
-        self.connect(self.cboxCC,              QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxCC)
+        self.cboxWFWaveform.stateChanged[int].connect(self.processCBoxWFWaveform)
+        self.cboxWFWaveVsEv.stateChanged[int].connect(self.processCBoxWFWaveVsEv)
+        self.cboxCO.stateChanged[int].connect(self.processCBoxCO)
+        self.cboxCC.stateChanged[int].connect(self.processCBoxCC)
 
     def showToolTips(self):
         #self.butClose    .setToolTip('Close this window') 
@@ -128,7 +128,7 @@ class GUIWhatToDisplayCBoxOther ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -177,7 +177,7 @@ class GUIWhatToDisplayCBoxOther ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayCBoxOther()
     ex.show()
     app.exec_()

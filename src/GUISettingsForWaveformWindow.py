@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import h5py
 
 #-----------------------------
@@ -43,7 +43,7 @@ from . import PrintHDF5        as printh5
 #---------------------
 #  Class definition --
 #---------------------
-class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
+class GUISettingsForWaveformWindow ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering."""
 
     #----------------
@@ -51,7 +51,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None, window=0):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         #print 'GUISettingsForWaveformWindow for window ', window
 
@@ -62,8 +62,8 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
 
         self.palette = QtGui.QPalette()
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -72,18 +72,18 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
         titFont12 = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
         titFont10 = QtGui.QFont("Sans Serif", 10, QtGui.QFont.Bold)
 
-        self.titWFDataSet        = QtGui.QLabel('Dataset:')
-        self.titWFIndexes        = QtGui.QLabel('WF:    Black')
-        self.titNEvRange         = QtGui.QLabel('Event range:')
+        self.titWFDataSet        = QtWidgets.QLabel('Dataset:')
+        self.titWFIndexes        = QtWidgets.QLabel('WF:    Black')
+        self.titNEvRange         = QtWidgets.QLabel('Event range:')
 
         #self.titWFWaveformAminmax= QtGui.QLabel('Alims:')
         #self.titWFWaveformTminmax= QtGui.QLabel('Tlims:')
 
-        self.cboxALimits   = QtGui.QCheckBox('A min, max:',self)
-        self.cboxTLimits   = QtGui.QCheckBox('T min, max:',self)
-        self.cboxAUnits    = QtGui.QCheckBox('Use A units (V)',self)
-        self.cboxTUnits    = QtGui.QCheckBox('Use T units (ns)',self)
-        self.cboxNLimits   = QtGui.QCheckBox('N min, max:',self)
+        self.cboxALimits   = QtWidgets.QCheckBox('A min, max:',self)
+        self.cboxTLimits   = QtWidgets.QCheckBox('T min, max:',self)
+        self.cboxAUnits    = QtWidgets.QCheckBox('Use A units (V)',self)
+        self.cboxTUnits    = QtWidgets.QCheckBox('Use T units (ns)',self)
+        self.cboxNLimits   = QtWidgets.QCheckBox('N min, max:',self)
 
         if cp.confpars.waveformWindowParameters[self.window][1]&1 : self.cboxALimits.setCheckState(2)
         if cp.confpars.waveformWindowParameters[self.window][1]&2 : self.cboxTLimits.setCheckState(2)
@@ -95,41 +95,41 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
         height = 22
         width  = 60
 
-        self.butWFDataSet = QtGui.QPushButton(cp.confpars.waveformWindowParameters[self.window][0])
+        self.butWFDataSet = QtWidgets.QPushButton(cp.confpars.waveformWindowParameters[self.window][0])
         self.butWFDataSet.setMaximumWidth(350)
         self.setButWFDataSetTextAlignment()
 
-        self.popupMenuForDataSet = QtGui.QMenu()
+        self.popupMenuForDataSet = QtWidgets.QMenu()
         self.fillPopupMenuForDataSet()
 
-        self.popupMenuForWaveNumber = QtGui.QMenu()
+        self.popupMenuForWaveNumber = QtWidgets.QMenu()
         self.fillPopupMenuForWaveNumber()
 
-        self.editWFWaveformAmin = QtGui.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][2]))
-        self.editWFWaveformAmax = QtGui.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][3]))
+        self.editWFWaveformAmin = QtWidgets.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][2]))
+        self.editWFWaveformAmax = QtWidgets.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][3]))
         self.editWFWaveformAmin .setMaximumWidth(width)
         self.editWFWaveformAmax .setMaximumWidth(width)
 
-        self.editWFWaveformTmin = QtGui.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][4]))
-        self.editWFWaveformTmax = QtGui.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][5]))
+        self.editWFWaveformTmin = QtWidgets.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][4]))
+        self.editWFWaveformTmax = QtWidgets.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][5]))
         self.editWFWaveformTmin .setMaximumWidth(width)
         self.editWFWaveformTmax .setMaximumWidth(width)
 
-        self.editWFWaveformNmin = QtGui.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][11]))
-        self.editWFWaveformNmax = QtGui.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][12]))
+        self.editWFWaveformNmin = QtWidgets.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][11]))
+        self.editWFWaveformNmax = QtWidgets.QLineEdit(str(cp.confpars.waveformWindowParameters[self.window][12]))
         self.editWFWaveformNmin .setMaximumWidth(width)
         self.editWFWaveformNmax .setMaximumWidth(width)
 
 
         #self.titWFInd1  = QtGui.QLabel('Black')
-        self.titWFInd2  = QtGui.QLabel('  Red')
-        self.titWFInd3  = QtGui.QLabel('Green')
-        self.titWFInd4  = QtGui.QLabel(' Blue')
+        self.titWFInd2  = QtWidgets.QLabel('  Red')
+        self.titWFInd3  = QtWidgets.QLabel('Green')
+        self.titWFInd4  = QtWidgets.QLabel(' Blue')
 
-        self.butWFInd1  = QtGui.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][7]))
-        self.butWFInd2  = QtGui.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][8]))
-        self.butWFInd3  = QtGui.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][9]))
-        self.butWFInd4  = QtGui.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][10]))
+        self.butWFInd1  = QtWidgets.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][7]))
+        self.butWFInd2  = QtWidgets.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][8]))
+        self.butWFInd3  = QtWidgets.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][9]))
+        self.butWFInd4  = QtWidgets.QPushButton(str(cp.confpars.waveformWindowParameters[self.window][10]))
 
         self.butWFInd1.setMaximumHeight(height)
         self.butWFInd2.setMaximumHeight(height)
@@ -164,7 +164,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
         #else :                                                    self.radioManual.setChecked(True)
 
 
-        gridWF = QtGui.QGridLayout()
+        gridWF = QtWidgets.QGridLayout()
         gridWF.addWidget(self.titWFDataSet,        0, 0)
         gridWF.addWidget(self.butWFDataSet,        0, 1, 1, 7)
         gridWF.addWidget(self.titWFIndexes,        1, 0)
@@ -192,7 +192,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
         gridWF.addWidget(self.titWFInd4,           1, 6)
         gridWF.addWidget(self.butWFInd4,           1, 7)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(gridWF) 
         self.vbox.addStretch(1)     
 
@@ -206,25 +206,25 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
         #self.connect(self.radioAuto,           QtCore.SIGNAL('clicked()'), self.processRadioAuto    )
         #self.connect(self.radioManual,         QtCore.SIGNAL('clicked()'), self.processRadioManual  )
 
-        self.connect(self.editWFWaveformAmin,  QtCore.SIGNAL('editingFinished ()'), self.processEditWFWaveformAmin )
-        self.connect(self.editWFWaveformAmax,  QtCore.SIGNAL('editingFinished ()'), self.processEditWFWaveformAmax )
-        self.connect(self.editWFWaveformTmin,  QtCore.SIGNAL('editingFinished ()'), self.processEditWFWaveformTmin )
-        self.connect(self.editWFWaveformTmax,  QtCore.SIGNAL('editingFinished ()'), self.processEditWFWaveformTmax )
-        self.connect(self.editWFWaveformNmin,  QtCore.SIGNAL('editingFinished ()'), self.processEditWFWaveformNmin )
-        self.connect(self.editWFWaveformNmax,  QtCore.SIGNAL('editingFinished ()'), self.processEditWFWaveformNmax )
+        self.editWFWaveformAmin.editingFinished .connect(self.processEditWFWaveformAmin)
+        self.editWFWaveformAmax.editingFinished .connect(self.processEditWFWaveformAmax)
+        self.editWFWaveformTmin.editingFinished .connect(self.processEditWFWaveformTmin)
+        self.editWFWaveformTmax.editingFinished .connect(self.processEditWFWaveformTmax)
+        self.editWFWaveformNmin.editingFinished .connect(self.processEditWFWaveformNmin)
+        self.editWFWaveformNmax.editingFinished .connect(self.processEditWFWaveformNmax)
 
-        self.connect(self.butWFInd1,           QtCore.SIGNAL('clicked()'), self.processMenuWFInd1 )
-        self.connect(self.butWFInd2,           QtCore.SIGNAL('clicked()'), self.processMenuWFInd2 )
-        self.connect(self.butWFInd3,           QtCore.SIGNAL('clicked()'), self.processMenuWFInd3 )
-        self.connect(self.butWFInd4,           QtCore.SIGNAL('clicked()'), self.processMenuWFInd4 )
+        self.butWFInd1.clicked.connect(self.processMenuWFInd1)
+        self.butWFInd2.clicked.connect(self.processMenuWFInd2)
+        self.butWFInd3.clicked.connect(self.processMenuWFInd3)
+        self.butWFInd4.clicked.connect(self.processMenuWFInd4)
 
-        self.connect(self.cboxALimits,         QtCore.SIGNAL('stateChanged(int)'), self.processCBoxALimits)
-        self.connect(self.cboxTLimits,         QtCore.SIGNAL('stateChanged(int)'), self.processCBoxTLimits)
-        self.connect(self.cboxNLimits,         QtCore.SIGNAL('stateChanged(int)'), self.processCBoxNLimits)
-        self.connect(self.cboxAUnits,          QtCore.SIGNAL('stateChanged(int)'), self.processCBoxAUnits)
-        self.connect(self.cboxTUnits,          QtCore.SIGNAL('stateChanged(int)'), self.processCBoxTUnits)
+        self.cboxALimits.stateChanged[int].connect(self.processCBoxALimits)
+        self.cboxTLimits.stateChanged[int].connect(self.processCBoxTLimits)
+        self.cboxNLimits.stateChanged[int].connect(self.processCBoxNLimits)
+        self.cboxAUnits.stateChanged[int].connect(self.processCBoxAUnits)
+        self.cboxTUnits.stateChanged[int].connect(self.processCBoxTUnits)
         
-        self.connect(self.butWFDataSet,        QtCore.SIGNAL('clicked()'), self.processMenuForDataSet )
+        self.butWFDataSet.clicked.connect(self.processMenuForDataSet)
  
         cp.confpars.wtdWFWindowIsOpen = True
 
@@ -286,7 +286,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
         #print 'fillPopupMenuForWaveNumber'
 
         self.popupMenuForWaveNumber.close()
-        self.popupMenuForWaveNumber = QtGui.QMenu()
+        self.popupMenuForWaveNumber = QtWidgets.QMenu()
         self.popupMenuForWaveNumber.addAction('None')
         for wave_number in range(cp.confpars.waveformWindowParameters[self.window][6]) :
 
@@ -429,7 +429,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         cp.confpars.wtdWFWindowIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -542,7 +542,7 @@ class GUISettingsForWaveformWindow ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUISettingsForWaveformWindow()
     ex.show()
     app.exec_()

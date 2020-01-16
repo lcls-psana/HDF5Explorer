@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 from . import GUISettingsForWaveformWindow as guiWin
 
@@ -44,7 +44,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
+class GUIWhatToDisplayForWaveform ( QtWidgets.QWidget ) :
     """GUI selects the CSpad Quad and Pair"""
 
     #----------------
@@ -54,7 +54,7 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
         """Constructor"""
 
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 500, 500, 150)
         self.setWindowTitle('Set windows for waveforms')
@@ -62,8 +62,8 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
         self.resetColorIsSet = False
 
         # see http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/qframe.html
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -71,18 +71,18 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
 
         self.char_expand = u'\u25BE' # down-head triangle
 
-        self.titNWin  = QtGui.QLabel('Number of windows:')
+        self.titNWin  = QtWidgets.QLabel('Number of windows:')
 
-        self.butMenuNWin = QtGui.QPushButton(str(cp.confpars.waveformNWindows) + self.char_expand)
+        self.butMenuNWin = QtWidgets.QPushButton(str(cp.confpars.waveformNWindows) + self.char_expand)
         self.butMenuNWin.setMaximumWidth(30)
 
         self.listActMenuNWin = []
-        self.popupMenuNWin = QtGui.QMenu()
+        self.popupMenuNWin = QtWidgets.QMenu()
         for nwin in range(1,cp.confpars.waveformNWindowsMax+1) :
             self.listActMenuNWin.append(self.popupMenuNWin.addAction(str(nwin)))
 
 
-        self.hboxN = QtGui.QHBoxLayout() 
+        self.hboxN = QtWidgets.QHBoxLayout() 
         self.hboxN.addWidget(self.titNWin)
         self.hboxN.addWidget(self.butMenuNWin)
         self.hboxN.addStretch(1)     
@@ -92,20 +92,20 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
         self.guiTab = guiWin.GUISettingsForWaveformWindow() # for 0th window
         self.guiTab.setMinimumHeight(150)
 
-        self.hboxD = QtGui.QHBoxLayout()
+        self.hboxD = QtWidgets.QHBoxLayout()
         self.hboxD.addWidget(self.guiTab)
 
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
         self.makeTabBarLayout()
 
-        self.vboxGlobal = QtGui.QVBoxLayout()
+        self.vboxGlobal = QtWidgets.QVBoxLayout()
         self.vboxGlobal.addLayout(self.hboxN)
         self.vboxGlobal.addLayout(self.hboxT)
         self.vboxGlobal.addLayout(self.hboxD)
 
         self.setLayout(self.vboxGlobal)
 
-        self.connect(self.butMenuNWin,  QtCore.SIGNAL('clicked()'), self.processMenuNWin )
+        self.butMenuNWin.clicked.connect(self.processMenuNWin)
 
 #        self.connect(self.editQuad,  QtCore.SIGNAL('editingFinished ()'), self.processEditQuad )
 #        self.connect(self.editPair,  QtCore.SIGNAL('editingFinished ()'), self.processEditPair )
@@ -130,7 +130,7 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):
@@ -159,7 +159,7 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
     def makeTabBarLayout(self,mode=None) :
 
         if mode != None : self.tabBar.close()
-        self.tabBar = QtGui.QTabBar()
+        self.tabBar = QtWidgets.QTabBar()
         #self.tabBar.setMovable(True) 
         for window in range(cp.confpars.waveformNWindows) :
 
@@ -169,7 +169,7 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
             
         #self.hboxT = QtGui.QHBoxLayout() # it is already defined and added in layout
         self.hboxT.addWidget(self.tabBar) 
-        self.connect(self.tabBar,       QtCore.SIGNAL('currentChanged(int)'), self.processTabBar)
+        self.tabBar.currentChanged[int].connect(self.processTabBar)
 
 
     #def resetGlobalLayout(self):
@@ -228,7 +228,7 @@ class GUIWhatToDisplayForWaveform ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayForWaveform()
     ex.show()
     app.exec_()

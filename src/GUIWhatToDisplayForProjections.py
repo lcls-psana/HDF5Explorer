@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 from . import GUIWhatToDisplayForProjR   as guiprojr
 from . import GUIWhatToDisplayForProjPhi as guiprojphi
@@ -46,7 +46,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
+class GUIWhatToDisplayForProjections ( QtWidgets.QWidget ) :
     """This GUI defines the parameters for Projections"""
 
     #----------------
@@ -56,7 +56,7 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
         """Constructor"""
 
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 500, 500, 200)
         self.setWindowTitle('Projections GUI')
@@ -67,40 +67,40 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
         self.palette_grey  .setColor(QtGui.QPalette.Base,QtGui.QColor('grey'))
         self.palette_white .setColor(QtGui.QPalette.Base,QtGui.QColor('white'))
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         #self.frame.setVisible(True)
 
-        self.titProjections  = QtGui.QLabel('Set parameters for projections:')
-        self.titCenter       = QtGui.QLabel('Center X and Y:')
+        self.titProjections  = QtWidgets.QLabel('Set parameters for projections:')
+        self.titCenter       = QtWidgets.QLabel('Center X and Y:')
 
-        self.editProjCenterX = QtGui.QLineEdit(str(cp.confpars.projCenterX))
-        self.editProjCenterY = QtGui.QLineEdit(str(cp.confpars.projCenterY))
+        self.editProjCenterX = QtWidgets.QLineEdit(str(cp.confpars.projCenterX))
+        self.editProjCenterY = QtWidgets.QLineEdit(str(cp.confpars.projCenterY))
         #self.editProjCenterX.setValidator(QtGui.QDoubleValidator(float(0), float(2000),self)) # QIntValidator
         #self.editProjCenterY.setValidator(QtGui.QDoubleValidator(float(0), float(2000),self))
         self.editProjCenterX.setMaximumWidth(50)
         self.editProjCenterY.setMaximumWidth(50)
 
-        self.hboxN = QtGui.QHBoxLayout() 
+        self.hboxN = QtWidgets.QHBoxLayout() 
         self.hboxN.addWidget(self.titProjections)
         self.hboxN.addStretch(1)     
         self.hboxN.addWidget(self.titCenter)
         self.hboxN.addWidget(self.editProjCenterX)
         self.hboxN.addWidget(self.editProjCenterY)
 
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
         self.makeTabBarLayout()
 
-        self.guiWin = QtGui.QLabel('Place holder.')
+        self.guiWin = QtWidgets.QLabel('Place holder.')
         self.guiWin.setMinimumHeight(150)
 
-        self.hboxD = QtGui.QHBoxLayout()
+        self.hboxD = QtWidgets.QHBoxLayout()
         self.hboxD.addWidget(self.guiWin)
 
-        self.vboxG = QtGui.QVBoxLayout()
+        self.vboxG = QtWidgets.QVBoxLayout()
         self.vboxG.addLayout(self.hboxN)
         self.vboxG.addLayout(self.hboxT)
         self.vboxG.addLayout(self.hboxD)
@@ -108,8 +108,8 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
         self.setLayout(self.vboxG)
 
 #        self.connect(self.butMenuNWin,  QtCore.SIGNAL('clicked()'), self.processMenuNWin )
-        self.connect(self.editProjCenterX, QtCore.SIGNAL('editingFinished ()'), self.processEditProjCenterX)
-        self.connect(self.editProjCenterY, QtCore.SIGNAL('editingFinished ()'), self.processEditProjCenterY)
+        self.editProjCenterX.editingFinished .connect(self.processEditProjCenterX)
+        self.editProjCenterY.editingFinished .connect(self.processEditProjCenterY)
 
         self.showToolTips()
 
@@ -137,7 +137,7 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
         #print 'closeEvent'
         #cp.confpars.projectionGUIIsOpen = False
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):
@@ -167,7 +167,7 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
     def makeTabBarLayout(self,mode=None) :
 
         if mode != None : self.tabBar.close()
-        self.tabBar = QtGui.QTabBar()
+        self.tabBar = QtWidgets.QTabBar()
 
         self.indTabX   = self.tabBar.addTab( 'X' )
         self.indTabY   = self.tabBar.addTab( 'Y' )
@@ -181,7 +181,7 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
 
 
         self.hboxT.addWidget(self.tabBar) 
-        self.connect(self.tabBar, QtCore.SIGNAL('currentChanged(int)'), self.processTabBar)
+        self.tabBar.currentChanged[int].connect(self.processTabBar)
 
 
     def setXYCenterReadOnly(self, isReadOnly=False):
@@ -243,7 +243,7 @@ class GUIWhatToDisplayForProjections ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayForProjections()
     ex.show()
     app.exec_()

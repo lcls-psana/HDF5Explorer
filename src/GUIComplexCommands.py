@@ -35,7 +35,7 @@ __version__ = "$Revision: 4 $"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 
 #-----------------------------
@@ -47,7 +47,7 @@ from . import DrawEvent        as drev
 #---------------------
 #  Class definition --
 #---------------------
-class GUIComplexCommands ( QtGui.QWidget ) :
+class GUIComplexCommands ( QtWidgets.QWidget ) :
     """GUI which handles the Average, Correlations, and CalibCycles buttons
 
     @see BaseClass
@@ -68,15 +68,15 @@ class GUIComplexCommands ( QtGui.QWidget ) :
 
         self.wplayer = wplayer
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(370, 10, 500, 30)
         self.setWindowTitle('Average and Correlation')
         self.palette = QtGui.QPalette()
         self.resetColorIsSet = False
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -85,19 +85,19 @@ class GUIComplexCommands ( QtGui.QWidget ) :
         self.drawev   = drev.DrawEvent(self)
 
         #self.titComplex = QtGui.QLabel('Multi-events:')
-        self.titOver    = QtGui.QLabel('over')
-        self.titEvents  = QtGui.QLabel('ev.')
+        self.titOver    = QtWidgets.QLabel('over')
+        self.titEvents  = QtWidgets.QLabel('ev.')
 
-        self.avevEdit = QtGui.QLineEdit(str(cp.confpars.numEventsAverage))
+        self.avevEdit = QtWidgets.QLineEdit(str(cp.confpars.numEventsAverage))
         self.avevEdit.setMaximumWidth(45)
         self.avevEdit.setValidator(QtGui.QIntValidator(1,1000000,self))
 
-        self.butAverage       = QtGui.QPushButton("Average")
-        self.butCorr          = QtGui.QPushButton("Correlations")
-        self.butCalibC        = QtGui.QPushButton("CalibCycles")
-        self.butWaveVsEv      = QtGui.QPushButton("WF vs Ev")
-        self.butWaveVsEvIncCC = QtGui.QPushButton("+1 CC")
-        self.butWaveVsEvDecCC = QtGui.QPushButton("-1 CC")
+        self.butAverage       = QtWidgets.QPushButton("Average")
+        self.butCorr          = QtWidgets.QPushButton("Correlations")
+        self.butCalibC        = QtWidgets.QPushButton("CalibCycles")
+        self.butWaveVsEv      = QtWidgets.QPushButton("WF vs Ev")
+        self.butWaveVsEvIncCC = QtWidgets.QPushButton("+1 CC")
+        self.butWaveVsEvDecCC = QtWidgets.QPushButton("-1 CC")
 
         self.butWaveVsEvIncCC.setMaximumWidth(45)
         self.butWaveVsEvDecCC.setMaximumWidth(45)
@@ -114,7 +114,7 @@ class GUIComplexCommands ( QtGui.QWidget ) :
         #self.closeplts= QtGui.QPushButton("Close plots")
         #self.exit     = QtGui.QPushButton("Exit")
         
-        hboxA = QtGui.QHBoxLayout()
+        hboxA = QtWidgets.QHBoxLayout()
         #hboxA.addWidget(self.titComplex)
         hboxA.addWidget(self.butAverage)
         hboxA.addWidget(self.titOver)
@@ -124,25 +124,25 @@ class GUIComplexCommands ( QtGui.QWidget ) :
         hboxA.addWidget(self.butCorr)
         hboxA.addWidget(self.butCalibC)
 
-        hboxB = QtGui.QHBoxLayout()
+        hboxB = QtWidgets.QHBoxLayout()
         hboxB.addWidget(self.butWaveVsEvDecCC)
         hboxB.addWidget(self.butWaveVsEv)
         hboxB.addWidget(self.butWaveVsEvIncCC)
         hboxB.addStretch()
 
-        vbox  = QtGui.QVBoxLayout()
+        vbox  = QtWidgets.QVBoxLayout()
         vbox.addLayout(hboxA)
         vbox.addLayout(hboxB)
 
         self.setLayout(vbox)
 
-        self.connect(self.butAverage,      QtCore.SIGNAL('clicked()'),          self.processAverage )
-        self.connect(self.butCorr,         QtCore.SIGNAL('clicked()'),          self.processCorrelations )
-        self.connect(self.butCalibC,       QtCore.SIGNAL('clicked()'),          self.processCalibCycles )
-        self.connect(self.butWaveVsEv,     QtCore.SIGNAL('clicked()'),          self.processWaveVsEv )
-        self.connect(self.butWaveVsEvIncCC,QtCore.SIGNAL('clicked()'),          self.processWaveVsEvIncCC )
-        self.connect(self.butWaveVsEvDecCC,QtCore.SIGNAL('clicked()'),          self.processWaveVsEvDecCC )
-        self.connect(self.avevEdit,        QtCore.SIGNAL('editingFinished ()'), self.processAverageEventsEdit )
+        self.butAverage.clicked.connect(self.processAverage)
+        self.butCorr.clicked.connect(self.processCorrelations)
+        self.butCalibC.clicked.connect(self.processCalibCycles)
+        self.butWaveVsEv.clicked.connect(self.processWaveVsEv)
+        self.butWaveVsEvIncCC.clicked.connect(self.processWaveVsEvIncCC)
+        self.butWaveVsEvDecCC.clicked.connect(self.processWaveVsEvDecCC)
+        self.avevEdit.editingFinished .connect(self.processAverageEventsEdit)
 
         #self.setFocus()
         #self.resize(500, 300)
@@ -161,7 +161,7 @@ class GUIComplexCommands ( QtGui.QWidget ) :
         #print 'closeEvent'
         self.drawev.quitDrawEvent()
         self.SHowIsOn = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processQuit(self):
@@ -216,7 +216,7 @@ class GUIComplexCommands ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIComplexCommands()
     ex.show()
     app.exec_()

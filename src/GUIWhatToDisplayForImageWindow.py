@@ -32,7 +32,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -46,7 +46,7 @@ from . import GlobalMethods    as gm
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
+class GUIWhatToDisplayForImageWindow ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering."""
 
     #----------------
@@ -54,7 +54,7 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None, window=0):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.window = window
 
@@ -66,8 +66,8 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
         self.palette_grey  .setColor(QtGui.QPalette.Base,QtGui.QColor('grey'))
         self.palette_white .setColor(QtGui.QPalette.Base,QtGui.QColor('white'))
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -76,32 +76,32 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
         #titFont12 = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
         titFont10 = QtGui.QFont("Sans Serif", 10, QtGui.QFont.Bold)
 
-        self.titIMImage          = QtGui.QLabel('Image plot')
-        self.titIMSpectrum       = QtGui.QLabel('Spectrum')
-        self.titIMOffset         = QtGui.QLabel('Const. offset')
+        self.titIMImage          = QtWidgets.QLabel('Image plot')
+        self.titIMSpectrum       = QtWidgets.QLabel('Spectrum')
+        self.titIMOffset         = QtWidgets.QLabel('Const. offset')
 
         self.titIMImage    .setFont (titFont10)   
         self.titIMSpectrum .setFont (titFont10)
 
-        self.cboxImALimits   = QtGui.QCheckBox('A min/max:',self)
-        self.cboxSpALimits   = QtGui.QCheckBox('A min/max:',self)
+        self.cboxImALimits   = QtWidgets.QCheckBox('A min/max:',self)
+        self.cboxSpALimits   = QtWidgets.QCheckBox('A min/max:',self)
 
-        self.radioBinWidth = QtGui.QRadioButton("Bin width:")
-        self.radioNBins    = QtGui.QRadioButton("N bins:")
-        self.radioGroupBin = QtGui.QButtonGroup()
+        self.radioBinWidth = QtWidgets.QRadioButton("Bin width:")
+        self.radioNBins    = QtWidgets.QRadioButton("N bins:")
+        self.radioGroupBin = QtWidgets.QButtonGroup()
         self.radioGroupBin.addButton(self.radioBinWidth)
         self.radioGroupBin.addButton(self.radioNBins)
 
         if cp.confpars.imageWindowParameters[self.window][9]  : self.radioBinWidth.setChecked(True)
         else :                                                  self.radioNBins.   setChecked(True)
 
-        self.editIMImageAmin        = QtGui.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][1]))
-        self.editIMImageAmax        = QtGui.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][2]))
-        self.editIMSpectrumAmin     = QtGui.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][3]))
-        self.editIMSpectrumAmax     = QtGui.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][4]))
-        self.editIMSpectrumNBins    = QtGui.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][5]))
-        self.editIMSpectrumBinWidth = QtGui.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][6]))
-        self.editIMOffset           = QtGui.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][10]))
+        self.editIMImageAmin        = QtWidgets.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][1]))
+        self.editIMImageAmax        = QtWidgets.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][2]))
+        self.editIMSpectrumAmin     = QtWidgets.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][3]))
+        self.editIMSpectrumAmax     = QtWidgets.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][4]))
+        self.editIMSpectrumNBins    = QtWidgets.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][5]))
+        self.editIMSpectrumBinWidth = QtWidgets.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][6]))
+        self.editIMOffset           = QtWidgets.QLineEdit(str(cp.confpars.imageWindowParameters[self.window][10]))
 
         self.editIMImageAmin        .setValidator(QtGui.QIntValidator(-100000, 100000, self))
         self.editIMImageAmax        .setValidator(QtGui.QIntValidator(-100000, 100000, self))
@@ -118,17 +118,17 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
         self.editIMSpectrumBinWidth .setMaximumWidth(45)
         self.editIMOffset           .setMaximumWidth(65)
         
-        self.titIMDataset  = QtGui.QLabel('Dataset:')
-        self.butSelDataSet = QtGui.QPushButton(cp.confpars.imageWindowParameters[self.window][0])
+        self.titIMDataset  = QtWidgets.QLabel('Dataset:')
+        self.butSelDataSet = QtWidgets.QPushButton(cp.confpars.imageWindowParameters[self.window][0])
         self.butSelDataSet.setMaximumWidth(350)
         self.setButSelDataSetTextAlignment()
 
-        self.popupMenuForDataSet = QtGui.QMenu()
+        self.popupMenuForDataSet = QtWidgets.QMenu()
         self.fillPopupMenuForDataSet()
 
         #self.butClose = QtGui.QPushButton("Close window")
 
-        gridIM = QtGui.QGridLayout()
+        gridIM = QtWidgets.QGridLayout()
         gridIM.addWidget(self.titIMDataset,           0, 0)
         gridIM.addWidget(self.butSelDataSet,          0, 1, 1, 6)
         gridIM.addWidget(self.titIMImage,             1, 0)
@@ -154,7 +154,7 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
         #hboxC.addStretch(1)
         #hboxC.addWidget(self.butClose)
         
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(gridIM) 
 
         self.vbox.addStretch(1)     
@@ -163,20 +163,20 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
             self.setLayout(self.vbox)
             self.show()
 
-        self.connect(self.editIMImageAmin,        QtCore.SIGNAL('editingFinished ()'), self.processEditIMImageAmin )
-        self.connect(self.editIMImageAmax,        QtCore.SIGNAL('editingFinished ()'), self.processEditIMImageAmax )
-        self.connect(self.editIMSpectrumAmin,     QtCore.SIGNAL('editingFinished ()'), self.processEditIMSpectrumAmin )
-        self.connect(self.editIMSpectrumAmax,     QtCore.SIGNAL('editingFinished ()'), self.processEditIMSpectrumAmax )
-        self.connect(self.editIMSpectrumNBins,    QtCore.SIGNAL('editingFinished ()'), self.processEditIMSpectrumNBins )
-        self.connect(self.editIMSpectrumBinWidth, QtCore.SIGNAL('editingFinished ()'), self.processEditIMSpectrumBinWidth )
-        self.connect(self.editIMOffset,           QtCore.SIGNAL('editingFinished ()'), self.processEditIMOffset )
+        self.editIMImageAmin.editingFinished .connect(self.processEditIMImageAmin)
+        self.editIMImageAmax.editingFinished .connect(self.processEditIMImageAmax)
+        self.editIMSpectrumAmin.editingFinished .connect(self.processEditIMSpectrumAmin)
+        self.editIMSpectrumAmax.editingFinished .connect(self.processEditIMSpectrumAmax)
+        self.editIMSpectrumNBins.editingFinished .connect(self.processEditIMSpectrumNBins)
+        self.editIMSpectrumBinWidth.editingFinished .connect(self.processEditIMSpectrumBinWidth)
+        self.editIMOffset.editingFinished .connect(self.processEditIMOffset)
 
-        self.connect(self.cboxImALimits,          QtCore.SIGNAL('stateChanged(int)'),  self.processCboxImALimits)
-        self.connect(self.cboxSpALimits,          QtCore.SIGNAL('stateChanged(int)'),  self.processCboxSpALimits)
+        self.cboxImALimits.stateChanged[int].connect(self.processCboxImALimits)
+        self.cboxSpALimits.stateChanged[int].connect(self.processCboxSpALimits)
 
-        self.connect(self.radioBinWidth,          QtCore.SIGNAL('clicked()'),          self.processRadioBinWidth )
-        self.connect(self.radioNBins,             QtCore.SIGNAL('clicked()'),          self.processRadioNBins    )
-        self.connect(self.butSelDataSet,          QtCore.SIGNAL('clicked()'),          self.processMenuForDataSet )
+        self.radioBinWidth.clicked.connect(self.processRadioBinWidth)
+        self.radioNBins.clicked.connect(self.processRadioNBins)
+        self.butSelDataSet.clicked.connect(self.processMenuForDataSet)
         #self.connect(self.butClose,               QtCore.SIGNAL('clicked()'),          self.processClose )
 
         #cp.confpars.wtdIMWindowIsOpen = True
@@ -247,7 +247,7 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -358,7 +358,7 @@ class GUIWhatToDisplayForImageWindow ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayForImageWindow()
     ex.show()
     app.exec_()

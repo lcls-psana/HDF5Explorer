@@ -32,8 +32,8 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import Qt
 import h5py
 
 #-----------------------------
@@ -47,6 +47,12 @@ from HDF5Explorer.MQStandardItem import MQStandardItem
 #---------------------
 #  Class definition --
 #---------------------
+try:
+    QString = unicode
+except NameError:
+    # Python 3
+    QString = str
+
 class HDF5TreeViewModel(QtGui.QStandardItemModel) :
     """Makes QtGui.QStandardItemModel for QtGui.QTreeView.
     """
@@ -114,7 +120,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
         
         if isinstance(g,h5py.Dataset):
             print(offset, "(Dateset)   len =", g.shape) #, subg.dtype
-            item = MQStandardItem(QtCore.QString(g.key()))
+            item = MQStandardItem(QString(g.key()))
             item.setAccessibleDescription(self.str_data)
             self.parentItem.appendRow(item)            
         else:
@@ -134,7 +140,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
                   '\nCAN NOT MAKE A DICTIONARY FROM THE GROUP d = dict(g):\n', g) 
             print('THIS GROUP IS MARKED AS UNRECOGNIZED IN THE TREE...')
             print(70*'!')
-            item = MQStandardItem(QtCore.QString('UNRECOGNIZED GROUP'))
+            item = MQStandardItem(QString('UNRECOGNIZED GROUP'))
             parentItem.appendRow(item)
             return
             
@@ -148,7 +154,7 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
             #subg = val
             subg = d[key]
 
-            item = MQStandardItem(QtCore.QString(key))
+            item = MQStandardItem(QString(key))
             #print '    k=', key, #,"   ", subg.name #, val, subg.len(), type(subg), 
             if isinstance(subg, h5py.Dataset):
                 #print " (Dateset)   len =", subg.shape #, subg.dtype
@@ -400,11 +406,11 @@ class HDF5TreeViewModel(QtGui.QStandardItemModel) :
         for k in range(0, 6):
             parentItem = self.invisibleRootItem()
             for i in range(0, k):
-                item = MQStandardItem(QtCore.QString("itemA %0 %1").arg(k).arg(i))
+                item = MQStandardItem(QString("itemA %0 %1").arg(k).arg(i))
                 item.setIcon(self.icon_data)
                 item.setCheckable(True) 
                 parentItem.appendRow(item)
-                item = MQStandardItem(QtCore.QString("itemB %0 %1").arg(k).arg(i))
+                item = MQStandardItem(QString("itemB %0 %1").arg(k).arg(i))
                 item.setIcon(self.icon_folder_closed)
                 parentItem.appendRow(item)
                 parentItem = item

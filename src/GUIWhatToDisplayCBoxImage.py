@@ -30,7 +30,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------------------
 #  Imports of base class module --
@@ -44,7 +44,7 @@ from . import ConfigParameters as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWhatToDisplayCBoxImage ( QtGui.QWidget ) :
+class GUIWhatToDisplayCBoxImage ( QtWidgets.QWidget ) :
     """Provides GUI to select information for rendering."""
 
     #--------------------
@@ -56,31 +56,31 @@ class GUIWhatToDisplayCBoxImage ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(370, 350, 500, 80)
         self.setWindowTitle('What to display?')
 
         self.parent = parent
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
         
         titFont   = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
 
-        self.titImage    = QtGui.QLabel('Image')
+        self.titImage    = QtWidgets.QLabel('Image')
         self.titImage   .setFont (titFont) 
         
-        self.cboxIMImage       = QtGui.QCheckBox('Image',              self)
-        self.cboxIMSpectrum    = QtGui.QCheckBox('Spectrum',           self)
-        self.cboxIMImageSpec   = QtGui.QCheckBox('Image and Spectrum', self)
-        self.cboxIMProjX       = QtGui.QCheckBox('X',                  self)
-        self.cboxIMProjY       = QtGui.QCheckBox('Y',                  self)
-        self.cboxIMProjR       = QtGui.QCheckBox('R',                  self)
-        self.cboxIMProjPhi     = QtGui.QCheckBox(u'\u03C6',            self) # Phi in Greek
+        self.cboxIMImage       = QtWidgets.QCheckBox('Image',              self)
+        self.cboxIMSpectrum    = QtWidgets.QCheckBox('Spectrum',           self)
+        self.cboxIMImageSpec   = QtWidgets.QCheckBox('Image and Spectrum', self)
+        self.cboxIMProjX       = QtWidgets.QCheckBox('X',                  self)
+        self.cboxIMProjY       = QtWidgets.QCheckBox('Y',                  self)
+        self.cboxIMProjR       = QtWidgets.QCheckBox('R',                  self)
+        self.cboxIMProjPhi     = QtWidgets.QCheckBox(u'\u03C6',            self) # Phi in Greek
         
         if cp.confpars.imageImageIsOn       : self.cboxIMImage       .setCheckState(2)
         if cp.confpars.imageSpectrumIsOn    : self.cboxIMSpectrum    .setCheckState(2)
@@ -92,7 +92,7 @@ class GUIWhatToDisplayCBoxImage ( QtGui.QWidget ) :
 
         self.showToolTips()
 
-        gridIM = QtGui.QGridLayout()
+        gridIM = QtWidgets.QGridLayout()
         gridIM.addWidget(self.titImage,         0, 0)
         gridIM.addWidget(self.cboxIMImage,      1, 0)
         gridIM.addWidget(self.cboxIMSpectrum,   1, 1)
@@ -102,19 +102,19 @@ class GUIWhatToDisplayCBoxImage ( QtGui.QWidget ) :
         gridIM.addWidget(self.cboxIMProjR,      2, 2)
         gridIM.addWidget(self.cboxIMProjPhi,    2, 3)
         
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(gridIM) 
         self.vbox.addStretch(1)     
 
         self.setLayout(self.vbox)
   
-        self.connect(self.cboxIMImage,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxIMImage)
-        self.connect(self.cboxIMImageSpec,     QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxIMImageSpec)
-        self.connect(self.cboxIMSpectrum,      QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxIMSpectrum)
-        self.connect(self.cboxIMProjX,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxIMProjX)
-        self.connect(self.cboxIMProjY,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxIMProjY)
-        self.connect(self.cboxIMProjR,         QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxIMProjR)
-        self.connect(self.cboxIMProjPhi,       QtCore.SIGNAL('stateChanged(int)'),   self.processCBoxIMProjPhi)
+        self.cboxIMImage.stateChanged[int].connect(self.processCBoxIMImage)
+        self.cboxIMImageSpec.stateChanged[int].connect(self.processCBoxIMImageSpec)
+        self.cboxIMSpectrum.stateChanged[int].connect(self.processCBoxIMSpectrum)
+        self.cboxIMProjX.stateChanged[int].connect(self.processCBoxIMProjX)
+        self.cboxIMProjY.stateChanged[int].connect(self.processCBoxIMProjY)
+        self.cboxIMProjR.stateChanged[int].connect(self.processCBoxIMProjR)
+        self.cboxIMProjPhi.stateChanged[int].connect(self.processCBoxIMProjPhi)
 
 
     def showToolTips(self):
@@ -134,7 +134,7 @@ class GUIWhatToDisplayCBoxImage ( QtGui.QWidget ) :
     def closeEvent(self, event):
         #print 'closeEvent'
         pass
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -208,7 +208,7 @@ class GUIWhatToDisplayCBoxImage ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIWhatToDisplayCBoxImage()
     ex.show()
     app.exec_()

@@ -32,7 +32,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #-----------------------------
 # Imports for other modules --
@@ -45,13 +45,13 @@ import AppUtils.AppDataPath as apputils
 #---------------------
 
 #class GUISelectItems(QtGui.QWidget) :
-class GUISelectItems(QtGui.QMainWindow) :
+class GUISelectItems(QtWidgets.QMainWindow) :
     """Shows the HDF5 file tree-structure and allows to select data items.
     """
     def __init__(self, parent=None):
         #super(GUISelectItems, self).__init__(parent)
         #QtGui.QWidget.__init__(self, parent)
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
 
         """Constructor."""
         #self.parent = parent # See setParent for bypass
@@ -85,25 +85,25 @@ class GUISelectItems(QtGui.QMainWindow) :
         self.icon_print         = QtGui.QIcon(self.apppath_icon_print        .path())         
         self.icon_expcoll       = self.icon_expand
 
-        actExit         = QtGui.QAction(self.icon_exit,     'Exit',           self)
-        actApply        = QtGui.QAction(self.icon_apply,    'Apply',          self)
-        actReset        = QtGui.QAction(self.icon_reset,    'Reset',          self)
-        actRetreve      = QtGui.QAction(self.icon_retreve,  'Retreve',        self)
-        actExpand       = QtGui.QAction(self.icon_expand,   'Expand',         self)
-        actCollapse     = QtGui.QAction(self.icon_collapse, 'Collapse',       self)
-        self.actExpColl = QtGui.QAction(self.icon_expcoll,  'Expand tree',    self)
-        actExpCheck     = QtGui.QAction(self.icon_expcheck, 'Expand checked', self)
-        actPrint        = QtGui.QAction(self.icon_print,    'Print tree',     self)
+        actExit         = QtWidgets.QAction(self.icon_exit,     'Exit',           self)
+        actApply        = QtWidgets.QAction(self.icon_apply,    'Apply',          self)
+        actReset        = QtWidgets.QAction(self.icon_reset,    'Reset',          self)
+        actRetreve      = QtWidgets.QAction(self.icon_retreve,  'Retreve',        self)
+        actExpand       = QtWidgets.QAction(self.icon_expand,   'Expand',         self)
+        actCollapse     = QtWidgets.QAction(self.icon_collapse, 'Collapse',       self)
+        self.actExpColl = QtWidgets.QAction(self.icon_expcoll,  'Expand tree',    self)
+        actExpCheck     = QtWidgets.QAction(self.icon_expcheck, 'Expand checked', self)
+        actPrint        = QtWidgets.QAction(self.icon_print,    'Print tree',     self)
 
-        self.connect(actExit,         QtCore.SIGNAL('triggered()'), self.processExit)
-        self.connect(actApply,        QtCore.SIGNAL('triggered()'), self.processApply)
-        self.connect(actReset,        QtCore.SIGNAL('triggered()'), self.processReset)
-        self.connect(actRetreve,      QtCore.SIGNAL('triggered()'), self.processRetreve)
-        self.connect(actExpand,       QtCore.SIGNAL('triggered()'), self.processExpand)
-        self.connect(actCollapse,     QtCore.SIGNAL('triggered()'), self.processCollapse)
-        self.connect(self.actExpColl, QtCore.SIGNAL('triggered()'), self.processExpColl)
-        self.connect(actExpCheck,     QtCore.SIGNAL('triggered()'), self.processExpCheck)
-        self.connect(actPrint,        QtCore.SIGNAL('triggered()'), self.processPrint)
+        actExit.triggered.connect(self.processExit)
+        actApply.triggered.connect(self.processApply)
+        actReset.triggered.connect(self.processReset)
+        actRetreve.triggered.connect(self.processRetreve)
+        actExpand.triggered.connect(self.processExpand)
+        actCollapse.triggered.connect(self.processCollapse)
+        self.actExpColl.triggered.connect(self.processExpColl)
+        actExpCheck.triggered.connect(self.processExpCheck)
+        actPrint.triggered.connect(self.processPrint)
         #self.connect(actExit,  QtCore.SIGNAL('triggered()'), QtCore.SLOT('close()'))
 
         self.menubar = self.menuBar()
@@ -138,7 +138,7 @@ class GUISelectItems(QtGui.QMainWindow) :
 
         #self.view = QtGui.QListView()
         #self.view = QtGui.QTableView()
-        self.view = QtGui.QTreeView()
+        self.view = QtWidgets.QTreeView()
         self.view.setModel(self.model)
         #print 'Root is decorated ? ', self.view.rootIsDecorated() # Returns True
         #self.view.setDragDropMode(QtGui.QAbstractItemView.InternalMove)
@@ -149,7 +149,7 @@ class GUISelectItems(QtGui.QMainWindow) :
         #self.show()
         
         #self.connect(self.view.selectionModel(), QtCore.SIGNAL('selectionChanged(QItemSelection, QItemSelection)'), self.itemSelected)
-        self.connect(self.view.selectionModel(), QtCore.SIGNAL('currentChanged(QModelIndex, QModelIndex)'), self.cellSelected)
+        self.view.selectionModel().currentChanged[QModelIndex, QModelIndex].connect(self.cellSelected)
         #self.view.clicked.connect(self.someMethod1)       # This works
         #self.view.doubleClicked.connect(self.someMethod2) # This works
         self.model.itemChanged.connect(self.itemChanged)
@@ -188,7 +188,7 @@ class GUISelectItems(QtGui.QMainWindow) :
           cp.confpars.treeWindowIsOpen = False
           #self.display.setText('Open')
           #QtGui.QWidget.closeEvent(self, event)
-          QtGui.QMainWindow.closeEvent(self, event)
+          QtWidgets.QMainWindow.closeEvent(self, event)
         except :
           print('GUISelectItems.closeEvent ...')
 
@@ -296,7 +296,7 @@ class GUISelectItems(QtGui.QMainWindow) :
 #------------------
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUISelectItems()
     ex.show()
     app.exec_()

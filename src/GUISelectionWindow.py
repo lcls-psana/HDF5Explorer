@@ -31,7 +31,7 @@ __version__ = "$Revision: 4 $"
 #  Imports of standard modules --
 #--------------------------------
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #-----------------------------
 # Imports for other modules --
@@ -42,7 +42,7 @@ from . import GlobalMethods    as gm
 #---------------------
 #  Class definition --
 #---------------------
-class GUISelectionWindow ( QtGui.QWidget ) :
+class GUISelectionWindow ( QtWidgets.QWidget ) :
     """GUI manipulates with parameters for event selection in particular window of the image."""
 
     #----------------
@@ -50,7 +50,7 @@ class GUISelectionWindow ( QtGui.QWidget ) :
     #----------------
 
     def __init__(self, parent=None, window=0):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         print('GUISelectionWindow for region', window)
 
@@ -61,8 +61,8 @@ class GUISelectionWindow ( QtGui.QWidget ) :
 
         self.palette = QtGui.QPalette()
 
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -71,18 +71,18 @@ class GUISelectionWindow ( QtGui.QWidget ) :
         titFont12 = QtGui.QFont("Sans Serif", 12, QtGui.QFont.Bold)
         titFont10 = QtGui.QFont("Sans Serif", 10, QtGui.QFont.Bold)
 
-        self.titXminmax= QtGui.QLabel('Xmin, Xmax:')
-        self.titYminmax= QtGui.QLabel('Ymin, Ymax:')
+        self.titXminmax= QtWidgets.QLabel('Xmin, Xmax:')
+        self.titYminmax= QtWidgets.QLabel('Ymin, Ymax:')
 
         self.char_expand = u'\u25BE' # down-head triangle
         height = 20
         width  = 50
 
-        self.editSelectionThr   = QtGui.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][0]))
-        self.editSelectionXmin  = QtGui.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][2]))
-        self.editSelectionXmax  = QtGui.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][3]))
-        self.editSelectionYmin  = QtGui.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][4]))
-        self.editSelectionYmax  = QtGui.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][5]))
+        self.editSelectionThr   = QtWidgets.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][0]))
+        self.editSelectionXmin  = QtWidgets.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][2]))
+        self.editSelectionXmax  = QtWidgets.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][3]))
+        self.editSelectionYmin  = QtWidgets.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][4]))
+        self.editSelectionYmax  = QtWidgets.QLineEdit(str(cp.confpars.selectionWindowParameters[self.window][5]))
 
         self.editSelectionThr   .setMaximumWidth(width)
         self.editSelectionXmin  .setMaximumWidth(width)
@@ -102,26 +102,26 @@ class GUISelectionWindow ( QtGui.QWidget ) :
         self.editSelectionYmin  .setValidator(QtGui.QIntValidator(0, 2000,self))
         self.editSelectionYmax  .setValidator(QtGui.QIntValidator(0, 2000,self))
 
-        self.titThreshold  = QtGui.QLabel('Threshold on intensity')
-        self.radioInWin    = QtGui.QRadioButton("integral")
-        self.radioInBin    = QtGui.QRadioButton("maximal")
-        self.radioGroup    = QtGui.QButtonGroup()
+        self.titThreshold  = QtWidgets.QLabel('Threshold on intensity')
+        self.radioInWin    = QtWidgets.QRadioButton("integral")
+        self.radioInBin    = QtWidgets.QRadioButton("maximal")
+        self.radioGroup    = QtWidgets.QButtonGroup()
         self.radioGroup.addButton(self.radioInWin)
         self.radioGroup.addButton(self.radioInBin)
 
         if cp.confpars.selectionWindowParameters[self.window][1] : self.radioInBin.setChecked(True)
         else :                                                     self.radioInWin.setChecked(True)
 
-        self.titSelDataSet        = QtGui.QLabel('Dataset:')
-        self.butSelDataSet = QtGui.QPushButton(cp.confpars.selectionWindowParameters[self.window][6])
+        self.titSelDataSet        = QtWidgets.QLabel('Dataset:')
+        self.butSelDataSet = QtWidgets.QPushButton(cp.confpars.selectionWindowParameters[self.window][6])
         self.butSelDataSet.setMaximumWidth(350)
         self.setButSelDataSetTextAlignment()
 
-        self.popupMenuForDataSet = QtGui.QMenu()
+        self.popupMenuForDataSet = QtWidgets.QMenu()
         self.fillPopupMenuForDataSet()
 
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
 
         grid.addWidget(self.titSelDataSet,       0, 0)
         grid.addWidget(self.butSelDataSet,       0, 1, 1, 4)
@@ -140,7 +140,7 @@ class GUISelectionWindow ( QtGui.QWidget ) :
         grid.addWidget(self.editSelectionYmax,   5, 2)
 
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(grid) 
         self.vbox.addStretch(1)     
 
@@ -148,14 +148,14 @@ class GUISelectionWindow ( QtGui.QWidget ) :
             self.setLayout(self.vbox)
             self.show()
 
-        self.connect(self.radioInBin,         QtCore.SIGNAL('clicked()'),          self.processRadioInBin )
-        self.connect(self.radioInWin,         QtCore.SIGNAL('clicked()'),          self.processRadioInWin )
-        self.connect(self.editSelectionThr,   QtCore.SIGNAL('editingFinished ()'), self.processEditSelectionThr  )
-        self.connect(self.editSelectionXmin,  QtCore.SIGNAL('editingFinished ()'), self.processEditSelectionXmin )
-        self.connect(self.editSelectionXmax,  QtCore.SIGNAL('editingFinished ()'), self.processEditSelectionXmax )
-        self.connect(self.editSelectionYmin,  QtCore.SIGNAL('editingFinished ()'), self.processEditSelectionYmin )
-        self.connect(self.editSelectionYmax,  QtCore.SIGNAL('editingFinished ()'), self.processEditSelectionYmax )
-        self.connect(self.butSelDataSet,      QtCore.SIGNAL('clicked()'),          self.processMenuForDataSet )
+        self.radioInBin.clicked.connect(self.processRadioInBin)
+        self.radioInWin.clicked.connect(self.processRadioInWin)
+        self.editSelectionThr.editingFinished .connect(self.processEditSelectionThr)
+        self.editSelectionXmin.editingFinished .connect(self.processEditSelectionXmin)
+        self.editSelectionXmax.editingFinished .connect(self.processEditSelectionXmax)
+        self.editSelectionYmin.editingFinished .connect(self.processEditSelectionYmin)
+        self.editSelectionYmax.editingFinished .connect(self.processEditSelectionYmax)
+        self.butSelDataSet.clicked.connect(self.processMenuForDataSet)
   
         cp.confpars.selectionWindowIsOpen = True
 
@@ -206,7 +206,7 @@ class GUISelectionWindow ( QtGui.QWidget ) :
 
     def closeEvent(self, event):
         cp.confpars.selectionWindowIsOpen = False
-        QtGui.QWidget.closeEvent(self, event)
+        QtWidgets.QWidget.closeEvent(self, event)
 
 
     def processClose(self):
@@ -273,7 +273,7 @@ class GUISelectionWindow ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUISelectionWindow()
     ex.show()
     app.exec_()

@@ -19,9 +19,15 @@ If you use all or part of it, please give an appropriate acknowledgment.
 #------------------------------
 __version__ = "$Revision$"
 
-from PyQt4.QtGui import QStandardItem
+from PyQt5.QtGui import QStandardItem
 
 #------------------------------
+
+try:
+    QString = unicode
+except NameError:
+    # Python 3
+    QString = str
 
 class MQStandardItem(QStandardItem) :
 

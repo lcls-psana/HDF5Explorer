@@ -36,6 +36,10 @@ from numpy import *  # for use like       array(...)
 import numpy as np
 import scipy.misc as scimisc
 import time
+try:
+  from time import clock # removed in python 3.8
+except ImportError:
+  from time import perf_counter as clock
 
 import matplotlib
 matplotlib.use('Qt4Agg') # forse Agg rendering to a Qt4 canvas (backend)
@@ -185,7 +189,7 @@ class DrawEvent ( object ) :
     def averageOverEvents(self, mode=1) :
         print('averageOverEvents')
 
-        t_start = time.clock()
+        t_start = clock()
         self.openHDF5File() # t=0us
         if not cp.confpars.h5_file_is_open : return
         
@@ -217,7 +221,7 @@ class DrawEvent ( object ) :
 
         self.drawAveragedArrays(mode)
 
-        print('Time to averageOverEvents() (sec) = %f' % (time.clock() - t_start))
+        print('Time to averageOverEvents() (sec) = %f' % (clock() - t_start))
         self.closeHDF5File()
 
 
@@ -388,7 +392,7 @@ class DrawEvent ( object ) :
     def drawEventFromOpenFile ( self, mode=1 ) :
         """Draws current event when the file is already open"""
 
-        t_drawEvent = time.clock()
+        t_drawEvent = clock()
         print('Event %d' % ( cp.confpars.eventCurrent ))
 
         print('selectionIsPassed', self.selectionIsPassed()) 
@@ -416,7 +420,7 @@ class DrawEvent ( object ) :
             self.drawArrayForDSName(dsname,self.arr1ev)
 
         self.showEvent(mode)
-        print('Time to drawEvent() (sec) = %f' % (time.clock() - t_drawEvent))
+        print('Time to drawEvent() (sec) = %f' % (clock() - t_drawEvent))
 
 
     def saveArrayForDSNameInFile(self, dsname, arr1ev) :
@@ -726,12 +730,12 @@ class DrawEvent ( object ) :
     def showEvent ( self, mode=1 ) :
         """showEvent: plt.show() or draw() depending on mode"""
 
-        t_start = time.clock()
+        t_start = clock()
         if mode == 1 :   # Single event mode
             plt.show()  
         else :           # Slide show 
             plt.draw()   # Draws, but does not block
-        print('Time to show or draw (sec) = %f' % (time.clock() - t_start))
+        print('Time to show or draw (sec) = %f' % (clock() - t_start))
 
 
     def quitDrawEvent ( self ) :

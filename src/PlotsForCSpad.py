@@ -37,7 +37,10 @@ from matplotlib.widgets import RectangleSelector
 #from matplotlib.patches import Rectangle
 #from matplotlib.artist  import Artist
 #from matplotlib.lines   import Line2D
-import time
+try:
+  from time import clock # removed in python 3.8
+except ImportError:
+  from time import perf_counter as clock
 from numpy import *  # for use like       array(...)
 import numpy as np
 import scipy.ndimage as spi # rotate(...)
@@ -407,9 +410,9 @@ class PlotsForCSpad ( object ) :
     def plotCSpadDetImage( self, arr1ev, fig ):
         """Plot 2d image of the detector from input array."""
         #print 'plotCSpadDetImage()'       
-        t_plotCSpadDetImage = time.clock()
+        t_plotCSpadDetImage = clock()
         self.arr2d = self.getImageArrayForDet( arr1ev )
-        #print 'Time to getImageArrayForDet() (sec) = %f' % (time.clock() - t_plotCSpadDetImage)
+        #print 'Time to getImageArrayForDet() (sec) = %f' % (clock() - t_plotCSpadDetImage)
         self.str_event = 'Event ' + str(cp.confpars.eventCurrent)
         self.figDet = fig
         self.figDet.canvas.set_window_title('CSpad image ' + self.str_event)
@@ -576,7 +579,7 @@ class PlotsForCSpad ( object ) :
         #plt.title('Spectra',color='r',fontsize=20)
         fig.subplots_adjust(left=0.10, bottom=0.05, right=0.98, top=0.95, wspace=0.2, hspace=0.1)
 
-        t_start = time.clock()
+        t_start = clock()
         
         #for pair in xrange(8): # loop for pair = 0,1,2,...,7
         for ind in range(8): # loop over ind = 0,1,2,...,7
@@ -610,7 +613,7 @@ class PlotsForCSpad ( object ) :
                 title = 'Event ' + str(cp.confpars.eventCurrent) + '  Quad ' + str(self.quad)
                 plt.text(0.8,1.05,title ,color='b',fontsize=24,transform = ax.transAxes)
 
-        print('Time to generate all histograms (sec) = %f' % (time.clock() - t_start))
+        print('Time to generate all histograms (sec) = %f' % (clock() - t_start))
 
 
     def plotCSpadQuad16Spectra( self, arr1ev, fig ):
@@ -625,7 +628,7 @@ class PlotsForCSpad ( object ) :
         #plt.title('Spectra',color='r',fontsize=20)
         fig.subplots_adjust(left=0.10, bottom=0.05, right=0.98, top=0.95, wspace=0.35, hspace=0.3)
 
-        t_start = time.clock()
+        t_start = clock()
         
         asicN_vs_plot_posN = {0:9, 1:10, 2:13, 3:14, 4:2, 5:6, 6:1, 7:5, 8:8, 9:7, 10:4, 11:3, 12:12, 13:16, 14:11, 15:15}
 
@@ -668,7 +671,7 @@ class PlotsForCSpad ( object ) :
                     #ax = plt.gca()
                     plt.text(0.8,1.08,title,color='b',fontsize=24,transform = plt.gca().transAxes)
 
-        print('Time to generate all histograms (sec) = %f' % (time.clock() - t_start))
+        print('Time to generate all histograms (sec) = %f' % (clock() - t_start))
 
 
     def plotCSpadPairImage( self, arr1ev, fig ):
